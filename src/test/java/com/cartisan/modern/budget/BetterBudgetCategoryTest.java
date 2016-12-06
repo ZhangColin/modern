@@ -1,4 +1,4 @@
-package com.cartisan.modern;
+package com.cartisan.modern.budget;
 
 import com.cartisan.modern.budget.BudgetCategory;
 import org.junit.Before;
