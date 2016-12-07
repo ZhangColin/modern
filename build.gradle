@@ -28,5 +28,7 @@ dependencies {
     testCompile "org.mockito:mockito-all:1.10.19"
     testCompile "info.cukes:cucumber-junit:1.2.5"
     testCompile "info.cukes:cucumber-java8:1.2.5"
+
+    cucumberRuntime "info.cukes:cucumber-java8:1.2.5"
 }
 
