@@ -8,10 +8,10 @@ buildscript {
 }
 
 plugins {
+    id "java"
     id "com.github.samueltbrown.cucumber" version "0.9"
 }
 
-apply plugin: 'java'
 apply plugin: 'spring-boot'
 
 repositories {
@@ -19,15 +19,17 @@ repositories {
 }
 
 dependencies {
-    compile "org.springframework.boot:spring-boot-starter-thymeleaf:1.4.2.RELEASE"
-    compile "org.springframework.boot:spring-boot-starter-security:1.4.2.RELEASE"
-    compile "org.springframework.boot:spring-boot-starter-data-jpa:1.4.2.RELEASE"
-    compile "mysql:mysql-connector-java:6.0.5"
-    compile files("libs/moss-common-2.1.0.0.jar")
-    testCompile "junit:junit:4.12"
-    testCompile "org.mockito:mockito-all:1.10.19"
-    testCompile "info.cukes:cucumber-junit:1.2.5"
-    testCompile "info.cukes:cucumber-java8:1.2.5"
+    compile ("org.springframework.boot:spring-boot-starter-thymeleaf:1.4.2.RELEASE",
+            "org.springframework.boot:spring-boot-starter-security:1.4.2.RELEASE",
+            "org.springframework.boot:spring-boot-starter-data-jpa:1.4.2.RELEASE",
+            "mysql:mysql-connector-java:6.0.5",
+            files("libs/moss-common-2.1.0.0.jar"))
+    testCompile ("org.springframework.boot:spring-boot-starter-test:1.4.2.RELEASE",
+            "junit:junit:4.12",
+            "org.mockito:mockito-all:1.10.19",
+            "info.cukes:cucumber-junit:1.2.5",
+            "info.cukes:cucumber-java8:1.2.5",
+            "info.cukes:cucumber-spring:1.2.5")
 
     cucumberRuntime "info.cukes:cucumber-java8:1.2.5"
 }
