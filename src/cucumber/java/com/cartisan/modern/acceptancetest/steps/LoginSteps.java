@@ -3,6 +3,8 @@ package com.cartisan.modern.acceptancetest.steps;
 import com.cartisan.modern.Application;
 import cucumber.api.java8.En;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationContextLoader;
 import org.springframework.test.context.ContextConfiguration;
@@ -19,6 +21,8 @@ public class LoginSteps implements En {
         });
 
         When("^login with user name \"([^\"]*)\" and password \"([^\"]*)\"$", (String arg1, String arg2) -> {
+            WebDriver driver = new FirefoxDriver();
+            driver.get("http://localhost:8080/login");
         });
 
         Then("^login successfully$", () -> {
