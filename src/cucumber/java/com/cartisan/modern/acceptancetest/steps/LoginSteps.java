@@ -1,12 +1,15 @@
 package com.cartisan.modern.acceptancetest.steps;
 
 import com.cartisan.modern.Application;
+import com.cartisan.modern.user.User;
+import com.cartisan.modern.user.UserRepository;
 import cucumber.api.java8.En;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationContextLoader;
 import org.springframework.test.context.ContextConfiguration;
@@ -21,11 +24,14 @@ import static org.junit.Assert.assertTrue;
 @IntegrationTest
 public class LoginSteps implements En {
 
+    @Autowired
+    UserRepository userRepository;
     {
         System.setProperty("webdriver.chrome.driver", "/usr/local/opt/chromedriver");
         WebDriver driver = new ChromeDriver();
 
         Given("^there is a user named \"([^\"]*)\" and password is \"([^\"]*)\"$", (String userName, String password) -> {
+            userRepository.save(new User(userName, password));
         });
 
         When("^login with user name \"([^\"]*)\" and password \"([^\"]*)\"$", (String userName, String password) -> {
