@@ -40,6 +40,8 @@ public class LoginSteps implements En {
         Then("^login successfully$", () -> {
             String bodyText = driver.findElement(By.tagName("body")).getText();
             assertTrue(bodyText.contains("Welcome"));
+
+            driver.close();
         });
     }
 
