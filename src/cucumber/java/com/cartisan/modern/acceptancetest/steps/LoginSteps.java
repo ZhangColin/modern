@@ -48,6 +48,7 @@ public class LoginSteps implements En {
             assertTrue(bodyText.contains("Welcome"));
 
             driver.close();
+            userRepository.deleteAll();
         });
     }
 
