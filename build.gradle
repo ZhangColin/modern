@@ -32,7 +32,7 @@ dependencies {
             "info.cukes:cucumber-junit:1.2.5",
             "info.cukes:cucumber-java8:1.2.5",
             "info.cukes:cucumber-spring:1.2.5",
-            "org.seleniumhq.selenium:selenium-java:2.53.1"
+            "org.seleniumhq.selenium:selenium-java:3.0.1"
     )
 
     cucumberRuntime "info.cukes:cucumber-java8:1.2.5"
