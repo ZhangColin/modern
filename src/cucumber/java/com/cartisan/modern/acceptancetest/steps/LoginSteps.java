@@ -26,14 +26,16 @@ public class LoginSteps implements En {
 
     @Autowired
     UserRepository userRepository;
+
+    WebDriver driver;
     {
-        WebDriver driver = new FirefoxDriver();
 
         Given("^there is a user named \"([^\"]*)\" and password is \"([^\"]*)\"$", (String userName, String password) -> {
             userRepository.save(new User(userName, password));
         });
 
         When("^login with user name \"([^\"]*)\" and password \"([^\"]*)\"$", (String userName, String password) -> {
+            driver = new FirefoxDriver();
             driver.get("http://localhost:8080/login");
             WebElement userNameTextBox = driver.findElement(By.name("username"));
             userNameTextBox.sendKeys(userName);
