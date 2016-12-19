@@ -7,6 +7,6 @@ import org.junit.runner.RunWith;
 @RunWith(Cucumber.class)
 @CucumberOptions(features = "src/test/resources/features",
     glue = {"com.cartisan.modern.acceptancetest.steps"},
-    format = {"pretty", "html:target/cucumber", "json:target/cucumber-report.json"})
+    format = {"pretty"})
 public class RunCukesTest {
 }
