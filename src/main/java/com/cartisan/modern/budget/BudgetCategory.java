@@ -1,10 +1,12 @@
 package com.cartisan.modern.budget;
 
 import ca.digitalcave.moss.common.DateUtil;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.logging.Logger;
 
+@Service
 public class BudgetCategory {
     private BudgetCategoryType periodType;
     private Map<String, Long> amounts;
