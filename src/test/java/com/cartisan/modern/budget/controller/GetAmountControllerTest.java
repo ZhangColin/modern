@@ -3,6 +3,7 @@ package com.cartisan.modern.budget.controller;
 
 import com.cartisan.modern.budget.MonthlyBudgetPlanner;
 import org.junit.Test;
+import org.springframework.ui.Model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,6 +12,7 @@ import java.util.Date;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class GetAmountControllerTest {
 
@@ -22,14 +24,27 @@ public class GetAmountControllerTest {
 
     @Test
     public void go_to_get_amount_page() {
-        assertEquals("get_amount", controller.getAmount(startDate, endDate));
+        Model mockModel = mock(Model.class);
+
+        assertEquals("get_amount", controller.getAmount(startDate, endDate, mockModel));
     }
 
     @Test
-    public void get_amount_from_monthly_budget_planner(){
-        controller.getAmount(startDate, endDate);
+    public void get_amount_from_monthly_budget_planner() {
+        Model mockModel = mock(Model.class);
+        controller.getAmount(startDate, endDate, mockModel);
 
         verify(mockPlanner).getAmount(startDate, endDate);
+    }
+
+    @Test
+    public void pass_amount_to_page() {
+        Model mockModel = mock(Model.class);
+        when(mockPlanner.getAmount(startDate, endDate)).thenReturn(100L);
+
+        controller.getAmount(startDate, endDate, mockModel);
+
+        verify(mockModel).addAttribute("amount", 100L);
     }
 
     public GetAmountControllerTest() throws ParseException {
