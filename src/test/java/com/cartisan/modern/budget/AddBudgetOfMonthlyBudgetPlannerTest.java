@@ -8,8 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 public class AddBudgetOfMonthlyBudgetPlannerTest {
         MonthlyBudgetRepository mockMonthlyBudgetRepository = mock(MonthlyBudgetRepository.class);
@@ -19,22 +18,39 @@ public class AddBudgetOfMonthlyBudgetPlannerTest {
         Date monthDate = parse("2016-07-01");
         MonthlyBudget monthlyBudget = new MonthlyBudget(monthDate, 100);
 
-    public AddBudgetOfMonthlyBudgetPlannerTest() throws ParseException {
-    }
-
+        Runnable afterSuccess = mock(Runnable.class);
+        Runnable afterFail = mock(Runnable.class);
+        Runnable whatever = () -> {};
     @Test
     public void save_monthly_budget() throws ParseException {
-        planner.addMonthlyBudget(monthlyBudget, ()->{});
+        planner.addMonthlyBudget(monthlyBudget, whatever, whatever);
 
         assertSavedMonthlyBudgetEquals(monthlyBudget);
     }
 
     @Test
     public void after_success_is_called_if_save_successfully() throws ParseException {
-        Runnable afterSuccess = mock(Runnable.class);
-        planner.addMonthlyBudget(monthlyBudget, afterSuccess);
+        planner.addMonthlyBudget(monthlyBudget, afterSuccess, afterFail);
 
         verify(afterSuccess).run();
+        verify(afterFail, never()).run();
+    }
+
+    @Test
+    public void after_fail_is_called_if_save_failed(){
+        givenSaveWillFail();
+
+        planner.addMonthlyBudget(monthlyBudget, afterSuccess, afterFail);
+
+        verify(afterFail).run();
+        verify(afterSuccess, never()).run();
+    }
+
+    private void givenSaveWillFail() {
+        when(mockMonthlyBudgetRepository.save(any(MonthlyBudget.class))).thenThrow(IllegalArgumentException.class);
+    }
+
+    public AddBudgetOfMonthlyBudgetPlannerTest() throws ParseException {
     }
 
     private void assertSavedMonthlyBudgetEquals(MonthlyBudget expectedMonthlyBudget) {

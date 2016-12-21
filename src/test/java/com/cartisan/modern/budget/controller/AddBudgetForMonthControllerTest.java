@@ -47,6 +47,6 @@ public class AddBudgetForMonthControllerTest {
             Runnable afterSuccess = (Runnable)invocation.getArguments()[1];
             afterSuccess.run();
             return null;
-        }).when(stubPlanner).addMonthlyBudget(any(MonthlyBudget.class), any(Runnable.class));
+        }).when(stubPlanner).addMonthlyBudget(any(MonthlyBudget.class), any(Runnable.class), any(Runnable.class));
     }
 }

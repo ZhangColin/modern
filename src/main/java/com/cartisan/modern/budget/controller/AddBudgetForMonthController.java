@@ -24,7 +24,8 @@ public class AddBudgetForMonthController {
     public String confirm(@RequestParam(name = "month") @DateTimeFormat(pattern = "yyyy-MM") Date monthDate,
                           @RequestParam(name = "budget") int budget, Model model){
         planner.addMonthlyBudget(new MonthlyBudget(monthDate, budget),
-                ()->model.addAttribute("message", "Successfully add budget for month"));
+                ()->model.addAttribute("message", "Successfully add budget for month"),
+                ()->{});
 
         return "add_budget_for_month";
     }
