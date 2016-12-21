@@ -36,5 +36,6 @@ public class MonthlyBudgetPlanner {
 
     public void addMonthlyBudget(MonthlyBudget monthlyBudget, Runnable afterSuccess) {
         monthlyBudgetRepository.save(monthlyBudget);
+        afterSuccess.run();
     }
 }

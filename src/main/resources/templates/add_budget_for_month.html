@@ -6,7 +6,7 @@
     <title>Modern</title>
 </head>
 <div th:if="${message}">
-    ${message}
+    <p th:text="${message}"/>
 </div>
 <body>
     <form th:action="@{/confirm_add_budget_for_month}" method="post">
