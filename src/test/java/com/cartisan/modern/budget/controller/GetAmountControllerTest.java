@@ -18,20 +18,18 @@ public class GetAmountControllerTest {
 
     MonthlyBudgetPlanner mockPlanner = mock(MonthlyBudgetPlanner.class);
     GetAmountController controller = new GetAmountController(mockPlanner);
+        Model mockModel = mock(Model.class);
 
     Date startDate = parseDate("2016-07-01");
     Date endDate = parseDate("2016-07-10");
 
     @Test
     public void go_to_get_amount_page() {
-        Model mockModel = mock(Model.class);
-
         assertEquals("get_amount", controller.getAmount(startDate, endDate, mockModel));
     }
 
     @Test
     public void get_amount_from_monthly_budget_planner() {
-        Model mockModel = mock(Model.class);
         controller.getAmount(startDate, endDate, mockModel);
 
         verify(mockPlanner).getAmount(startDate, endDate);
@@ -39,7 +37,6 @@ public class GetAmountControllerTest {
 
     @Test
     public void pass_amount_to_page() {
-        Model mockModel = mock(Model.class);
         when(mockPlanner.getAmount(startDate, endDate)).thenReturn(100L);
 
         controller.getAmount(startDate, endDate, mockModel);
