@@ -1,9 +1,5 @@
-package com.cartisan.modern.budget.controller;
+package com.cartisan.modern.budget;
 
-import com.cartisan.modern.budget.BudgetCategory;
-import com.cartisan.modern.budget.MonthlyBudget;
-import com.cartisan.modern.budget.MonthlyBudgetPlanner;
-import com.cartisan.modern.budget.MonthlyBudgetRepository;
 import org.junit.Test;
 
 import java.text.ParseException;
@@ -13,11 +9,9 @@ import java.util.Date;
 import static org.codehaus.groovy.runtime.InvokerHelper.asList;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
-public class MonthlyBudgetPlannerTest {
+public class GetAmountOfMonthlyBudgetPlannerTest {
     BudgetCategory mockBudgetCategory = mock(BudgetCategory.class);
     MonthlyBudgetRepository stubRepository = mock(MonthlyBudgetRepository.class);
     MonthlyBudgetPlanner planner = new MonthlyBudgetPlanner(mockBudgetCategory, stubRepository);
@@ -25,7 +19,7 @@ public class MonthlyBudgetPlannerTest {
     Date startDate = parseDate("2016-07-01");
     Date endDate = parseDate("2016-07-10");
 
-    public MonthlyBudgetPlannerTest() throws ParseException {
+    public GetAmountOfMonthlyBudgetPlannerTest() throws ParseException {
     }
 
     @Test
