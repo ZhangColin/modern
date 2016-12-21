@@ -12,32 +12,36 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class AddBudgetOfMonthlyBudgetPlannerTest {
-    @Test
-    public void save_monthly_budget() throws ParseException {
         MonthlyBudgetRepository mockMonthlyBudgetRepository = mock(MonthlyBudgetRepository.class);
         BudgetCategory stubBudgetCategory = mock(BudgetCategory.class);
         MonthlyBudgetPlanner planner = new MonthlyBudgetPlanner(stubBudgetCategory, mockMonthlyBudgetRepository);
 
         Date monthDate = parse("2016-07-01");
-        planner.addMonthlyBudget(new MonthlyBudget(monthDate, 100), ()->{});
+        MonthlyBudget monthlyBudget = new MonthlyBudget(monthDate, 100);
 
-        ArgumentCaptor<MonthlyBudget> captor = ArgumentCaptor.forClass(MonthlyBudget.class);
-        verify(mockMonthlyBudgetRepository).save(captor.capture());
-        assertEquals(monthDate, captor.getValue().getMonth());
-        assertEquals(100, captor.getValue().getBudget().intValue());
+    public AddBudgetOfMonthlyBudgetPlannerTest() throws ParseException {
+    }
+
+    @Test
+    public void save_monthly_budget() throws ParseException {
+        planner.addMonthlyBudget(monthlyBudget, ()->{});
+
+        assertSavedMonthlyBudgetEquals(monthlyBudget);
     }
 
     @Test
     public void after_success_is_called_if_save_successfully() throws ParseException {
-        MonthlyBudgetRepository mockMonthlyBudgetRepository = mock(MonthlyBudgetRepository.class);
-        BudgetCategory stubBudgetCategory = mock(BudgetCategory.class);
-        MonthlyBudgetPlanner planner = new MonthlyBudgetPlanner(stubBudgetCategory, mockMonthlyBudgetRepository);
-
-        Date monthDate = parse("2016-07-01");
         Runnable afterSuccess = mock(Runnable.class);
-        planner.addMonthlyBudget(new MonthlyBudget(monthDate, 100), afterSuccess);
+        planner.addMonthlyBudget(monthlyBudget, afterSuccess);
 
         verify(afterSuccess).run();
+    }
+
+    private void assertSavedMonthlyBudgetEquals(MonthlyBudget expectedMonthlyBudget) {
+        ArgumentCaptor<MonthlyBudget> captor = ArgumentCaptor.forClass(MonthlyBudget.class);
+        verify(mockMonthlyBudgetRepository).save(captor.capture());
+        assertEquals(expectedMonthlyBudget.getMonth(), captor.getValue().getMonth());
+        assertEquals(expectedMonthlyBudget.getBudget(), captor.getValue().getBudget());
     }
 
     private Date parse(String source) throws ParseException {
