@@ -47,6 +47,7 @@ public class AddMonthlyBudgetSteps implements En {
                 assertEquals(budget, monthlyBudget.getBudget());
             });
 
+            monthlyBudgetRepository.deleteAll();
             driver.close();
         });
 
