@@ -5,6 +5,9 @@
     <meta charset="UTF-8"/>
     <title>Modern</title>
 </head>
+<div th:if="${message}">
+    ${message}
+</div>
 <body>
     <form th:action="@{/confirm_add_budget_for_month}" method="post">
         <div><label> Month: <input type="text" name="month" /> </label></div>

@@ -19,7 +19,7 @@ public class AddMonthlyBudgetSteps implements En {
     private WebDriver driver;
 
     @Autowired
-            private MonthlyBudgetRepository monthlyBudgetRepository;
+    private MonthlyBudgetRepository monthlyBudgetRepository;
 
     {
         When("^add budget for \"([^\"]*)\" with amount (\\d+)$", (String month, Integer budget) -> {
@@ -37,7 +37,7 @@ public class AddMonthlyBudgetSteps implements En {
 
             monthlyBudgetRepository.findAll().forEach(monthlyBudget -> {
                 Date monthDate = null;
-                try{
+                try {
                     monthDate = new SimpleDateFormat("yyyy-MM").parse(month);
                 } catch (ParseException e) {
                     e.printStackTrace();
