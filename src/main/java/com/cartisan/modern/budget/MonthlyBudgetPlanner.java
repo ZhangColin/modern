@@ -36,10 +36,21 @@ public class MonthlyBudgetPlanner {
 
     public void addMonthlyBudget(MonthlyBudget monthlyBudget, Runnable afterSuccess, Runnable afterFail) {
         try {
-            monthlyBudgetRepository.save(monthlyBudget);
+            saveMonthlyBudget(monthlyBudget);
             afterSuccess.run();
         } catch (IllegalArgumentException e) {
             afterFail.run();
+        }
+    }
+
+    private void saveMonthlyBudget(MonthlyBudget monthlyBudget) {
+        MonthlyBudget existingBudget = monthlyBudgetRepository.findByMonth(monthlyBudget.getMonth());
+        if (existingBudget!=null) {
+            existingBudget.setBudget(monthlyBudget.getBudget());
+            monthlyBudgetRepository.save(existingBudget);
+        }
+        else{
+            monthlyBudgetRepository.save(monthlyBudget);
         }
     }
 }
