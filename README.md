@@ -13,6 +13,7 @@ Please install the following tools for this project. The latest version should b
 >* gradle
 >* mysql
 >* intellij idea community edition
+>>* lombok plug-in
 >* Firefox
 
 # Setup Development Environment
