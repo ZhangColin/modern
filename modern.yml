@@ -8,4 +8,6 @@
     - role: mysql
       mysql:
         database: modern
+        user: colin
+        password: truth
     - xserver
