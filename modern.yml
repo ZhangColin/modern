@@ -3,3 +3,6 @@
   hosts: modern-server
   roles:
     - jdk8
+    - role: mysql
+      mysql:
+        database: modern
