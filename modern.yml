@@ -1,6 +1,6 @@
 ---
 - name: Modern Server
-  hosts: modern-server
+  hosts: modern_servers
   roles:
     - jdk8
     - gradle
