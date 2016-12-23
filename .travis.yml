@@ -9,5 +9,5 @@ install:
 
 script:
   - ansible-playbook modern.yml --syntax-check
-  - ansible-playbook modern.yml -l travis_ci
+  - ansible-playbook modern.yml --inventory-file=host_travis_ci.txt
   - bash -lec "gradle check cucumber"
