@@ -7,3 +7,4 @@
     - role: mysql
       mysql:
         database: modern
+    - xserver

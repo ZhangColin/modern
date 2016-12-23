@@ -7,11 +7,6 @@ before_install:
 install:
   - pip install ansible
 
-before_script:
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-  - sleep 3
-
 script:
   - ansible-playbook modern.yml --syntax-check
   - ansible-playbook modern.yml -l travis_ci
