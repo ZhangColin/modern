@@ -15,4 +15,4 @@ before_script:
 script:
   - ansible-playbook modern.yml --syntax-check
   - ansible-playbook bbuddy.yml -l travis_ci
-  - gradle check cucumber
+  - bash -lec "gradle check cucumber"
