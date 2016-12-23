@@ -14,5 +14,5 @@ before_script:
 
 script:
   - ansible-playbook modern.yml --syntax-check
-  - ansible-playbook bbuddy.yml -l travis_ci
+  - ansible-playbook modern.yml -l travis_ci
   - bash -lec "gradle check cucumber"
