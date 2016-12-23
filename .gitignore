@@ -180,3 +180,4 @@ hs_err_pid*
 
 # Ansible
 /*.retry
+/hosts.txt
