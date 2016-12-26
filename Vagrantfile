@@ -6,7 +6,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.box = "ubuntu/trusty32"
 
-  config.vm.hostname = "bbuddy.local"
+  config.vm.hostname = "modern.local"
 
   synced_opts = {}
   if ENV["ENABLE_NFS"] == "true"
@@ -43,6 +43,6 @@ Vagrant.configure(2) do |config|
   ]
 
   config.vm.provision "ansible" do |ansible|
-    ansible.playbook = "bbuddy.yml"
+    ansible.playbook = "modern.yml"
   end
 end
