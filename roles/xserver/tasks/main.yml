@@ -13,8 +13,12 @@
     args:
       creates: /usr/bin/firefox
 
+  - name: Ensure current path
+      shell: |
+        pwd
+
   - name: Xvfb:{{ xvfb.display }} init.d script
-    template: src=init-xvfb.sh.j2 dest=/etc/init.d/xvfb mode="0755"
+    template: src=roles/xserver/templates/init-xvfb.sh.j2 dest=/etc/init.d/xvfb mode="0755"
     notify: Restart and enable xvfb service
 
   - name: Xvfb:{{ xvfb.display }} profile
