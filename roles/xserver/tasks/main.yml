@@ -14,8 +14,8 @@
       creates: /usr/bin/firefox
 
   - name: Ensure current path
-      shell: |
-        pwd
+    shell: |
+      pwd
 
   - name: Xvfb:{{ xvfb.display }} init.d script
     template: src=roles/xserver/templates/init-xvfb.sh.j2 dest=/etc/init.d/xvfb mode="0755"
