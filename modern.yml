@@ -10,7 +10,7 @@
         database: modern
         user: colin
         password: truth
-    - xserver
+    - firefox
 
 - name: Modern CI
   hosts: modern_ci_servers
