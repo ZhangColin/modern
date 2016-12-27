@@ -8,8 +8,6 @@ install:
   - pip install ansible
 
 script:
-  - bash -lec "ansible --version"
-  - bash -lec "pwd"
   - ansible-playbook modern.yml --inventory-file=host_travis_ci.txt --syntax-check
   - ansible-playbook modern.yml --inventory-file=host_travis_ci.txt
   - bash -lec "gradle check cucumber"
