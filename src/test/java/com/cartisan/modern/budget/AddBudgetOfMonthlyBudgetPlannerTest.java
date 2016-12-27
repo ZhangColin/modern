@@ -13,15 +13,17 @@ import static org.mockito.Mockito.*;
 public class AddBudgetOfMonthlyBudgetPlannerTest {
     private static final long MONTH_BUDGET_ID = 1L;
     MonthlyBudgetRepository mockMonthlyBudgetRepository = mock(MonthlyBudgetRepository.class);
-        BudgetCategory stubBudgetCategory = mock(BudgetCategory.class);
-        MonthlyBudgetPlanner planner = new MonthlyBudgetPlanner(stubBudgetCategory, mockMonthlyBudgetRepository);
+    BudgetCategory stubBudgetCategory = mock(BudgetCategory.class);
+    MonthlyBudgetPlanner planner = new MonthlyBudgetPlanner(stubBudgetCategory, mockMonthlyBudgetRepository);
 
-        Date monthDate = parse("2016-07-01");
-        MonthlyBudget monthlyBudget = new MonthlyBudget(monthDate, 100);
+    Date monthDate = parse("2016-07-01");
+    MonthlyBudget monthlyBudget = new MonthlyBudget(monthDate, 100);
 
-        Runnable afterSuccess = mock(Runnable.class);
-        Runnable afterFail = mock(Runnable.class);
-        Runnable whatever = () -> {};
+    Runnable afterSuccess = mock(Runnable.class);
+    Runnable afterFail = mock(Runnable.class);
+    Runnable whatever = () -> {
+    };
+
     @Test
     public void save_monthly_budget() throws ParseException {
         planner.addMonthlyBudget(monthlyBudget, whatever, whatever);
@@ -38,7 +40,7 @@ public class AddBudgetOfMonthlyBudgetPlannerTest {
     }
 
     @Test
-    public void after_fail_is_called_if_save_failed(){
+    public void after_fail_is_called_if_save_failed() {
         givenSaveWillFail();
 
         planner.addMonthlyBudget(monthlyBudget, afterSuccess, afterFail);
@@ -48,7 +50,7 @@ public class AddBudgetOfMonthlyBudgetPlannerTest {
     }
 
     @Test
-    public void overwrite_monthly_budget_when_budget_has_been_set_for_that_month(){
+    public void overwrite_monthly_budget_when_budget_has_been_set_for_that_month() {
         given_existing_monthly_budget_with_id(MONTH_BUDGET_ID);
 
         MonthlyBudget overwrittenMonthlyBudget = new MonthlyBudget(monthDate, 200);
@@ -64,7 +66,7 @@ public class AddBudgetOfMonthlyBudgetPlannerTest {
     }
 
     private void givenSaveWillFail() {
-        when(mockMonthlyBudgetRepository.save(any(MonthlyBudget.class))).thenThrow(IllegalArgumentException.class);
+        doThrow(IllegalArgumentException.class).when(mockMonthlyBudgetRepository).save(any(MonthlyBudget.class));
     }
 
     public AddBudgetOfMonthlyBudgetPlannerTest() throws ParseException {
