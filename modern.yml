@@ -11,3 +11,9 @@
         user: colin
         password: truth
     - xserver
+
+- name: Modern CI
+  hosts: modern_ci_servers
+  any_errors_fatal: true
+  roles:
+    - jenkins
