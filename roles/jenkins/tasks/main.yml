@@ -16,4 +16,7 @@
   - name: Ensure Jenkins
     apt: name=jenkins update_cache=yes cache_valid_time=604800
 
+  - name: Changing Jenkins http port
+    lineinfile: name=/etc/default/jenkins regexp="^HTTP_PORT=.+" line="HTTP_PORT={{ jenkins.port | default('8080') }}"
+
   when: ansible_os_family == "Debian"
