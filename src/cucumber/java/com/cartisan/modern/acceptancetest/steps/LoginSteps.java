@@ -51,7 +51,5 @@ public class LoginSteps{
     public void login_successfully() {
         String bodyText = driver.getWebDriver().findElement(By.tagName("body")).getText();
         assertTrue(bodyText.contains("Welcome"));
-
-        userRepository.deleteAll();
     }
 }
