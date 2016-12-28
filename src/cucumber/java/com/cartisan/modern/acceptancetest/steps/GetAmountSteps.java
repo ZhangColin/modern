@@ -2,6 +2,7 @@ package com.cartisan.modern.acceptancetest.steps;
 
 
 import com.cartisan.modern.acceptancetest.driver.UiDriver;
+import com.cartisan.modern.acceptancetest.pages.MonthlyBudgetAmountPage;
 import com.cartisan.modern.budget.MonthlyBudget;
 import com.cartisan.modern.budget.MonthlyBudgetRepository;
 import cucumber.api.java.en.Given;
@@ -17,7 +18,7 @@ import static org.junit.Assert.assertTrue;
 
 public class GetAmountSteps{
     @Autowired
-    private UiDriver driver;
+    private MonthlyBudgetAmountPage page;
 
     @Autowired
     MonthlyBudgetRepository monthlyBudgetRepository;
@@ -36,13 +37,12 @@ public class GetAmountSteps{
 
     @When("^get amount of period from \"([^\"]*)\" to \"([^\"]*)\"$")
     public void get_amount_of_period_from_to(String startDate, String endDate) {
-        driver.navigateTo("http://localhost:8080/get_amount?startDate=" + startDate + "&endDate=" + endDate);
+        page.open(startDate, endDate);
     }
 
     @Then("^the amount is (\\d+)$")
     public void the_amount_is(Integer amount) {
-        String bodyText = driver.findElementByTag("body").getText();
-        assertTrue(bodyText.contains(String.valueOf(amount)));
+        assertTrue(page.getAllText().contains(String.valueOf(amount)));
     }
 
 }
