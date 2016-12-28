@@ -1,6 +1,7 @@
 package com.cartisan.modern.acceptancetest.steps;
 
 
+import com.cartisan.modern.acceptancetest.driver.UiDriver;
 import com.cartisan.modern.budget.MonthlyBudget;
 import com.cartisan.modern.budget.MonthlyBudgetRepository;
 import cucumber.api.java.en.Given;
@@ -19,18 +20,18 @@ import java.util.Date;
 import static org.junit.Assert.assertEquals;
 
 public class AddMonthlyBudgetSteps {
-    private WebDriver driver;
+    @Autowired
+    private UiDriver driver;
 
     @Autowired
     private MonthlyBudgetRepository monthlyBudgetRepository;
 
     @When("^add budget for \"([^\"]*)\" with amount (\\d+)$")
     public void add_budget_for_with_amount(String month, Integer budget) {
-        driver = new FirefoxDriver();
-        driver.get("http://localhost:8080/add_budget_for_month");
-        WebElement monthTextBox = driver.findElement(By.name("month"));
+        driver.getWebDriver().get("http://localhost:8080/add_budget_for_month");
+        WebElement monthTextBox = driver.getWebDriver().findElement(By.name("month"));
         monthTextBox.sendKeys(month);
-        WebElement budgetTextBox = driver.findElement(By.name("budget"));
+        WebElement budgetTextBox = driver.getWebDriver().findElement(By.name("budget"));
         budgetTextBox.sendKeys(String.valueOf(budget));
         budgetTextBox.submit();
     }
@@ -52,7 +53,6 @@ public class AddMonthlyBudgetSteps {
         });
 
         monthlyBudgetRepository.deleteAll();
-        driver.close();
     }
 
     @Given("^budget (\\d+) has been set for month \"([^\"]*)\"$")

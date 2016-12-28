@@ -1,6 +1,7 @@
 package com.cartisan.modern.acceptancetest.steps;
 
 import com.cartisan.modern.Application;
+import com.cartisan.modern.acceptancetest.driver.UiDriver;
 import com.cartisan.modern.user.User;
 import com.cartisan.modern.user.UserRepository;
 import cucumber.api.java.en.Given;
@@ -8,7 +9,6 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,8 @@ public class LoginSteps{
     @Autowired
     UserRepository userRepository;
 
-    WebDriver driver;
+    @Autowired
+    private UiDriver driver;
 
     @Given("^there is a user named \"([^\"]*)\" and password is \"([^\"]*)\"$")
     public void there_is_a_user_named_and_password_is(String userName, String password) {
@@ -38,21 +39,19 @@ public class LoginSteps{
 
     @When("^login with user name \"([^\"]*)\" and password \"([^\"]*)\"$")
     public void login_with_a_user_name_and_password(String userName, String password) {
-        driver = new FirefoxDriver();
-        driver.get("http://localhost:8080/login");
-        WebElement userNameTextBox = driver.findElement(By.name("username"));
+        driver.getWebDriver().get("http://localhost:8080/login");
+        WebElement userNameTextBox = driver.getWebDriver().findElement(By.name("username"));
         userNameTextBox.sendKeys(userName);
-        WebElement passwordBox = driver.findElement(By.name("password"));
+        WebElement passwordBox = driver.getWebDriver().findElement(By.name("password"));
         passwordBox.sendKeys(password);
         userNameTextBox.submit();
     }
 
     @Then("^login successfully$")
     public void login_successfully() {
-        String bodyText = driver.findElement(By.tagName("body")).getText();
+        String bodyText = driver.getWebDriver().findElement(By.tagName("body")).getText();
         assertTrue(bodyText.contains("Welcome"));
 
-        driver.close();
         userRepository.deleteAll();
     }
 }
