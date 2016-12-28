@@ -5,7 +5,7 @@
       - xserver-xorg-core
       - xvfb
 
-  - name: Ensure firefox-{{ ansible_architecture }} v{{ firefox-version }}
+  - name: Ensure firefox-{{ ansible_architecture }} v{{ firefox_version }}
     shell: |
       firefox --version | grep -F '{{ firefox_version }}' && exit 0
 
