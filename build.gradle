@@ -4,13 +4,22 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "org.springframework.boot:spring-boot-gradle-plugin:1.4.2.RELEASE"
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:1.4.3.RELEASE"
+        classpath "org.springframework:springloaded:1.2.6.RELEASE"
     }
 }
 
 plugins {
     id "java"
     id "com.github.samueltbrown.cucumber" version "0.9"
+}
+
+apply plugin: 'idea'
+idea {
+    module{
+        inheritOutputDirs = false
+        outputDir = file("$buildDir/classes/main/")
+    }
 }
 
 apply plugin: 'war'
