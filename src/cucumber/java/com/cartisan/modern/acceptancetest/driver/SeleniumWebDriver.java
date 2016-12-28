@@ -6,6 +6,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class SeleniumWebDriver implements UiDriver {
     private final WebDriver webDriver = new FirefoxDriver();
+
     @Override
     public void close() {
         webDriver.close();
@@ -24,6 +25,11 @@ public class SeleniumWebDriver implements UiDriver {
     @Override
     public UiElement findElementByTag(String tag) {
         return new SeleniumWebElement(webDriver.findElement(By.tagName(tag)));
+    }
+
+    @Override
+    public void navigateToWithParams(String url, Params params) {
+        webDriver.get(url + params.getQuery());
     }
 
 }
