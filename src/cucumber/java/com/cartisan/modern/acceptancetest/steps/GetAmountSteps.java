@@ -2,6 +2,7 @@ package com.cartisan.modern.acceptancetest.steps;
 
 
 import com.cartisan.modern.acceptancetest.driver.UiDriver;
+import com.cartisan.modern.acceptancetest.pages.CommonPage;
 import com.cartisan.modern.acceptancetest.pages.MonthlyBudgetAmountPage;
 import com.cartisan.modern.budget.MonthlyBudget;
 import com.cartisan.modern.budget.MonthlyBudgetRepository;
@@ -19,6 +20,9 @@ import static org.junit.Assert.assertTrue;
 public class GetAmountSteps{
     @Autowired
     private MonthlyBudgetAmountPage page;
+
+    @Autowired
+    private CommonPage commonPage;
 
     @Autowired
     MonthlyBudgetRepository monthlyBudgetRepository;
@@ -42,7 +46,7 @@ public class GetAmountSteps{
 
     @Then("^the amount is (\\d+)$")
     public void the_amount_is(Integer amount) {
-        assertTrue(page.getAllText().contains(String.valueOf(amount)));
+        assertTrue(commonPage.getAllText().contains(String.valueOf(amount)));
     }
 
 }

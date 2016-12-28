@@ -2,6 +2,7 @@ package com.cartisan.modern.acceptancetest.steps;
 
 import com.cartisan.modern.acceptancetest.driver.UiDriver;
 import com.cartisan.modern.acceptancetest.driver.UiElement;
+import com.cartisan.modern.acceptancetest.pages.CommonPage;
 import com.cartisan.modern.acceptancetest.pages.LoginPage;
 import com.cartisan.modern.user.User;
 import com.cartisan.modern.user.UserRepository;
@@ -15,7 +16,10 @@ import static org.junit.Assert.assertTrue;
 public class LoginSteps {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
+
+    @Autowired
+    private CommonPage commonPage;
 
     @Autowired
     private LoginPage page;
@@ -32,7 +36,7 @@ public class LoginSteps {
 
     @Then("^login successfully$")
     public void login_successfully() {
-        assertTrue(page.getAllText().contains("Welcome"));
+        assertTrue(commonPage.getAllText().contains("Welcome"));
     }
 
 }
