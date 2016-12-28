@@ -2,6 +2,7 @@ package com.cartisan.modern.acceptancetest.steps;
 
 import com.cartisan.modern.acceptancetest.driver.UiDriver;
 import com.cartisan.modern.acceptancetest.driver.UiElement;
+import com.cartisan.modern.acceptancetest.pages.LoginPage;
 import com.cartisan.modern.user.User;
 import com.cartisan.modern.user.UserRepository;
 import cucumber.api.java.en.Given;
@@ -11,13 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.Assert.assertTrue;
 
-public class LoginSteps{
+public class LoginSteps {
 
     @Autowired
     UserRepository userRepository;
 
     @Autowired
-    private UiDriver driver;
+    private LoginPage page;
 
     @Given("^there is a user named \"([^\"]*)\" and password is \"([^\"]*)\"$")
     public void there_is_a_user_named_and_password_is(String userName, String password) {
@@ -26,17 +27,12 @@ public class LoginSteps{
 
     @When("^login with user name \"([^\"]*)\" and password \"([^\"]*)\"$")
     public void login_with_a_user_name_and_password(String userName, String password) {
-        driver.navigateTo("http://localhost:8080/login");
-        UiElement userNameTextBox = driver.findElementByName("username");
-        userNameTextBox.sendKeys(userName);
-        UiElement passwordBox = driver.findElementByName("password");
-        passwordBox.sendKeys(password);
-        userNameTextBox.submit();
+        page.login(userName, password);
     }
 
     @Then("^login successfully$")
     public void login_successfully() {
-        String bodyText = driver.findElementByTag("body").getText();
-        assertTrue(bodyText.contains("Welcome"));
+        assertTrue(page.getAllText().contains("Welcome"));
     }
+
 }
