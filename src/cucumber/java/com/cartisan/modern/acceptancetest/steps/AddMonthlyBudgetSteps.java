@@ -3,11 +3,16 @@ package com.cartisan.modern.acceptancetest.steps;
 
 import com.cartisan.modern.acceptancetest.driver.UiDriver;
 import com.cartisan.modern.acceptancetest.driver.UiElement;
+import com.cartisan.modern.acceptancetest.pages.AddMonthlyBudgetPage;
 import com.cartisan.modern.budget.MonthlyBudget;
 import com.cartisan.modern.budget.MonthlyBudgetRepository;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.text.ParseException;
@@ -18,19 +23,14 @@ import static org.junit.Assert.assertEquals;
 
 public class AddMonthlyBudgetSteps {
     @Autowired
-    private UiDriver driver;
+    private AddMonthlyBudgetPage page;
 
     @Autowired
     private MonthlyBudgetRepository monthlyBudgetRepository;
 
     @When("^add budget for \"([^\"]*)\" with amount (\\d+)$")
     public void add_budget_for_with_amount(String month, Integer budget) {
-        driver.navigateTo("http://localhost:8080/add_budget_for_month");
-        UiElement monthTextBox = driver.findElementByName("month");
-        monthTextBox.sendKeys(month);
-        UiElement budgetTextBox = driver.findElementByName("budget");
-        budgetTextBox.sendKeys(String.valueOf(budget));
-        budgetTextBox.submit();
+        page.addMonthlyBudget(month, budget);
     }
 
     @Then("^monthly budget (\\d+) for \"([^\"]*)\" is saved$")
