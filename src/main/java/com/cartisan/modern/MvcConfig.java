@@ -1,6 +1,8 @@
 package com.cartisan.modern;
 
+import com.cartisan.modern.session.controller.AuthenticationInterceptor;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -8,10 +10,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 public class MvcConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-//        registry.addViewController("/home").setViewName("home");
-//        registry.addViewController("/").setViewName("home");
-//        registry.addViewController("/hello").setViewName("hello");
-        registry.addViewController("/signin").setViewName("signin");
         registry.addViewController("/add_budget_for_month").setViewName("add_budget_for_month");
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new AuthenticationInterceptor());
+        super.addInterceptors(registry);
     }
 }
