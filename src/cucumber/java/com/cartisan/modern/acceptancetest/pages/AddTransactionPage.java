@@ -1,6 +1,7 @@
 package com.cartisan.modern.acceptancetest.pages;
 
 import com.cartisan.modern.acceptancetest.driver.UiDriver;
+import com.cartisan.modern.acceptancetest.driver.UiSelect;
 import com.cartisan.modern.acceptancetest.steps.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -14,5 +15,7 @@ public class AddTransactionPage {
 
     public void add(Transaction transaction){
         driver.navigateTo("/add_transaction");
+        UiSelect type = driver.findSelectByName("type");
+        type.selectByVisibleText(transaction.getType());
     }
 }

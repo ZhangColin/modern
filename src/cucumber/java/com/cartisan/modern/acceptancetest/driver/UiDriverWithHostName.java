@@ -1,7 +1,5 @@
 package com.cartisan.modern.acceptancetest.driver;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -34,5 +32,10 @@ public class UiDriverWithHostName implements UiDriver {
     @Override
     public void navigateToWithParams(String url, Params params) {
         originalDriver.navigateToWithParams(hostName + url, params);
+    }
+
+    @Override
+    public UiSelect findSelectByName(String name) {
+        return originalDriver.findSelectByName(name);
     }
 }

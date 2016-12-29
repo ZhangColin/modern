@@ -32,4 +32,9 @@ public class SeleniumWebDriver implements UiDriver {
         webDriver.get(url + params.getQuery());
     }
 
+    @Override
+    public UiSelect findSelectByName(String name) {
+        return new SeleniumSelect(webDriver.findElement(By.name(name)));
+    }
+
 }
