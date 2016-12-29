@@ -20,6 +20,6 @@ public class TransactionController {
     @RequestMapping(value = "/confirm_add_transaction", method = RequestMethod.POST)
     public String confirm(@ModelAttribute Transaction transaction) {
         transactions.add(transaction);
-        return "add_transaction";
+        return "redirect:/add_transaction";
     }
 }
