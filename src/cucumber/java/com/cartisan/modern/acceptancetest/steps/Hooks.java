@@ -44,6 +44,7 @@ public class Hooks {
         uiDriver.close();
     }
 
+    @Before("@monthlyBudget")
     @After("@monthlyBudget")
     public void cleanUpMonthlyBudget(){
         monthlyBudgetRepository.deleteAll();
