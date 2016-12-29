@@ -1,9 +1,7 @@
 package com.cartisan.modern.acceptancetest.steps;
 
-import com.cartisan.modern.acceptancetest.driver.UiDriver;
-import com.cartisan.modern.acceptancetest.driver.UiElement;
 import com.cartisan.modern.acceptancetest.pages.CommonPage;
-import com.cartisan.modern.acceptancetest.pages.LoginPage;
+import com.cartisan.modern.acceptancetest.pages.SignInPage;
 import com.cartisan.modern.user.User;
 import com.cartisan.modern.user.UserRepository;
 import cucumber.api.java.en.Given;
@@ -13,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.Assert.assertTrue;
 
-public class LoginSteps {
+public class SignInSteps {
 
     @Autowired
     private UserRepository userRepository;
@@ -22,7 +20,7 @@ public class LoginSteps {
     private CommonPage commonPage;
 
     @Autowired
-    private LoginPage page;
+    private SignInPage page;
 
     @Given("^there is a user named \"([^\"]*)\" and password is \"([^\"]*)\"$")
     public void there_is_a_user_named_and_password_is(String userName, String password) {
@@ -31,7 +29,7 @@ public class LoginSteps {
 
     @When("^login with user name \"([^\"]*)\" and password \"([^\"]*)\"$")
     public void login_with_a_user_name_and_password(String userName, String password) {
-        page.login(userName, password);
+        page.signIn(userName, password);
     }
 
     @Then("^login successfully$")
