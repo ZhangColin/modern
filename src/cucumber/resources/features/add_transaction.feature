@@ -1,4 +1,4 @@
-@user
+@user @transaction
 Feature: Add Transaction
 
   Scenario: successfully add a new transaction
