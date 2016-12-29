@@ -9,19 +9,15 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class TransactionControllerTest {
-    @Test
-    public void back_page(){
         Transactions transactions = mock(Transactions.class);
         TransactionController controller = new TransactionController(transactions);
-
-        assertEquals("add_transaction", controller.confirm(new Transaction()));
+    @Test
+    public void back_page(){
+        assertEquals("redirect:/add_transaction", controller.confirm(new Transaction()));
     }
 
     @Test
     public void add_transaction(){
-        Transactions transactions = mock(Transactions.class);
-        TransactionController controller = new TransactionController(transactions);
-
         Transaction transaction = new Transaction();
         controller.confirm(transaction);
 
