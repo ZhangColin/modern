@@ -1,10 +1,10 @@
 package com.cartisan.modern.acceptancetest.steps;
 
 import com.cartisan.modern.Application;
+import com.cartisan.modern.acceptancetest.data.budget.MonthlyBudgetRepositoryForTest;
+import com.cartisan.modern.acceptancetest.data.transaction.TransactionRepositoryForTest;
 import com.cartisan.modern.acceptancetest.driver.UiDriver;
 import com.cartisan.modern.acceptancetest.pages.SignInPage;
-import com.cartisan.modern.budget.MonthlyBudgetRepository;
-import com.cartisan.modern.transaction.repository.TransactionRepository;
 import com.cartisan.modern.user.User;
 import com.cartisan.modern.user.UserRepository;
 import cucumber.api.java.After;
@@ -29,10 +29,10 @@ public class Hooks {
     private UserRepository userRepository;
 
     @Autowired
-    private TransactionRepository transactionRepository;
+    private TransactionRepositoryForTest transactionRepository;
 
     @Autowired
-    private MonthlyBudgetRepository monthlyBudgetRepository;
+    private MonthlyBudgetRepositoryForTest monthlyBudgetRepository;
 
     @Autowired
     private SignInPage signInPage;

@@ -1,7 +1,9 @@
 package com.cartisan.modern.acceptancetest.steps;
 
+import com.cartisan.modern.acceptancetest.data.transaction.EditableTransaction;
+import com.cartisan.modern.acceptancetest.data.transaction.TransactionRepositoryForTest;
 import com.cartisan.modern.acceptancetest.pages.AddTransactionPage;
-import com.cartisan.modern.transaction.repository.TransactionRepository;
+import com.cartisan.modern.transaction.domain.Transaction;
 import cucumber.api.Format;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -18,11 +20,11 @@ public class AddTransactionSteps {
     private AddTransactionPage addTransactionPage;
 
     @Autowired
-    private TransactionRepository transactionRepository;
+    private TransactionRepositoryForTest transactionRepository;
 
     @When("^add a new transaction with the following information$")
-    public void add_a_new_transaction_with_the_following_information(List<Transaction> transactions) throws Throwable {
-        addTransactionPage.add(transactions.get(0));
+    public void add_a_new_transaction_with_the_following_information(List<EditableTransaction> editableTransactions) throws Throwable {
+        addTransactionPage.add(editableTransactions.get(0));
     }
 
     @Then("^a new transaction will be created$")
@@ -31,7 +33,7 @@ public class AddTransactionSteps {
     }
 
     private void assertTransactionEquals(List<Transaction> expected,
-                                         List<com.cartisan.modern.transaction.domain.Transaction> actual) {
+                                         List<Transaction> actual) {
         assertEquals(1, actual.size());
         assertReflectionEquals(expected, actual, IGNORE_DEFAULTS);
     }

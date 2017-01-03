@@ -2,8 +2,7 @@ package com.cartisan.modern.acceptancetest.pages;
 
 import com.cartisan.modern.acceptancetest.driver.UiDriver;
 import com.cartisan.modern.acceptancetest.driver.UiElement;
-import com.cartisan.modern.acceptancetest.driver.UiSelect;
-import com.cartisan.modern.acceptancetest.steps.Transaction;
+import com.cartisan.modern.acceptancetest.data.transaction.EditableTransaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -14,12 +13,12 @@ public class AddTransactionPage {
     @Autowired
     private UiDriver driver;
 
-    public void add(Transaction transaction){
+    public void add(EditableTransaction editableTransaction){
         driver.navigateTo("/add_transaction");
-        setType(transaction.getType());
-        setDescription(transaction.getDescription());
-        setDate(transaction.getDate());
-        setAmountAndSubmit(transaction.getAmount());
+        setType(editableTransaction.getType());
+        setDescription(editableTransaction.getDescription());
+        setDate(editableTransaction.getDate());
+        setAmountAndSubmit(editableTransaction.getAmount());
     }
 
     private void setAmountAndSubmit(String amount) {

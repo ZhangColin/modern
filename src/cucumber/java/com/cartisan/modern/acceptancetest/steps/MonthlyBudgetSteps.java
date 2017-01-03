@@ -1,11 +1,11 @@
 package com.cartisan.modern.acceptancetest.steps;
 
 
+import com.cartisan.modern.acceptancetest.data.budget.MonthlyBudgetRepositoryForTest;
 import com.cartisan.modern.acceptancetest.pages.AddMonthlyBudgetPage;
 import com.cartisan.modern.acceptancetest.pages.CommonPage;
 import com.cartisan.modern.acceptancetest.pages.MonthlyBudgetAmountPage;
 import com.cartisan.modern.budget.MonthlyBudget;
-import com.cartisan.modern.budget.MonthlyBudgetRepository;
 import cucumber.api.Format;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -29,7 +29,7 @@ public class MonthlyBudgetSteps {
     private CommonPage commonPage;
 
     @Autowired
-    private MonthlyBudgetRepository monthlyBudgetRepository;
+    private MonthlyBudgetRepositoryForTest monthlyBudgetRepository;
 
     @Given("^budget (\\d+) has been set for month \"([^\"]*)\"$")
     public void budget_has_been_set_for_month(Integer budget, @Format(MONTH)Date month) {

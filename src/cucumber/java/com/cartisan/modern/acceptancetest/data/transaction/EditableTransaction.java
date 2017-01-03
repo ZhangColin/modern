@@ -1,9 +1,9 @@
-package com.cartisan.modern.acceptancetest.steps;
+package com.cartisan.modern.acceptancetest.data.transaction;
 
 import lombok.Data;
 
 @Data
-public class Transaction {
+public class EditableTransaction {
     private String type;
     private String description;
     private String date;
