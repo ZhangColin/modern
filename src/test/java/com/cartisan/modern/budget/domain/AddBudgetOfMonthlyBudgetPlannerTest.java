@@ -1,5 +1,9 @@
-package com.cartisan.modern.budget;
+package com.cartisan.modern.budget.domain;
 
+import com.cartisan.modern.budget.BudgetCategory;
+import com.cartisan.modern.budget.MonthlyBudget;
+import com.cartisan.modern.budget.MonthlyBudgetPlanner;
+import com.cartisan.modern.budget.MonthlyBudgetRepository;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
