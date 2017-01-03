@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 import static com.cartisan.modern.acceptancetest.steps.AssertionHelper.assertListDeepEquals;
-import static com.cartisan.modern.acceptancetest.steps.Formats.DAY;
+import static com.cartisan.modern.common.Formats.DAY;
 
 public class AddTransactionSteps {
     @Autowired

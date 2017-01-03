@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Date;
 
+import static com.cartisan.modern.common.Formats.DAY;
+
 @Controller
 public class MonthlyBudgetController {
     private final MonthlyBudgetPlanner planner;
@@ -32,8 +34,8 @@ public class MonthlyBudgetController {
 
     @RequestMapping("/get_amount")
     public String getAmount(
-            @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
-            @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate, Model model) {
+            @RequestParam("startDate") @DateTimeFormat(pattern = DAY) Date startDate,
+            @RequestParam("endDate") @DateTimeFormat(pattern = DAY) Date endDate, Model model) {
         model.addAttribute("amount", planner.getAmount(startDate, endDate));
 
         return "get_amount";

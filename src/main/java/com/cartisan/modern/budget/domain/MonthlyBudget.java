@@ -6,6 +6,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.util.Date;
 
+import static com.cartisan.modern.common.Formats.MONTH;
+
 @Entity
 @Table(name = "monthly_budgets")
 @Data
@@ -17,7 +19,7 @@ public class MonthlyBudget {
     private long id;
 
     @NonNull
-    @DateTimeFormat(pattern = "yyyy-MM")
+    @DateTimeFormat(pattern = MONTH)
     private Date month;
 
     @NonNull

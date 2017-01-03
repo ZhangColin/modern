@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Date;
 
 import static com.cartisan.modern.acceptancetest.steps.AssertionHelper.assertListDeepEquals;
-import static com.cartisan.modern.acceptancetest.steps.Formats.MONTH;
+import static com.cartisan.modern.common.Formats.MONTH;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

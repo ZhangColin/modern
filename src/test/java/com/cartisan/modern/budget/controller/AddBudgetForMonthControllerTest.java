@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static com.cartisan.modern.common.Formats.DAY;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyBoolean;
@@ -26,10 +27,6 @@ public class AddBudgetForMonthControllerTest {
     private final MonthlyBudget monthlyBudget = new MonthlyBudget(parseDate("2016-07-01"), 100);
 
     public AddBudgetForMonthControllerTest() throws ParseException {
-    }
-
-    private Date parseDate(String source) throws ParseException {
-        return new SimpleDateFormat("yyyy-MM-dd").parse(source);
     }
 
     @Test
@@ -68,5 +65,9 @@ public class AddBudgetForMonthControllerTest {
             afterFail.run();
             return null;
         }).when(mockPlanner).addMonthlyBudget(any(MonthlyBudget.class), any(Runnable.class), any(Runnable.class));
+    }
+
+    private Date parseDate(String source) throws ParseException {
+        return new SimpleDateFormat(DAY).parse(source);
     }
 }
