@@ -14,7 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 
+import static com.cartisan.modern.acceptancetest.steps.AssertionHelper.assertListDeepEquals;
 import static com.cartisan.modern.acceptancetest.steps.Formats.MONTH;
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -53,12 +55,7 @@ public class MonthlyBudgetSteps {
 
     @Then("^monthly budget (\\d+) for \"([^\"]*)\" is saved$")
     public void monthly_budget_for_is_saved(Integer budget, @Format(MONTH)Date month) {
-        assertEquals(1, monthlyBudgetRepository.count());
-
-        monthlyBudgetRepository.findAll().forEach(monthlyBudget -> {
-            assertEquals(month, monthlyBudget.getMonth());
-            assertEquals(budget, monthlyBudget.getBudget());
-        });
+        assertListDeepEquals(asList(new MonthlyBudget(month, budget)), monthlyBudgetRepository.findAll());
     }
 
     @Then("^the budget for \"([^\"]*)\" is (\\d+)$")

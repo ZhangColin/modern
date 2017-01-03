@@ -11,10 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
+import static com.cartisan.modern.acceptancetest.steps.AssertionHelper.assertListDeepEquals;
 import static com.cartisan.modern.acceptancetest.steps.Formats.DAY;
-import static org.junit.Assert.assertEquals;
-import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
-import static org.unitils.reflectionassert.ReflectionComparatorMode.IGNORE_DEFAULTS;
 
 public class AddTransactionSteps {
     @Autowired
@@ -35,8 +33,7 @@ public class AddTransactionSteps {
 
     private void assertTransactionEquals(List<Transaction> expected,
                                          List<Transaction> actual) {
-        assertEquals(1, actual.size());
-        assertReflectionEquals(expected, actual, IGNORE_DEFAULTS);
+        assertListDeepEquals(expected, actual);
     }
 
 }
