@@ -10,6 +10,8 @@ import java.util.Date;
 import static com.cartisan.modern.common.Formats.parseDay;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
+import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
+import static org.unitils.reflectionassert.ReflectionComparatorMode.IGNORE_DEFAULTS;
 
 public class AddBudgetOfMonthlyBudgetPlannerTest {
     private static final long MONTH_BUDGET_ID = 1L;
@@ -75,8 +77,7 @@ public class AddBudgetOfMonthlyBudgetPlannerTest {
 
     private MonthlyBudget assertSavedMonthlyBudgetEquals(MonthlyBudget expectedMonthlyBudget) {
         MonthlyBudget savedMonthlyBudget = captureSavedMonthlyBudget();
-        assertEquals(expectedMonthlyBudget.getMonth(), savedMonthlyBudget.getMonth());
-        assertEquals(expectedMonthlyBudget.getBudget(), savedMonthlyBudget.getBudget());
+        assertReflectionEquals(expectedMonthlyBudget, savedMonthlyBudget, IGNORE_DEFAULTS);
         return savedMonthlyBudget;
     }
 
