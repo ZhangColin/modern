@@ -7,9 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static com.cartisan.modern.common.Formats.DAY;
-import static com.cartisan.modern.common.Formats.MONTH;
-import static com.cartisan.modern.common.Formats.parseDay;
+import static com.cartisan.modern.common.Formats.*;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
@@ -47,7 +45,7 @@ public class GetAmountOfMonthlyBudgetPlannerTest {
     }
 
     private MonthlyBudget budget(String month, int budget) throws ParseException {
-        return new MonthlyBudget(new SimpleDateFormat(MONTH).parse(month), budget);
+        return new MonthlyBudget(parseMonth(month), budget);
     }
 
     private void given_monthly_budget_planned_as(MonthlyBudget... budget) {

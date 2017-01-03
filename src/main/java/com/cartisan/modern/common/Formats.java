@@ -11,4 +11,8 @@ public class Formats {
     public static Date parseDay(String day) throws ParseException {
         return new SimpleDateFormat(DAY).parse(day);
     }
+
+    public static Date parseMonth(String month) throws ParseException {
+        return new SimpleDateFormat(MONTH).parse(month);
+    }
 }
