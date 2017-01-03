@@ -12,17 +12,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.Date;
 
 @Controller
-public class AddBudgetForMonthController {
-    private MonthlyBudgetPlanner planner;
+public class MonthlyBudgetController {
+    private final MonthlyBudgetPlanner planner;
 
     @Autowired
-    public AddBudgetForMonthController(MonthlyBudgetPlanner planner) {
+    public MonthlyBudgetController(MonthlyBudgetPlanner planner) {
         this.planner = planner;
     }
 
     @RequestMapping("/confirm_add_budget_for_month")
     public String confirm(@RequestParam(name = "month") @DateTimeFormat(pattern = "yyyy-MM") Date monthDate,
-                          @RequestParam(name = "budget") int budget, Model model){
+                          @RequestParam(name = "budget") int budget, Model model) {
         planner.addMonthlyBudget(new MonthlyBudget(monthDate, budget),
                 setMessage(model, "Successfully add budget for month"),
                 setMessage(model, "Add budget for month failed"));
@@ -30,7 +30,16 @@ public class AddBudgetForMonthController {
         return "add_budget_for_month";
     }
 
-    private Runnable setMessage(Model model, String attributeValue){
-        return ()->model.addAttribute("message", attributeValue);
+    @RequestMapping("/get_amount")
+    public String getAmount(
+            @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+            @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate, Model model) {
+        model.addAttribute("amount", planner.getAmount(startDate, endDate));
+
+        return "get_amount";
+    }
+
+    private Runnable setMessage(Model model, String attributeValue) {
+        return () -> model.addAttribute("message", attributeValue);
     }
 }
