@@ -13,7 +13,7 @@ public class TransactionControllerTest {
         TransactionController controller = new TransactionController(transactions);
     @Test
     public void back_page(){
-        assertEquals("redirect:/add_transaction", controller.confirm(new Transaction()));
+        assertEquals("add_transaction", controller.confirm(new Transaction()));
     }
 
     @Test
