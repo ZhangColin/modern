@@ -6,10 +6,9 @@ import org.junit.Test;
 import org.springframework.ui.Model;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static com.cartisan.modern.common.Formats.DAY;
+import static com.cartisan.modern.common.Formats.parseDay;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -21,8 +20,8 @@ public class GetAmountControllerTest {
     MonthlyBudgetController controller = new MonthlyBudgetController(mockPlanner);
         Model mockModel = mock(Model.class);
 
-    Date startDate = parseDate("2016-07-01");
-    Date endDate = parseDate("2016-07-10");
+    Date startDate = parseDay("2016-07-01");
+    Date endDate = parseDay("2016-07-10");
 
     @Test
     public void go_to_get_amount_page() {
@@ -46,10 +45,6 @@ public class GetAmountControllerTest {
     }
 
     public GetAmountControllerTest() throws ParseException {
-    }
-
-    private Date parseDate(String source) throws ParseException {
-        return new SimpleDateFormat(DAY).parse(source);
     }
 
 }

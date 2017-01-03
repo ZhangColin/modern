@@ -5,10 +5,9 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static com.cartisan.modern.common.Formats.DAY;
+import static com.cartisan.modern.common.Formats.parseDay;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -18,7 +17,7 @@ public class AddBudgetOfMonthlyBudgetPlannerTest {
     BudgetCategory stubBudgetCategory = mock(BudgetCategory.class);
     MonthlyBudgetPlanner planner = new MonthlyBudgetPlanner(stubBudgetCategory, mockMonthlyBudgetRepository);
 
-    Date monthDate = parse("2016-07-01");
+    Date monthDate = parseDay("2016-07-01");
     MonthlyBudget monthlyBudget = new MonthlyBudget(monthDate, 100);
 
     Runnable afterSuccess = mock(Runnable.class);
@@ -85,9 +84,5 @@ public class AddBudgetOfMonthlyBudgetPlannerTest {
         ArgumentCaptor<MonthlyBudget> captor = ArgumentCaptor.forClass(MonthlyBudget.class);
         verify(mockMonthlyBudgetRepository).save(captor.capture());
         return captor.getValue();
-    }
-
-    private Date parse(String source) throws ParseException {
-        return new SimpleDateFormat(DAY).parse(source);
     }
 }

@@ -10,7 +10,8 @@ import static com.cartisan.modern.common.Formats.MONTH;
 
 @Entity
 @Table(name = "monthly_budgets")
-@Data
+@Setter
+@Getter
 @RequiredArgsConstructor
 @NoArgsConstructor
 public class MonthlyBudget {

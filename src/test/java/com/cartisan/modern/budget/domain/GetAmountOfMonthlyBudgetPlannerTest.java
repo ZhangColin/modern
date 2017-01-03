@@ -9,6 +9,7 @@ import java.util.Date;
 
 import static com.cartisan.modern.common.Formats.DAY;
 import static com.cartisan.modern.common.Formats.MONTH;
+import static com.cartisan.modern.common.Formats.parseDay;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
@@ -19,8 +20,8 @@ public class GetAmountOfMonthlyBudgetPlannerTest {
     MonthlyBudgetRepository stubRepository = mock(MonthlyBudgetRepository.class);
     MonthlyBudgetPlanner planner = new MonthlyBudgetPlanner(mockBudgetCategory, stubRepository);
 
-    Date startDate = parseDate("2016-07-01");
-    Date endDate = parseDate("2016-07-10");
+    Date startDate = parseDay("2016-07-01");
+    Date endDate = parseDay("2016-07-10");
 
     public GetAmountOfMonthlyBudgetPlannerTest() throws ParseException {
     }
@@ -41,8 +42,8 @@ public class GetAmountOfMonthlyBudgetPlannerTest {
 
         planner.getAmount(startDate, endDate);
 
-        verify(mockBudgetCategory).setAmount(parseDate("2016-06-01"), 30);
-        verify(mockBudgetCategory).setAmount(parseDate("2016-07-01"), 31);
+        verify(mockBudgetCategory).setAmount(parseDay("2016-06-01"), 30);
+        verify(mockBudgetCategory).setAmount(parseDay("2016-07-01"), 31);
     }
 
     private MonthlyBudget budget(String month, int budget) throws ParseException {
@@ -51,10 +52,6 @@ public class GetAmountOfMonthlyBudgetPlannerTest {
 
     private void given_monthly_budget_planned_as(MonthlyBudget... budget) {
         when(stubRepository.findAll()).thenReturn(asList(budget));
-    }
-
-    private Date parseDate(String source) throws ParseException {
-        return new SimpleDateFormat(DAY).parse(source);
     }
 
     private void given_total_amount_is(long total) {
