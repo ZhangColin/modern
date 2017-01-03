@@ -1,5 +1,6 @@
-package com.cartisan.modern.budget;
+package com.cartisan.modern.budget.domain;
 
+import com.cartisan.modern.budget.repository.MonthlyBudgetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

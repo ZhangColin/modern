@@ -1,4 +1,4 @@
-package com.cartisan.modern.budget;
+package com.cartisan.modern.budget.domain;
 
 
 public enum BudgetCategoryTypes {

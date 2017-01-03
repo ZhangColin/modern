@@ -1,7 +1,7 @@
 package com.cartisan.modern.budget.controller;
 
 
-import com.cartisan.modern.budget.MonthlyBudgetPlanner;
+import com.cartisan.modern.budget.domain.MonthlyBudgetPlanner;
 import org.junit.Test;
 import org.springframework.ui.Model;
 

@@ -1,16 +1,9 @@
 package com.cartisan.modern.budget.domain;
 
 import ca.digitalcave.moss.common.DateUtil;
-import com.cartisan.modern.budget.BudgetCategory;
-import com.cartisan.modern.budget.BudgetCategoryType;
-import com.cartisan.modern.budget.BudgetCategoryTypeMonthly;
-import org.junit.Before;
 import org.junit.Test;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;

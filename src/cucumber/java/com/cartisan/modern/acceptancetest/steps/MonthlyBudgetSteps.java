@@ -5,7 +5,7 @@ import com.cartisan.modern.acceptancetest.data.budget.MonthlyBudgetRepositoryFor
 import com.cartisan.modern.acceptancetest.pages.AddMonthlyBudgetPage;
 import com.cartisan.modern.acceptancetest.pages.CommonPage;
 import com.cartisan.modern.acceptancetest.pages.MonthlyBudgetAmountPage;
-import com.cartisan.modern.budget.MonthlyBudget;
+import com.cartisan.modern.budget.domain.MonthlyBudget;
 import cucumber.api.Format;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;

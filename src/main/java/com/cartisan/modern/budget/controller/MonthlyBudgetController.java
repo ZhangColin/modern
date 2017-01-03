@@ -1,7 +1,7 @@
 package com.cartisan.modern.budget.controller;
 
-import com.cartisan.modern.budget.MonthlyBudget;
-import com.cartisan.modern.budget.MonthlyBudgetPlanner;
+import com.cartisan.modern.budget.domain.MonthlyBudget;
+import com.cartisan.modern.budget.domain.MonthlyBudgetPlanner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;

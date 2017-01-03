@@ -1,5 +1,6 @@
-package com.cartisan.modern.budget;
+package com.cartisan.modern.budget.repository;
 
+import com.cartisan.modern.budget.domain.MonthlyBudget;
 import org.springframework.data.repository.Repository;
 
 import javax.transaction.Transactional;

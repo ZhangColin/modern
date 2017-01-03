@@ -1,6 +1,5 @@
 package com.cartisan.modern.budget.domain;
 
-import com.cartisan.modern.budget.BudgetCategory;
 import org.junit.Before;
 import org.junit.Test;
 
