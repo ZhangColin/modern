@@ -4,6 +4,7 @@ import com.cartisan.modern.Application;
 import com.cartisan.modern.acceptancetest.driver.UiDriver;
 import com.cartisan.modern.acceptancetest.pages.SignInPage;
 import com.cartisan.modern.budget.MonthlyBudgetRepository;
+import com.cartisan.modern.transaction.repository.TransactionRepository;
 import com.cartisan.modern.user.User;
 import com.cartisan.modern.user.UserRepository;
 import cucumber.api.java.After;
@@ -26,6 +27,9 @@ public class Hooks {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private TransactionRepository transactionRepository;
 
     @Autowired
     private MonthlyBudgetRepository monthlyBudgetRepository;
@@ -53,5 +57,11 @@ public class Hooks {
     @After("@user")
     public void cleanUpUser(){
         userRepository.deleteAll();
+    }
+
+    @Before("@transaction")
+    @After("@transaction")
+    public void cleanUpTransaction(){
+        transactionRepository.deleteAll();
     }
 }
