@@ -13,7 +13,7 @@ public class TransactionsTest {
         Transactions transactions = new Transactions(repository);
 
         Transaction transaction = new Transaction();
-        transactions.add(transaction);
+        transactions.add(transaction, ()->{});
 
         verify(repository).save(transaction);
     }

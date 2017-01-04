@@ -14,7 +14,7 @@ public class Transactions {
         this.repository = repository;
     }
 
-    public void add(Transaction transaction) {
+    public void add(Transaction transaction, Runnable afterSuccess) {
         repository.save(transaction);
     }
 }
