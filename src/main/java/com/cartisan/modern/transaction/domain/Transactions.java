@@ -16,5 +16,6 @@ public class Transactions {
 
     public void add(Transaction transaction, Runnable afterSuccess) {
         repository.save(transaction);
+        afterSuccess.run();
     }
 }
