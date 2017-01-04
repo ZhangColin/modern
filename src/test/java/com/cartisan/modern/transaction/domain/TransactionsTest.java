@@ -14,14 +14,14 @@ public class TransactionsTest {
 
     @Test
     public void save_transaction() {
-        transactions.add(transaction, WHATEVER);
+        transactions.add(transaction, WHATEVER, WHATEVER);
         verify(repository).save(transaction);
     }
 
     @Test
     public void call_after_success_when_save_successfully() {
         Runnable afterSuccess = mock(Runnable.class);
-        transactions.add(transaction, afterSuccess);
+        transactions.add(transaction, afterSuccess, WHATEVER);
 
         verify(afterSuccess).run();
     }
