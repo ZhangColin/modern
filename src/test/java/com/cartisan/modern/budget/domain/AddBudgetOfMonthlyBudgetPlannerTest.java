@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.util.Date;
 
 import static com.cartisan.modern.common.Formats.parseDay;
+import static com.cartisan.modern.transaction.domain.RunnableHelper.WHATEVER;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
@@ -24,12 +25,10 @@ public class AddBudgetOfMonthlyBudgetPlannerTest {
 
     Runnable afterSuccess = mock(Runnable.class);
     Runnable afterFail = mock(Runnable.class);
-    Runnable whatever = () -> {
-    };
 
     @Test
     public void save_monthly_budget() throws ParseException {
-        planner.addMonthlyBudget(monthlyBudget, whatever, whatever);
+        planner.addMonthlyBudget(monthlyBudget, WHATEVER, WHATEVER);
 
         assertSavedMonthlyBudgetEquals(monthlyBudget);
     }
@@ -57,7 +56,7 @@ public class AddBudgetOfMonthlyBudgetPlannerTest {
         given_existing_monthly_budget_with_id(MONTH_BUDGET_ID);
 
         MonthlyBudget overwrittenMonthlyBudget = new MonthlyBudget(monthDate, 200);
-        planner.addMonthlyBudget(overwrittenMonthlyBudget, whatever, whatever);
+        planner.addMonthlyBudget(overwrittenMonthlyBudget, WHATEVER, WHATEVER);
 
         MonthlyBudget savedMonthlyBudget = assertSavedMonthlyBudgetEquals(overwrittenMonthlyBudget);
         assertEquals(MONTH_BUDGET_ID, savedMonthlyBudget.getId());
