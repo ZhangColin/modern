@@ -8,7 +8,7 @@ import java.text.ParseException;
 import java.util.Date;
 
 import static com.cartisan.modern.common.Formats.parseDay;
-import static com.cartisan.modern.transaction.domain.RunnableHelper.WHATEVER;
+import static com.cartisan.modern.transaction.RunnableHelper.WHATEVER;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;

@@ -3,7 +3,7 @@ package com.cartisan.modern.transaction.domain;
 import com.cartisan.modern.transaction.repository.TransactionRepository;
 import org.junit.Test;
 
-import static com.cartisan.modern.transaction.domain.RunnableHelper.WHATEVER;
+import static com.cartisan.modern.transaction.RunnableHelper.WHATEVER;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
