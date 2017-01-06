@@ -6,6 +6,7 @@ import com.cartisan.modern.transaction.domain.Transactions;
 import org.junit.Test;
 import org.springframework.ui.Model;
 
+import static com.cartisan.modern.Urls.TRANSACTION_ADD;
 import static com.cartisan.modern.common.PostActionsFactory.failed;
 import static com.cartisan.modern.common.PostActionsFactory.success;
 import static org.junit.Assert.assertEquals;
@@ -22,9 +23,14 @@ public class TransactionControllerTest {
     Model mockModel = mock(Model.class);
 
     @Test
-    public void back_page() {
+    public void go_to_transaction_add_page(){
+        assertEquals(TRANSACTION_ADD, controller.addTransaction());
+    }
+
+    @Test
+    public void back_page_after_submit() {
         given_add_transaction_will(success());
-        assertEquals("add_transaction", controller.submitAddTransaction(transaction, mockModel));
+        assertEquals(TRANSACTION_ADD, controller.submitAddTransaction(transaction, mockModel));
     }
 
     @Test

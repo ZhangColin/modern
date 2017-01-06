@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import static com.cartisan.modern.Urls.TRANSACTION_ADD;
+
 @Component
 @Scope("cucumber-glue")
 public class AddTransactionPage {
@@ -14,7 +16,7 @@ public class AddTransactionPage {
     private UiDriver driver;
 
     public void add(EditableTransaction editableTransaction){
-        driver.navigateTo("/add_transaction");
+        driver.navigateTo(TRANSACTION_ADD);
         setType(editableTransaction.getType());
         setDescription(editableTransaction.getDescription());
         setDate(editableTransaction.getDate());
