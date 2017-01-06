@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import static com.cartisan.modern.Urls.MONTHLYBUDGET_ADD;
+
 @Component
 @Scope("cucumber-glue")
 public class AddMonthlyBudgetPage {
@@ -13,7 +15,7 @@ public class AddMonthlyBudgetPage {
     private UiDriver driver;
 
     public void addMonthlyBudget(String month, Integer budget) {
-        driver.navigateTo("/add_budget_for_month");
+        driver.navigateTo(MONTHLYBUDGET_ADD);
         setMonth(month);
         setBudgetAndSubmit(budget);
     }

@@ -8,10 +8,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Date;
 
+import static com.cartisan.modern.Urls.MONTHLYBUDGET_ADD;
 import static com.cartisan.modern.common.Formats.DAY;
 
 @Controller
@@ -23,13 +25,18 @@ public class MonthlyBudgetController {
         this.planner = planner;
     }
 
-    @RequestMapping("/confirm_add_budget_for_month")
-    public String confirm(@ModelAttribute MonthlyBudget monthlyBudget, Model model) {
+    @RequestMapping(value = MONTHLYBUDGET_ADD, method = RequestMethod.POST)
+    public String submitAddMonthlyBudget(@ModelAttribute MonthlyBudget monthlyBudget, Model model) {
         planner.addMonthlyBudget(monthlyBudget)
                 .success(setMessage(model, "Successfully add budget for month"))
                 .failed(setMessage(model, "Add budget for month failed"));
 
-        return "add_budget_for_month";
+        return MONTHLYBUDGET_ADD;
+    }
+
+    @RequestMapping(value = MONTHLYBUDGET_ADD, method = RequestMethod.GET)
+    public String addMonthlyBudget() {
+        return MONTHLYBUDGET_ADD;
     }
 
     @RequestMapping("/get_amount")

@@ -1,4 +1,4 @@
-@user @monthlyBudget
+@user @monthlyBudget @wip
 Feature: Add budget for month
 
   Scenario: Add budget for month
