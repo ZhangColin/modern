@@ -21,13 +21,13 @@ public class AddTransactionSteps {
     @Autowired
     private TransactionRepositoryForTest transactionRepository;
 
-    @When("^add a new transaction with the following information$")
-    public void add_a_new_transaction_with_the_following_information(List<EditableTransaction> editableTransactions) throws Throwable {
-        addTransactionPage.add(editableTransactions.get(0));
+    @When("^add transactions with the following information$")
+    public void add_transactions_with_the_following_information(List<EditableTransaction> editableTransactions) throws Throwable {
+        editableTransactions.forEach(transaction->addTransactionPage.add(transaction));
     }
 
-    @Then("^a new transaction will be created$")
-    public void a_new_transaction_will_be_created(@Format(DAY) List<Transaction> expected) throws Throwable {
+    @Then("^the following transactions will be created$")
+    public void the_following_transactions_will_be_created(@Format(DAY) List<Transaction> expected) throws Throwable {
         assertTransactionEquals(expected, transactionRepository.findAll());
     }
 

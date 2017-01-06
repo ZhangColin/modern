@@ -24,14 +24,14 @@ public class TransactionControllerTest {
     @Test
     public void back_page() {
         given_add_transaction_will(success());
-        assertEquals("add_transaction", controller.addTransaction(transaction, mockModel));
+        assertEquals("add_transaction", controller.submitAddTransaction(transaction, mockModel));
     }
 
     @Test
     public void add_transaction() {
         given_add_transaction_will(success());
 
-        controller.addTransaction(transaction, mockModel);
+        controller.submitAddTransaction(transaction, mockModel);
 
         verify(mockTransactions).add(eq(transaction));
     }
@@ -40,7 +40,7 @@ public class TransactionControllerTest {
     public void add_transaction_successfully() {
         given_add_transaction_will(success());
 
-        controller.addTransaction(transaction, mockModel);
+        controller.submitAddTransaction(transaction, mockModel);
 
         verify(mockModel).addAttribute("message", "Successfully add transaction");
     }
@@ -49,7 +49,7 @@ public class TransactionControllerTest {
     public void add_transaction_failed() {
         given_add_transaction_will(failed());
 
-        controller.addTransaction(transaction, mockModel);
+        controller.submitAddTransaction(transaction, mockModel);
 
         verify(mockModel).addAttribute("message", "Add transaction failed");
     }
