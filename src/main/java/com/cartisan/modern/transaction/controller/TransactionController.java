@@ -1,6 +1,5 @@
 package com.cartisan.modern.transaction.controller;
 
-import com.cartisan.modern.Urls;
 import com.cartisan.modern.transaction.domain.Transaction;
 import com.cartisan.modern.transaction.domain.Transactions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +25,12 @@ public class TransactionController {
         transactions.add(transaction)
                 .success(setMessage(model, "Successfully add transaction"))
                 .failed(setMessage(model, "Add transaction failed"));
-        return TRANSACTION_ADD;
+        return addTransaction(model);
     }
 
     @RequestMapping(value = TRANSACTION_ADD, method = RequestMethod.GET)
-    public String addTransaction() {
+    public String addTransaction(Model model) {
+        model.addAttribute("types", Transaction.Type.values());
         return TRANSACTION_ADD;
     }
 

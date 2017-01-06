@@ -3,8 +3,7 @@
     <div>
         <label>Type</label>
         <select name="type">
-            <option value="Income">Income</option>
-            <option value="Outcome">Outcome</option>
+            {{#types}}<option value="{{name}}">{{name}}</option> {{/types}}
         </select>
     </div>
     <div><label>Description</label><input type="text" name="description" class="form-control"/></div>
