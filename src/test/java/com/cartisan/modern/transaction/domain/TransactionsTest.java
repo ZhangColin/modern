@@ -3,7 +3,6 @@ package com.cartisan.modern.transaction.domain;
 import com.cartisan.modern.transaction.repository.TransactionRepository;
 import org.junit.Test;
 
-import static com.cartisan.modern.transaction.RunnableHelper.WHATEVER;
 import static org.mockito.Mockito.*;
 
 public class TransactionsTest {
@@ -16,7 +15,7 @@ public class TransactionsTest {
 
     @Test
     public void save_transaction() {
-        transactions.add(transaction).success(WHATEVER).failed(WHATEVER);
+        transactions.add(transaction);
         verify(mockRepository).save(transaction);
     }
 

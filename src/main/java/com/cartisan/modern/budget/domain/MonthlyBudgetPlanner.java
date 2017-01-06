@@ -1,10 +1,14 @@
 package com.cartisan.modern.budget.domain;
 
 import com.cartisan.modern.budget.repository.MonthlyBudgetRepository;
+import com.cartisan.modern.common.PostActions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+
+import static com.cartisan.modern.common.PostActionsFactory.failed;
+import static com.cartisan.modern.common.PostActionsFactory.success;
 
 @Service
 public class MonthlyBudgetPlanner {
@@ -35,12 +39,12 @@ public class MonthlyBudgetPlanner {
         return monthlyBudgetRepository.findAll();
     }
 
-    public void addMonthlyBudget(MonthlyBudget monthlyBudget, Runnable afterSuccess, Runnable afterFail) {
+    public PostActions addMonthlyBudget(MonthlyBudget monthlyBudget) {
         try {
             saveMonthlyBudget(monthlyBudget);
-            afterSuccess.run();
+            return success();
         } catch (IllegalArgumentException e) {
-            afterFail.run();
+            return failed();
         }
     }
 

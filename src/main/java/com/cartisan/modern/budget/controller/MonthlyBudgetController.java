@@ -25,9 +25,9 @@ public class MonthlyBudgetController {
 
     @RequestMapping("/confirm_add_budget_for_month")
     public String confirm(@ModelAttribute MonthlyBudget monthlyBudget, Model model) {
-        planner.addMonthlyBudget(monthlyBudget,
-                setMessage(model, "Successfully add budget for month"),
-                setMessage(model, "Add budget for month failed"));
+        planner.addMonthlyBudget(monthlyBudget)
+                .success(setMessage(model, "Successfully add budget for month"))
+                .failed(setMessage(model, "Add budget for month failed"));
 
         return "add_budget_for_month";
     }
