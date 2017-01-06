@@ -16,13 +16,13 @@ public class TransactionsTest {
 
     @Test
     public void save_transaction() {
-        transactions.add(transaction, WHATEVER, WHATEVER);
+        transactions.add(transaction).success(WHATEVER).failed(WHATEVER);
         verify(mockRepository).save(transaction);
     }
 
     @Test
     public void call_after_success_when_save_successfully() {
-        transactions.add(transaction, afterSuccess, afterFailed);
+        transactions.add(transaction).success(afterSuccess).failed(afterFailed);
 
         verify(afterSuccess).run();
         verify(afterFailed, never()).run();
@@ -32,7 +32,7 @@ public class TransactionsTest {
     public void call_after_failed_when_save_failed(){
         given_save_will_fail();
 
-        transactions.add(transaction, afterSuccess, afterFailed);
+        transactions.add(transaction).success(afterSuccess).failed(afterFailed);
 
         verify(afterFailed).run();
         verify(afterSuccess, never()).run();

@@ -1,5 +1,7 @@
 package com.cartisan.modern.transaction.domain;
 
+import com.cartisan.modern.common.PostActions;
+import com.cartisan.modern.common.PostActionsFactory;
 import com.cartisan.modern.transaction.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,13 +16,13 @@ public class Transactions {
         this.repository = repository;
     }
 
-    public void add(Transaction transaction, Runnable afterSuccess, Runnable afterFailed) {
+    public PostActions add(Transaction transaction) {
         try {
             repository.save(transaction);
-            afterSuccess.run();
+            return PostActionsFactory.success();
         }
         catch (IllegalArgumentException e){
-            afterFailed.run();
+            return PostActionsFactory.failed();
         }
     }
 }
