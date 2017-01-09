@@ -14,9 +14,7 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.*;
 
-public class TransactionControllerTest {
-    private static final int SUCCESS = 1;
-    private static final int FAILED = 2;
+public class TransactionAddControllerTest {
     Transactions mockTransactions = mock(Transactions.class);
     TransactionController controller = new TransactionController(mockTransactions);
     Transaction transaction = new Transaction();

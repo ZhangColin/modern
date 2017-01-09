@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import static com.cartisan.modern.Urls.TRANSACTION_ADD;
+import static com.cartisan.modern.Urls.TRANSACTION_LIST;
 
 @Controller
 public class TransactionController {
@@ -36,5 +37,10 @@ public class TransactionController {
 
     private Runnable setMessage(Model model, String message) {
         return () -> model.addAttribute("message", message);
+    }
+
+    @RequestMapping(value = TRANSACTION_LIST, method = RequestMethod.GET)
+    public String showTransactions() {
+        return TRANSACTION_LIST;
     }
 }

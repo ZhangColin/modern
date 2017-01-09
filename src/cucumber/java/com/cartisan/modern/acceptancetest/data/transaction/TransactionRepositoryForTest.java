@@ -13,4 +13,6 @@ public interface TransactionRepositoryForTest extends Repository<Transaction, Lo
     List<Transaction> findAll();
 
     void deleteAll();
+
+    void save(Transaction transaction);
 }
