@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import static com.cartisan.modern.Urls.MONTHLYBUDGET_TOTALAMOUNT;
+
 @Component
 @Scope("cucumber-glue")
 public class MonthlyBudgetAmountPage {
@@ -16,7 +18,7 @@ public class MonthlyBudgetAmountPage {
         Params params = new Params();
         params.add("startDate", startDate);
         params.add("endDate", endDate);
-        driver.navigateToWithParams("/get_amount", params);
+        driver.navigateToWithParams(MONTHLYBUDGET_TOTALAMOUNT, params);
     }
 
 }
