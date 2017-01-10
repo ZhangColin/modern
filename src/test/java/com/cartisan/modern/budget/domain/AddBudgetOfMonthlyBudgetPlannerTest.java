@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.util.Date;
 
 import static com.cartisan.modern.common.Formats.parseDay;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.unitils.reflectionassert.ReflectionAssert.assertReflectionEquals;
@@ -62,7 +63,7 @@ public class AddBudgetOfMonthlyBudgetPlannerTest {
         planner.addMonthlyBudget(overwrittenMonthlyBudget);
 
         MonthlyBudget savedMonthlyBudget = assertSavedMonthlyBudgetEquals(overwrittenMonthlyBudget);
-        assertEquals(MONTH_BUDGET_ID, savedMonthlyBudget.getId());
+        assertThat(savedMonthlyBudget.getId()).isEqualTo(MONTH_BUDGET_ID);
     }
 
     private void given_existing_monthly_budget_with_id(long id) {

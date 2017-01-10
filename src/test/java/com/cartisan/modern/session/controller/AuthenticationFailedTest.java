@@ -3,6 +3,7 @@ package com.cartisan.modern.session.controller;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 
 public class AuthenticationFailedTest {
@@ -19,17 +20,17 @@ public class AuthenticationFailedTest {
     public void message_when_sign_in_error(){
         ModelAndView actual = controller.signIn("any error", null);
 
-        assertEquals("Invalid username and password!", actual.getModel().get("message"));
-        assertEquals("danger", actual.getModel().get("type"));
-        assertEquals("signin", actual.getViewName());
+        assertThat(actual.getModel().get("message")).isEqualTo("Invalid username and password!");
+        assertThat(actual.getModel().get("type")).isEqualTo("danger");
+        assertThat(actual.getViewName()).isEqualTo("signin");
     }
 
     @Test
     public void message_when_logout(){
         ModelAndView actual = controller.signIn(null, "something logout");
 
-        assertEquals("You've been logged out successfully.", actual.getModel().get("message"));
-        assertEquals("info", actual.getModel().get("type"));
-        assertEquals("signin", actual.getViewName());
+        assertThat(actual.getModel().get("message")).isEqualTo("You've been logged out successfully.");
+        assertThat(actual.getModel().get("type")).isEqualTo("info");
+        assertThat(actual.getViewName()).isEqualTo("signin");
     }
 }
