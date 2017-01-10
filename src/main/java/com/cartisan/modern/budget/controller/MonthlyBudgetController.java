@@ -16,6 +16,7 @@ import java.util.Date;
 import static com.cartisan.modern.Urls.MONTHLYBUDGET_ADD;
 import static com.cartisan.modern.Urls.MONTHLYBUDGET_TOTALAMOUNT;
 import static com.cartisan.modern.common.Formats.DAY;
+import static com.cartisan.modern.common.controller.ControllerHelper.setMessage;
 
 @Controller
 public class MonthlyBudgetController {
@@ -47,9 +48,5 @@ public class MonthlyBudgetController {
         model.addAttribute("amount", planner.getAmount(startDate, endDate));
 
         return MONTHLYBUDGET_TOTALAMOUNT;
-    }
-
-    private Runnable setMessage(Model model, String attributeValue) {
-        return () -> model.addAttribute("message", attributeValue);
     }
 }

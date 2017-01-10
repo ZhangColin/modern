@@ -16,8 +16,8 @@ public class OutboxIntegrationTest {
     @Autowired
     private Outbox outbox;
 
-    @Ignore
-    @Test
+    //@Ignore
+    //@Test
     public void send(){
         Mail mail = new Mail();
         mail.setSubject("Test subject");
