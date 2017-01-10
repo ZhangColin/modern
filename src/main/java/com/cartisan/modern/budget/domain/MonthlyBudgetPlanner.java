@@ -12,8 +12,8 @@ import static com.cartisan.modern.common.PostActionsFactory.success;
 
 @Service
 public class MonthlyBudgetPlanner {
-    private BudgetCategory budgetCategory;
-    private MonthlyBudgetRepository monthlyBudgetRepository;
+    private final BudgetCategory budgetCategory;
+    private final MonthlyBudgetRepository monthlyBudgetRepository;
 
     @Autowired
     public MonthlyBudgetPlanner(BudgetCategory budgetCategory, MonthlyBudgetRepository monthlyBudgetRepository) {

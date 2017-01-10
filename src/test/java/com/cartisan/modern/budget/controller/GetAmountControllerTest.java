@@ -17,9 +17,9 @@ import static org.mockito.Mockito.when;
 
 public class GetAmountControllerTest {
 
+    Model mockModel = mock(Model.class);
     MonthlyBudgetPlanner mockPlanner = mock(MonthlyBudgetPlanner.class);
     MonthlyBudgetController controller = new MonthlyBudgetController(mockPlanner);
-        Model mockModel = mock(Model.class);
 
     Date startDate = parseDay("2016-07-01");
     Date endDate = parseDay("2016-07-10");
@@ -44,8 +44,4 @@ public class GetAmountControllerTest {
 
         verify(mockModel).addAttribute("amount", 100L);
     }
-
-    public GetAmountControllerTest() throws ParseException {
-    }
-
 }

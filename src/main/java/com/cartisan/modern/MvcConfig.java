@@ -4,7 +4,6 @@ import com.cartisan.modern.session.controller.AuthenticationInterceptor;
 import com.cartisan.modern.session.controller.LayoutNavigationInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration

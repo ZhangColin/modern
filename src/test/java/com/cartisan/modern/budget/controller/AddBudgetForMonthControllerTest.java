@@ -6,15 +6,12 @@ import com.cartisan.modern.common.PostActions;
 import org.junit.Test;
 import org.springframework.ui.Model;
 
-import java.text.ParseException;
-
 import static com.cartisan.modern.Urls.MONTHLYBUDGET_ADD;
 import static com.cartisan.modern.common.Formats.parseDay;
 import static com.cartisan.modern.common.PostActionsFactory.failed;
 import static com.cartisan.modern.common.PostActionsFactory.success;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.*;
 
 public class AddBudgetForMonthControllerTest {
@@ -23,8 +20,6 @@ public class AddBudgetForMonthControllerTest {
     Model mockModel = mock(Model.class);
     private final MonthlyBudget monthlyBudget = new MonthlyBudget(parseDay("2016-07-01"), 100);
 
-    public AddBudgetForMonthControllerTest() throws ParseException {
-    }
 
     @Test
     public void go_to_monthly_budget_add_page(){
@@ -44,7 +39,7 @@ public class AddBudgetForMonthControllerTest {
 
         controller.submitAddMonthlyBudget(monthlyBudget, mockModel);
 
-        verify(mockPlanner).addMonthlyBudget(eq(monthlyBudget));
+        verify(mockPlanner).addMonthlyBudget(monthlyBudget);
     }
 
     @Test
@@ -57,7 +52,7 @@ public class AddBudgetForMonthControllerTest {
     }
 
     @Test
-    public void return_add_fail_message_to_page_when_add_budget_for_for_month_failed(){
+    public void return_add_fail_message_to_page_when_add_budget_for_month_failed(){
         given_add_monthly_budget_will(failed());
 
         controller.submitAddMonthlyBudget(monthlyBudget, mockModel);

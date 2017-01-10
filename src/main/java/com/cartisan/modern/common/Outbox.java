@@ -35,7 +35,7 @@ public class Outbox {
                 .register(config.authentication())
                 .target(config.apiUrl())
                 .path(config.domain())
-                .path("message")
+                .path("messages")
                 .request();
     }
 

@@ -8,11 +8,19 @@ public class Formats {
     public static final String MONTH = "yyyy-MM";
     public static final String DAY = "yyyy-MM-dd";
 
-    public static Date parseDay(String day) throws ParseException {
-        return new SimpleDateFormat(DAY).parse(day);
+    public static Date parseDay(String day) {
+        try {
+            return new SimpleDateFormat(DAY).parse(day);
+        } catch (ParseException e) {
+            throw new IllegalStateException(e);
+        }
     }
 
-    public static Date parseMonth(String month) throws ParseException {
-        return new SimpleDateFormat(MONTH).parse(month);
+    public static Date parseMonth(String month){
+        try {
+            return new SimpleDateFormat(MONTH).parse(month);
+        } catch (ParseException e) {
+            throw new IllegalStateException(e);
+        }
     }
 }

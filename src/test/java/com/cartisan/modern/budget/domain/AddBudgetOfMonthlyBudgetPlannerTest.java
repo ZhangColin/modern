@@ -74,9 +74,6 @@ public class AddBudgetOfMonthlyBudgetPlannerTest {
         doThrow(IllegalArgumentException.class).when(mockMonthlyBudgetRepository).save(any(MonthlyBudget.class));
     }
 
-    public AddBudgetOfMonthlyBudgetPlannerTest() throws ParseException {
-    }
-
     private MonthlyBudget assertSavedMonthlyBudgetEquals(MonthlyBudget expectedMonthlyBudget) {
         MonthlyBudget savedMonthlyBudget = captureSavedMonthlyBudget();
         assertReflectionEquals(expectedMonthlyBudget, savedMonthlyBudget, IGNORE_DEFAULTS);

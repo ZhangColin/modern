@@ -1,6 +1,10 @@
 package com.cartisan.modern.user;
 
-import lombok.*;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 

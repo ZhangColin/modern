@@ -1,7 +1,7 @@
 package com.cartisan.modern.transaction.domain;
 
-import lombok.Data;
-import lombok.ToString;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -11,8 +11,8 @@ import static com.cartisan.modern.common.Formats.DAY;
 
 @Entity
 @Table(name="transactions")
-@Data
-@ToString
+@Getter
+@Setter
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

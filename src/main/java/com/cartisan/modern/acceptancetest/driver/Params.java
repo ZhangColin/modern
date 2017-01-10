@@ -6,9 +6,9 @@ import java.util.Map;
 import static java.util.stream.Collectors.joining;
 
 public class Params {
-    public static final String PARAM_CONNECTOR = "=";
-    public static final String QUERY_HEAD = "?";
-    public static final String PARAM_DELIMITER = "&";
+    private static final String QUERY_HEAD = "?";
+    private static final String PARAM_DELIMITER = "&";
+    private static final String PARAM_CONNECTOR = "=";
     private final Map<String, String> params = new HashMap<>();
 
     public void add(String name, String value){

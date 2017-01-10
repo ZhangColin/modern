@@ -1,7 +1,6 @@
 package com.cartisan.modern.transaction.domain;
 
 import com.cartisan.modern.common.PostActions;
-import com.cartisan.modern.common.PostActionsFactory;
 import com.cartisan.modern.transaction.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
