@@ -2,6 +2,7 @@ package com.cartisan.modern.transaction.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -24,7 +25,7 @@ public class Transaction {
     @NotNull
     private Type type;
 
-    @NotNull
+    @NotEmpty
     private String description;
 
     @NotNull @Past @DateTimeFormat(pattern = DAY)

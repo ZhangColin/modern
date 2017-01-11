@@ -1,11 +1,20 @@
 package com.cartisan.modern.acceptancetest.data.transaction;
 
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 public class EditableTransaction {
     private String type;
     private String description;
     private String date;
     private String amount;
+
+    public EditableTransaction populateAllEmptyAndDefaultData(){
+        type = "Income";
+        description = "";
+        date = "";
+        amount = "";
+
+        return this;
+    }
 }
