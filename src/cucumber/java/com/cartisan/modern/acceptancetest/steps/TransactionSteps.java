@@ -4,6 +4,7 @@ import com.cartisan.modern.acceptancetest.data.transaction.EditableTransaction;
 import com.cartisan.modern.acceptancetest.data.transaction.TransactionRepositoryForTest;
 import com.cartisan.modern.acceptancetest.pages.AddTransactionPage;
 import com.cartisan.modern.acceptancetest.pages.CommonPage;
+import com.cartisan.modern.acceptancetest.pages.ErrorMessages;
 import com.cartisan.modern.acceptancetest.pages.ShowAllTransactionsPage;
 import com.cartisan.modern.transaction.domain.Transaction;
 import cucumber.api.DataTable;
@@ -28,6 +29,9 @@ public class TransactionSteps {
 
     @Autowired
     private CommonPage commonPage;
+
+    @Autowired
+    private ErrorMessages errorMessages;
 
     @Autowired
     private ShowAllTransactionsPage showAllTransactionsPage;
@@ -67,11 +71,15 @@ public class TransactionSteps {
 
     @Then("^there is an error message for empty ([^\"]*)$")
     public void there_is_an_error_message_for_empty_input(String field) throws Throwable {
-        assertThat(commonPage.getAllText()).containsIgnoringCase(field + " should not be empty");
+        assertThat(commonPage.getAllText()).containsIgnoringCase(errorMessageWith(field, errorMessages.notEmpty));
+    }
+
+    private String errorMessageWith(String field, String error) {
+        return String.format("%s %s", field, error);
     }
 
     @Then("^there is an error message for null ([^\"]*)$")
     public void there_is_an_error_message_for_null_input(String field) throws Throwable {
-        assertThat(commonPage.getAllText()).containsIgnoringCase(field + " should not be null");
+        assertThat(commonPage.getAllText()).containsIgnoringCase(errorMessageWith(field, errorMessages.notNull));
     }
 }
