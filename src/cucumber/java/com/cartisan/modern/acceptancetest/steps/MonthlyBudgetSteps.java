@@ -54,7 +54,7 @@ public class MonthlyBudgetSteps {
 
     @Then("^monthly budget (\\d+) for \"([^\"]*)\" is saved$")
     public void monthly_budget_for_is_saved(Integer budget, @Format(MONTH)Date month) {
-        assertListDeepEquals(asList(new MonthlyBudget(month, budget)), monthlyBudgetRepository.findAll());
+        assertListDeepEquals(asList(new MonthlyBudget(month, budget)), monthlyBudgetRepository.findAll(), "month");
     }
 
     @Then("^the budget for \"([^\"]*)\" is (\\d+)$")

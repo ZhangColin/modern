@@ -38,7 +38,7 @@ public class TransactionSteps {
 
     @Then("^the following transactions will be created$")
     public void the_following_transactions_will_be_created(@Format(DAY) List<Transaction> expected) throws Throwable {
-        assertTransactionEquals(expected, transactionRepository.findAll());
+        assertListDeepEquals(expected, transactionRepository.findAll(), "date");
     }
 
     @Given("^exists the following transactions$")
@@ -53,12 +53,6 @@ public class TransactionSteps {
 
     @Then("^you will see all transactions as below$")
     public void you_will_see_all_transactions_as_belw(List<EditableTransaction> transactions) throws Throwable {
-    }
-
-
-    private void assertTransactionEquals(List<Transaction> expected,
-                                         List<Transaction> actual) {
-        assertListDeepEquals(expected, actual);
     }
 
 }
