@@ -6,6 +6,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+
+import java.util.ArrayList;
 
 import static com.cartisan.modern.Urls.TRANSACTION_ADD;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -21,6 +24,11 @@ public class TransactionControllerValidTest {
     @Before
     public void givenHasFieldErrors() {
         when(stubBindingResult.hasFieldErrors()).thenReturn(true);
+        when(stubBindingResult.getFieldErrors()).thenReturn(
+                new ArrayList<FieldError>(){{
+                    add(new FieldError("objectName", "field", "error message"));
+                }}
+        );
     }
 
     @Test
@@ -42,6 +50,12 @@ public class TransactionControllerValidTest {
         verify(mockModel).addAttribute("types", Transaction.Type.values());
     }
 
+    @Test
+    public void will_whow_error_message_when_has_one_field_error(){
+        submitTransactionAdd();
+
+        verify(mockModel).addAttribute("message", "error message");
+    }
 
     private String submitTransactionAdd() {
         return controller.submitAddTransaction(transaction, stubBindingResult, mockModel);
