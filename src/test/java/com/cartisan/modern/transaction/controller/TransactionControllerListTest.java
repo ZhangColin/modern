@@ -7,7 +7,7 @@ import static com.cartisan.modern.Urls.TRANSACTION_LIST;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
-public class TransactionListControllerTest {
+public class TransactionControllerListTest {
     private Transactions mockTransactions = mock(Transactions.class);
     private TransactionController controller = new TransactionController(mockTransactions);
 
