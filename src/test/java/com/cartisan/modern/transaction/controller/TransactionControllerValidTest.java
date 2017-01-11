@@ -24,7 +24,7 @@ public class TransactionControllerValidTest {
     @Before
     public void givenHasFieldErrors() {
         when(stubBindingResult.hasFieldErrors()).thenReturn(true);
-        givenFieldErrors(new FieldError("objectName", "field", "error message"));
+        givenFieldErrors(new FieldError("notUsedObjectName", "field", "error message"));
     }
 
     private void givenFieldErrors(final FieldError ... fieldErrors) {
@@ -51,29 +51,26 @@ public class TransactionControllerValidTest {
     }
 
     @Test
-    public void will_whow_error_message_when_has_one_field_error(){
+    public void will_show_error_message_when_has_one_field_error(){
+        givenFieldErrors(new FieldError("notUsedObjectName", "field", "error message"));
+
         submitTransactionAdd();
 
-        verify(mockModel).addAttribute("message", "error message");
+        verify(mockModel).addAttribute("error.field", "error message");
     }
 
     @Test
-    public void will_whow_error_message_when_has_two_field_errors(){
+    public void will_show_error_message_when_has_two_field_errors(){
         givenFieldErrors(
-                new FieldError("objectName1", "field1", "error message"),
-                new FieldError("objectName2", "field2", "another error message")
+                new FieldError("notUsedObjectName1", "field1", "error message"),
+                new FieldError("notUsedObjectName2", "field2", "another error message")
         );
 
         submitTransactionAdd();
 
-        assertThat(errorMessage()).contains("error message", "another error message");
+        verify(mockModel).addAttribute("error.field1", "error message");
+        verify(mockModel).addAttribute("error.field2", "another error message");
 
-    }
-
-    private String errorMessage() {
-        ArgumentCaptor<String> message = ArgumentCaptor.forClass(String.class);
-        verify(mockModel).addAttribute(eq("message"), message.capture());
-        return message.getValue();
     }
 
     private String submitTransactionAdd() {

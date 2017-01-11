@@ -16,12 +16,10 @@ import javax.validation.Valid;
 import static com.cartisan.modern.Urls.TRANSACTION_ADD;
 import static com.cartisan.modern.Urls.TRANSACTION_LIST;
 import static com.cartisan.modern.common.controller.ControllerHelper.setMessage;
-import static java.util.stream.Collectors.joining;
 
 @Controller
 public class TransactionController {
     private final Transactions transactions;
-    private final String DELIMITER = ";";
 
     @Autowired
     public TransactionController(Transactions transactions) {
@@ -35,14 +33,16 @@ public class TransactionController {
                     .success(setMessage(model, "Successfully add transaction"))
                     .failed(setMessage(model, "Add transaction failed"));
         else
-            setMessage(model, errorMessage(result)).run();
+            setErrorMessage(result, model);
         return addTransaction(model);
     }
 
-    private String errorMessage(BindingResult result) {
-        return result.getFieldErrors().stream()
-                .map(FieldError::getDefaultMessage)
-                .collect(joining(DELIMITER));
+    private void setErrorMessage(BindingResult result, Model model) {
+        result.getFieldErrors().forEach(fieldError -> setErrorMessage(model, fieldError));
+    }
+
+    private Model setErrorMessage(Model model, FieldError fieldError) {
+        return model.addAttribute("error."+fieldError.getField(), fieldError.getDefaultMessage());
     }
 
     @RequestMapping(value = TRANSACTION_ADD, method = RequestMethod.GET)
