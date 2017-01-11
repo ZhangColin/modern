@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,6 +21,7 @@ import static java.util.stream.Collectors.joining;
 @Controller
 public class TransactionController {
     private final Transactions transactions;
+    private final String DELIMITER = ";";
 
     @Autowired
     public TransactionController(Transactions transactions) {
@@ -39,8 +41,8 @@ public class TransactionController {
 
     private String errorMessage(BindingResult result) {
         return result.getFieldErrors().stream()
-                .map(fieldError -> fieldError.getDefaultMessage())
-                .collect(joining("/n"));
+                .map(FieldError::getDefaultMessage)
+                .collect(joining(DELIMITER));
     }
 
     @RequestMapping(value = TRANSACTION_ADD, method = RequestMethod.GET)
