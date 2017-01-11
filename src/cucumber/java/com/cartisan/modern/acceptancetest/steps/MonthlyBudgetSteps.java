@@ -17,6 +17,7 @@ import java.util.Date;
 import static com.cartisan.modern.acceptancetest.steps.AssertionHelper.assertListDeepEquals;
 import static com.cartisan.modern.common.Formats.MONTH;
 import static java.util.Arrays.asList;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
 
 public class MonthlyBudgetSteps {
@@ -69,7 +70,7 @@ public class MonthlyBudgetSteps {
 
     @Then("^the amount is (\\d+)$")
     public void the_amount_is(Integer amount) {
-        assertTrue(commonPage.getAllText().contains(String.valueOf(amount)));
+        assertThat(commonPage.getAllText()).contains(String.valueOf(amount));
     }
 
 }
