@@ -53,7 +53,6 @@ dependencies {
             "org.springframework.boot:spring-boot-starter-test:1.4.2.RELEASE",
             "junit:junit:4.12",
             "org.mockito:mockito-all:1.10.19",
-            "info.cukes:cucumber-junit:1.2.5",
             "info.cukes:cucumber-java:1.2.5",
             "info.cukes:cucumber-spring:1.2.5",
             "org.seleniumhq.selenium:selenium-java:3.0.1",
