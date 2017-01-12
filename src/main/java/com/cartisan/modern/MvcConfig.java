@@ -13,7 +13,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new AuthenticationInterceptor());
         registry.addInterceptor(new LayoutNavigationInterceptor());
-//        registry.addInterceptor(new ErrorMessageInterceptor());
+        registry.addInterceptor(new ErrorMessageInterceptor());
         super.addInterceptors(registry);
     }
 }

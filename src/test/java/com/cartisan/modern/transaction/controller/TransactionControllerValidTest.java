@@ -23,7 +23,6 @@ public class TransactionControllerValidTest {
     @Before
     public void givenHasFieldErrors() {
         when(stubBindingResult.hasFieldErrors()).thenReturn(true);
-        givenFieldErrors(new FieldError("notUsedObjectName", "field", "error message"));
     }
 
     @Test
@@ -43,33 +42,6 @@ public class TransactionControllerValidTest {
         submitAddTransaction();
 
         verify(mockModel).addAttribute("types", Transaction.Type.values());
-    }
-
-    @Test
-    public void will_show_error_message_when_has_one_field_error(){
-        givenFieldErrors(new FieldError("notUsedObjectName", "field", "error message"));
-
-        submitAddTransaction();
-
-        verify(mockModel).addAttribute("error.field", "error message");
-    }
-
-    @Test
-    public void will_show_error_message_when_has_two_field_errors(){
-        givenFieldErrors(
-                new FieldError("notUsedObjectName1", "field1", "error message"),
-                new FieldError("notUsedObjectName2", "field2", "another error message")
-        );
-
-        submitAddTransaction();
-
-        verify(mockModel).addAttribute("error.field1", "error message");
-        verify(mockModel).addAttribute("error.field2", "another error message");
-
-    }
-
-    private void givenFieldErrors(final FieldError ... fieldErrors) {
-        when(stubBindingResult.getFieldErrors()).thenReturn(asList(fieldErrors));
     }
 
     private String submitAddTransaction() {

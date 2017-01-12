@@ -36,17 +36,8 @@ public class MonthlyBudgetController {
             planner.addMonthlyBudget(monthlyBudget)
                     .success(setMessage(model, "Successfully add budget for month"))
                     .failed(setMessage(model, "Add budget for month failed"));
-        else
-            setErrorMessage(result, model);
+
         return MONTHLYBUDGET_ADD;
-    }
-
-    private void setErrorMessage(BindingResult result, Model model) {
-        result.getFieldErrors().forEach(fieldError -> setErrorMessage(model, fieldError));
-    }
-
-    private void setErrorMessage(Model model, FieldError fieldError) {
-        model.addAttribute("error." + fieldError.getField(), fieldError.getDefaultMessage());
     }
 
     @RequestMapping(value = MONTHLYBUDGET_ADD, method = RequestMethod.GET)

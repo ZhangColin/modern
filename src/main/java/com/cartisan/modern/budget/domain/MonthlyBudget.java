@@ -1,9 +1,12 @@
 package com.cartisan.modern.budget.domain;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 import static com.cartisan.modern.common.Formats.MONTH;
@@ -23,10 +26,10 @@ public class MonthlyBudget {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @NonNull
+    @NotNull
     @DateTimeFormat(pattern = MONTH)
     private Date month;
 
-    @NonNull
+    @NotNull
     private Integer budget;
 }

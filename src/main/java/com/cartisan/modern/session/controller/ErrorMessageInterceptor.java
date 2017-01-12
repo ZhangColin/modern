@@ -8,6 +8,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.toList;
 
 public class ErrorMessageInterceptor implements HandlerInterceptor {
     @Override
@@ -17,14 +22,23 @@ public class ErrorMessageInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        BindingResult bindingResult = bindingResult(modelAndView);
-        if (bindingResult != null) {
-            bindingResult.getFieldErrors().forEach(fieldError -> setErrorMessage(modelAndView.getModelMap(), fieldError));
-        }
+        allFieldErrors(modelAndView).forEach(fieldError -> setErrorMessage(modelAndView.getModelMap(), fieldError));
     }
 
-    private BindingResult bindingResult(ModelAndView modelAndView) {
-        return (BindingResult) modelAndView.getModel().get(BindingResult.MODEL_KEY_PREFIX+"monthlyBudget");
+    private List<FieldError> allFieldErrors(ModelAndView modelAndView) {
+        Stream<Map.Entry<String, Object>> stream = modelAndView.getModelMap().entrySet().stream();
+        return stream
+                .filter(this::hasFieldError)
+                .flatMap(this::fieldErrors)
+                .collect(toList());
+    }
+
+    private boolean hasFieldError(Map.Entry<String, Object> entry) {
+        return entry.getKey().startsWith(BindingResult.MODEL_KEY_PREFIX);
+    }
+
+    private Stream<FieldError> fieldErrors(Map.Entry<String, Object> entry) {
+        return ((BindingResult)entry.getValue()).getFieldErrors().stream();
     }
 
     private void setErrorMessage(ModelMap model, FieldError fieldError) {

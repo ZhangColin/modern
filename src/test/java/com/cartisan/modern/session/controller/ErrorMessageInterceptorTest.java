@@ -2,7 +2,6 @@ package com.cartisan.modern.session.controller;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -10,13 +9,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import java.util.HashMap;
+import java.util.AbstractMap;
 
 import static java.util.Arrays.asList;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
+import static java.util.stream.Collectors.toList;
 
 public class ErrorMessageInterceptorTest {
     HttpServletRequest notUsedRequest = mock(HttpServletRequest.class);
@@ -24,11 +24,19 @@ public class ErrorMessageInterceptorTest {
     Object notUsedHandler = new Object();
     ModelAndView stubModelAndView = mock(ModelAndView.class);
     ErrorMessageInterceptor interceptor = new ErrorMessageInterceptor();
-    ModelMap mockModelMap = mock(ModelMap.class);
+    ModelMap modelMap = new ModelMap();
 
     @Before
     public void givenModelMap() {
-        when(stubModelAndView.getModelMap()).thenReturn(mockModelMap);
+        when(stubModelAndView.getModelMap()).thenReturn(modelMap);
+        when(stubModelAndView.getModel()).thenReturn(modelMap);
+    }
+
+    @Test
+    public void will_do_nothing_when_has_no_field_error() throws Exception {
+        postHandle();
+
+        assertThat(modelMap).isEmpty();
     }
 
     @Test
@@ -37,7 +45,7 @@ public class ErrorMessageInterceptorTest {
 
         postHandle();
 
-        verify(mockModelMap).addAttribute("error.field", "error message");
+        assertThat(modelMap).contains(new AbstractMap.SimpleEntry("error.field", "error message"));
     }
 
     @Test
@@ -49,8 +57,9 @@ public class ErrorMessageInterceptorTest {
 
         postHandle();
 
-        verify(mockModelMap).addAttribute("error.field1", "error message");
-        verify(mockModelMap).addAttribute("error.field2", "another error message");
+        assertThat(modelMap).contains(
+                new AbstractMap.SimpleEntry("error.field1", "error message"),
+                new AbstractMap.SimpleEntry("error.field2", "another error message"));
     }
 
     private void postHandle() throws Exception {
@@ -58,12 +67,10 @@ public class ErrorMessageInterceptorTest {
     }
 
     private void givenFieldErrors(FieldError... errors) {
-        HashMap<String, Object> modelMap = new HashMap<>();
-        modelMap.put(BindingResult.MODEL_KEY_PREFIX + "monthlyBudget", stubBindingResult(errors));
-        when(stubModelAndView.getModel()).thenReturn(modelMap);
+        modelMap.put(BindingResult.MODEL_KEY_PREFIX + "anyObject", stubBindingResult(errors));
     }
 
-    private BindingResult stubBindingResult(FieldError... errors){
+    private BindingResult stubBindingResult(FieldError... errors) {
         BindingResult stubBindingResult = mock(BindingResult.class);
         when(stubBindingResult.getFieldErrors()).thenReturn(asList(errors));
         return stubBindingResult;
