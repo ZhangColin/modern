@@ -12,9 +12,13 @@ import static com.cartisan.modern.common.Formats.MONTH;
 @Table(name = "monthly_budgets")
 @Getter
 @Setter
-@RequiredArgsConstructor
 @NoArgsConstructor
 public class MonthlyBudget {
+    public MonthlyBudget(Date month, Integer budget) {
+        this.month = month;
+        this.budget = budget;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;

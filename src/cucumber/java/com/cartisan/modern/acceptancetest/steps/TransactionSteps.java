@@ -74,12 +74,12 @@ public class TransactionSteps {
         assertThat(commonPage.getAllText()).containsIgnoringCase(errorMessageWith(field, errorMessages.notEmpty));
     }
 
-    private String errorMessageWith(String field, String error) {
-        return String.format("%s %s", field, error);
-    }
-
     @Then("^there is an error message for null ([^\"]*)$")
     public void there_is_an_error_message_for_null_input(String field) throws Throwable {
         assertThat(commonPage.getAllText()).containsIgnoringCase(errorMessageWith(field, errorMessages.notNull));
+    }
+
+    private String errorMessageWith(String field, String error) {
+        return String.format("%s %s", field, error);
     }
 }

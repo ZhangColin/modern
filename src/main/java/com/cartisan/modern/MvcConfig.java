@@ -1,6 +1,7 @@
 package com.cartisan.modern;
 
 import com.cartisan.modern.session.controller.AuthenticationInterceptor;
+import com.cartisan.modern.session.controller.ErrorMessageInterceptor;
 import com.cartisan.modern.session.controller.LayoutNavigationInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -12,6 +13,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new AuthenticationInterceptor());
         registry.addInterceptor(new LayoutNavigationInterceptor());
+//        registry.addInterceptor(new ErrorMessageInterceptor());
         super.addInterceptors(registry);
     }
 }

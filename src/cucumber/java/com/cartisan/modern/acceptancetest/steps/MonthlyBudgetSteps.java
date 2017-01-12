@@ -45,7 +45,7 @@ public class MonthlyBudgetSteps {
 
     @When("^add budget for \"([^\"]*)\" with amount (\\d+)$")
     public void add_budget_for_with_amount(String month, Integer budget) {
-        addMonthlyBudgetPage.addMonthlyBudget(month, budget);
+        addMonthlyBudgetPage.addMonthlyBudget(month, String.valueOf(budget));
     }
 
     @When("^add budget for \"([^\"]*)\" with a new amount (\\d+)$")
@@ -73,4 +73,8 @@ public class MonthlyBudgetSteps {
         assertThat(commonPage.getAllText()).contains(String.valueOf(amount));
     }
 
+    @When("^add monthly budget with no date$")
+    public void add_monthly_budget_with_no_date() throws Throwable {
+        addMonthlyBudgetPage.addMonthlyBudget("", "");
+    }
 }

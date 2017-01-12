@@ -4,7 +4,6 @@ import com.cartisan.modern.transaction.domain.Transaction;
 import com.cartisan.modern.transaction.domain.Transactions;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentCaptor;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -16,7 +15,7 @@ import static org.mockito.Mockito.*;
 
 public class TransactionControllerValidTest {
     Model mockModel = mock(Model.class);
-    Transaction transaction = new Transaction();
+    Transaction invalidTransaction = new Transaction();
     BindingResult stubBindingResult = mock(BindingResult.class);
     Transactions mockTransactions = mock(Transactions.class);
     TransactionController controller = new TransactionController(mockTransactions);
@@ -27,25 +26,21 @@ public class TransactionControllerValidTest {
         givenFieldErrors(new FieldError("notUsedObjectName", "field", "error message"));
     }
 
-    private void givenFieldErrors(final FieldError ... fieldErrors) {
-        when(stubBindingResult.getFieldErrors()).thenReturn(asList(fieldErrors));
-    }
-
     @Test
     public void will_not_add_transaction_when_has_field_error() {
-        submitTransactionAdd();
+        submitAddTransaction();
 
-        verify(mockTransactions, never()).add(transaction);
+        verify(mockTransactions, never()).add(invalidTransaction);
     }
 
     @Test
     public void will_go_to_add_transaction_page_when_has_field_error() {
-        assertThat(submitTransactionAdd()).isEqualTo(TRANSACTION_ADD);
+        assertThat(submitAddTransaction()).isEqualTo(TRANSACTION_ADD);
     }
 
     @Test
     public void will_show_all_transaction_types_when_has_field_error(){
-        submitTransactionAdd();
+        submitAddTransaction();
 
         verify(mockModel).addAttribute("types", Transaction.Type.values());
     }
@@ -54,7 +49,7 @@ public class TransactionControllerValidTest {
     public void will_show_error_message_when_has_one_field_error(){
         givenFieldErrors(new FieldError("notUsedObjectName", "field", "error message"));
 
-        submitTransactionAdd();
+        submitAddTransaction();
 
         verify(mockModel).addAttribute("error.field", "error message");
     }
@@ -66,14 +61,18 @@ public class TransactionControllerValidTest {
                 new FieldError("notUsedObjectName2", "field2", "another error message")
         );
 
-        submitTransactionAdd();
+        submitAddTransaction();
 
         verify(mockModel).addAttribute("error.field1", "error message");
         verify(mockModel).addAttribute("error.field2", "another error message");
 
     }
 
-    private String submitTransactionAdd() {
-        return controller.submitAddTransaction(transaction, stubBindingResult, mockModel);
+    private void givenFieldErrors(final FieldError ... fieldErrors) {
+        when(stubBindingResult.getFieldErrors()).thenReturn(asList(fieldErrors));
+    }
+
+    private String submitAddTransaction() {
+        return controller.submitAddTransaction(invalidTransaction, stubBindingResult, mockModel);
     }
 }
