@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
+import static org.springframework.validation.BindingResult.MODEL_KEY_PREFIX;
 
 public class ErrorMessageInterceptor implements HandlerInterceptor {
     @Override
@@ -34,7 +35,7 @@ public class ErrorMessageInterceptor implements HandlerInterceptor {
     }
 
     private boolean hasFieldError(Map.Entry<String, Object> entry) {
-        return entry.getKey().startsWith(BindingResult.MODEL_KEY_PREFIX);
+        return entry.getKey().startsWith(MODEL_KEY_PREFIX);
     }
 
     private Stream<FieldError> fieldErrors(Map.Entry<String, Object> entry) {
