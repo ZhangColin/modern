@@ -1,4 +1,4 @@
-package com.cartisan.modern.acceptancetest.pages;
+package com.cartisan.modern.acceptancetest.data;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;

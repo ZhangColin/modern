@@ -4,7 +4,6 @@ package com.cartisan.modern.acceptancetest.steps;
 import com.cartisan.modern.acceptancetest.data.budget.MonthlyBudgetRepositoryForTest;
 import com.cartisan.modern.acceptancetest.pages.AddMonthlyBudgetPage;
 import com.cartisan.modern.acceptancetest.pages.CommonPage;
-import com.cartisan.modern.acceptancetest.pages.ErrorMessages;
 import com.cartisan.modern.acceptancetest.pages.MonthlyBudgetAmountPage;
 import com.cartisan.modern.budget.domain.MonthlyBudget;
 import cucumber.api.Format;
@@ -19,7 +18,6 @@ import static com.cartisan.modern.acceptancetest.steps.AssertionHelper.assertLis
 import static com.cartisan.modern.common.Formats.MONTH;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertTrue;
 
 public class MonthlyBudgetSteps {
     @Autowired
@@ -33,9 +31,6 @@ public class MonthlyBudgetSteps {
 
     @Autowired
     private MonthlyBudgetRepositoryForTest monthlyBudgetRepository;
-
-    @Autowired
-    private ErrorMessages errorMessages;
 
     @Given("^budget (\\d+) has been set for month \"([^\"]*)\"$")
     public void budget_has_been_set_for_month(Integer budget, @Format(MONTH)Date month) {
@@ -80,14 +75,5 @@ public class MonthlyBudgetSteps {
     @When("^add monthly budget with no month and invalid budget$")
     public void add_monthly_budget_with_no_month_and_invalid_budget() throws Throwable {
         addMonthlyBudgetPage.addMonthlyBudget(null, "invalid budget");
-    }
-
-    @Then("^there is an error message for invalid number ([^\"]*)$")
-    public void there_is_an_error_message_for_invalid_number(String field) {
-        assertThat(commonPage.getAllText()).containsIgnoringCase(errorMessageWith(field, errorMessages.invalidNumber));
-    }
-
-    private String errorMessageWith(String field, String error) {
-        return String.format("%s %s", field, error);
     }
 }

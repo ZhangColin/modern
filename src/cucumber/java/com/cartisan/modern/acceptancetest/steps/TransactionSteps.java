@@ -3,11 +3,8 @@ package com.cartisan.modern.acceptancetest.steps;
 import com.cartisan.modern.acceptancetest.data.transaction.EditableTransaction;
 import com.cartisan.modern.acceptancetest.data.transaction.TransactionRepositoryForTest;
 import com.cartisan.modern.acceptancetest.pages.AddTransactionPage;
-import com.cartisan.modern.acceptancetest.pages.CommonPage;
-import com.cartisan.modern.acceptancetest.pages.ErrorMessages;
 import com.cartisan.modern.acceptancetest.pages.ShowAllTransactionsPage;
 import com.cartisan.modern.transaction.domain.Transaction;
-import cucumber.api.DataTable;
 import cucumber.api.Format;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -18,7 +15,6 @@ import java.util.List;
 
 import static com.cartisan.modern.acceptancetest.steps.AssertionHelper.assertListDeepEquals;
 import static com.cartisan.modern.common.Formats.DAY;
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class TransactionSteps {
     @Autowired
@@ -26,12 +22,6 @@ public class TransactionSteps {
 
     @Autowired
     private TransactionRepositoryForTest transactionRepository;
-
-    @Autowired
-    private CommonPage commonPage;
-
-    @Autowired
-    private ErrorMessages errorMessages;
 
     @Autowired
     private ShowAllTransactionsPage showAllTransactionsPage;
@@ -61,22 +51,4 @@ public class TransactionSteps {
     }
 
 
-    @Then("^there is an error message for empty ([^\"]*)$")
-    public void there_is_an_error_message_for_empty_input(String field) throws Throwable {
-        assertThat(commonPage.getAllText()).containsIgnoringCase(errorMessageWith(field, errorMessages.notEmpty));
-    }
-
-    @Then("^there is an error message for null ([^\"]*)$")
-    public void there_is_an_error_message_for_null_input(String field) throws Throwable {
-        assertThat(commonPage.getAllText()).containsIgnoringCase(errorMessageWith(field, errorMessages.notNull));
-    }
-
-    @Then("^there is an error message for invalid date ([^\"]*)$")
-    public void there_is_an_error_message_for_invalid_date_input(String field) throws Throwable {
-        assertThat(commonPage.getAllText()).containsIgnoringCase(errorMessageWith(field, errorMessages.invalidDate));
-    }
-
-    private String errorMessageWith(String field, String error) {
-        return String.format("%s %s", field, error);
-    }
 }
