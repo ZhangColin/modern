@@ -1,5 +1,6 @@
 package com.cartisan.modern.session.controller;
 
+import org.springframework.context.MessageSource;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -16,6 +17,12 @@ import static java.util.stream.Collectors.toList;
 import static org.springframework.validation.BindingResult.MODEL_KEY_PREFIX;
 
 public class ErrorMessageInterceptor implements HandlerInterceptor {
+    private final MessageSource messageSource;
+
+    public ErrorMessageInterceptor(MessageSource messageSource) {
+        this.messageSource = messageSource;
+    }
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         return true;
@@ -43,7 +50,7 @@ public class ErrorMessageInterceptor implements HandlerInterceptor {
     }
 
     private void setErrorMessage(ModelMap model, FieldError fieldError) {
-        model.addAttribute("error." + fieldError.getField(), fieldError.getDefaultMessage());
+        model.addAttribute("error." + fieldError.getField(), messageSource.getMessage(fieldError, null));
     }
 
     @Override
