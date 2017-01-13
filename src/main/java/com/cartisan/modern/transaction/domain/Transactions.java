@@ -1,12 +1,12 @@
 package com.cartisan.modern.transaction.domain;
 
-import com.cartisan.modern.common.PostActions;
+import com.cartisan.modern.common.callback.PostActions;
 import com.cartisan.modern.transaction.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import static com.cartisan.modern.common.PostActionsFactory.failed;
-import static com.cartisan.modern.common.PostActionsFactory.success;
+import static com.cartisan.modern.common.callback.PostActionsFactory.failed;
+import static com.cartisan.modern.common.callback.PostActionsFactory.success;
 
 @Service
 public class Transactions {

@@ -1,5 +1,7 @@
 package com.cartisan.modern.common;
 
+import com.cartisan.modern.common.mail.Mail;
+import com.cartisan.modern.common.mail.Outbox;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.assertj.core.api.Assertions.assertThat;

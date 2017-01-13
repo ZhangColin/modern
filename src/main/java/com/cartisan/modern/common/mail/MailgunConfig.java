@@ -1,4 +1,4 @@
-package com.cartisan.modern.common;
+package com.cartisan.modern.common.mail;
 
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
 import org.springframework.beans.factory.annotation.Autowired;

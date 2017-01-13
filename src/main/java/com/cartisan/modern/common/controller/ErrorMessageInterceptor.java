@@ -1,4 +1,4 @@
-package com.cartisan.modern.session.controller;
+package com.cartisan.modern.common.controller;
 
 import org.springframework.context.MessageSource;
 import org.springframework.ui.ModelMap;

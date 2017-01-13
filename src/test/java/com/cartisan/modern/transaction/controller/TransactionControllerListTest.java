@@ -3,7 +3,7 @@ package com.cartisan.modern.transaction.controller;
 import com.cartisan.modern.transaction.domain.Transactions;
 import org.junit.Test;
 
-import static com.cartisan.modern.Urls.TRANSACTION_LIST;
+import static com.cartisan.modern.common.controller.Urls.TRANSACTION_LIST;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 

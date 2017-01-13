@@ -5,8 +5,8 @@ import com.cartisan.modern.acceptancetest.data.budget.MonthlyBudgetRepositoryFor
 import com.cartisan.modern.acceptancetest.data.transaction.TransactionRepositoryForTest;
 import com.cartisan.modern.acceptancetest.driver.UiDriver;
 import com.cartisan.modern.acceptancetest.pages.SignInPage;
-import com.cartisan.modern.user.User;
-import com.cartisan.modern.user.UserRepository;
+import com.cartisan.modern.user.domain.User;
+import com.cartisan.modern.user.repository.UserRepository;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import org.junit.runner.RunWith;

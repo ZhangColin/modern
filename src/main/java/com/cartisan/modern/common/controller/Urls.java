@@ -1,4 +1,4 @@
-package com.cartisan.modern;
+package com.cartisan.modern.common.controller;
 
 public class Urls {
     public static final String TRANSACTION_ADD = "/transaction/add";

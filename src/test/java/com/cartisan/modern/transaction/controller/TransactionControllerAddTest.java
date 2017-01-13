@@ -1,15 +1,15 @@
 package com.cartisan.modern.transaction.controller;
 
-import com.cartisan.modern.common.PostActions;
+import com.cartisan.modern.common.callback.PostActions;
 import com.cartisan.modern.transaction.domain.Transaction;
 import com.cartisan.modern.transaction.domain.Transactions;
 import org.junit.Test;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
-import static com.cartisan.modern.Urls.TRANSACTION_ADD;
-import static com.cartisan.modern.common.PostActionsFactory.failed;
-import static com.cartisan.modern.common.PostActionsFactory.success;
+import static com.cartisan.modern.common.controller.Urls.TRANSACTION_ADD;
+import static com.cartisan.modern.common.callback.PostActionsFactory.failed;
+import static com.cartisan.modern.common.callback.PostActionsFactory.success;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;

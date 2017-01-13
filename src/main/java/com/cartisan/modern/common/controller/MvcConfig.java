@@ -1,8 +1,5 @@
-package com.cartisan.modern;
+package com.cartisan.modern.common.controller;
 
-import com.cartisan.modern.session.controller.AuthenticationInterceptor;
-import com.cartisan.modern.session.controller.ErrorMessageInterceptor;
-import com.cartisan.modern.session.controller.LayoutNavigationInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Configuration;

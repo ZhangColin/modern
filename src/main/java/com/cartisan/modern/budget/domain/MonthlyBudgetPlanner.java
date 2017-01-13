@@ -1,14 +1,14 @@
 package com.cartisan.modern.budget.domain;
 
 import com.cartisan.modern.budget.repository.MonthlyBudgetRepository;
-import com.cartisan.modern.common.PostActions;
+import com.cartisan.modern.common.callback.PostActions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
-import static com.cartisan.modern.common.PostActionsFactory.failed;
-import static com.cartisan.modern.common.PostActionsFactory.success;
+import static com.cartisan.modern.common.callback.PostActionsFactory.failed;
+import static com.cartisan.modern.common.callback.PostActionsFactory.success;
 
 @Service
 public class MonthlyBudgetPlanner {

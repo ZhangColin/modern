@@ -1,5 +1,6 @@
 package com.cartisan.modern.session.controller;
 
+import com.cartisan.modern.common.controller.ErrorMessageInterceptor;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.MessageSource;

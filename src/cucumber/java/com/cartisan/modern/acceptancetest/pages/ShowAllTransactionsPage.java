@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import static com.cartisan.modern.Urls.TRANSACTION_LIST;
+import static com.cartisan.modern.common.controller.Urls.TRANSACTION_LIST;
 
 @Component
 @Scope("cucumber-glue")

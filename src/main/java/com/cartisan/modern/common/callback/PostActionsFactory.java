@@ -1,4 +1,4 @@
-package com.cartisan.modern.common;
+package com.cartisan.modern.common.callback;
 
 public class PostActionsFactory {
     public static PostActions success(){

@@ -1,5 +1,6 @@
 package com.cartisan.modern.session.controller;
 
+import com.cartisan.modern.common.controller.SessionController;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 

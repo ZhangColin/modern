@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
 
-import static com.cartisan.modern.Urls.TRANSACTION_ADD;
-import static com.cartisan.modern.Urls.TRANSACTION_LIST;
+import static com.cartisan.modern.common.controller.Urls.TRANSACTION_ADD;
+import static com.cartisan.modern.common.controller.Urls.TRANSACTION_LIST;
 import static com.cartisan.modern.common.controller.ControllerHelper.setMessage;
 
 @Controller

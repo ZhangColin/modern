@@ -2,8 +2,8 @@ package com.cartisan.modern.acceptancetest.steps;
 
 import com.cartisan.modern.acceptancetest.pages.CommonPage;
 import com.cartisan.modern.acceptancetest.pages.SignInPage;
-import com.cartisan.modern.user.User;
-import com.cartisan.modern.user.UserRepository;
+import com.cartisan.modern.user.domain.User;
+import com.cartisan.modern.user.repository.UserRepository;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;

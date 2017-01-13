@@ -1,13 +1,14 @@
 package com.cartisan.modern.session.controller;
 
+import com.cartisan.modern.common.controller.LayoutNavigationInterceptor;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static com.cartisan.modern.Urls.MONTHLYBUDGET_ADD;
-import static com.cartisan.modern.Urls.TRANSACTION_ADD;
+import static com.cartisan.modern.common.controller.Urls.MONTHLYBUDGET_ADD;
+import static com.cartisan.modern.common.controller.Urls.TRANSACTION_ADD;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 

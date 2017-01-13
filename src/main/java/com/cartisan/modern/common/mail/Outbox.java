@@ -1,4 +1,4 @@
-package com.cartisan.modern.common;
+package com.cartisan.modern.common.mail;
 
 import org.glassfish.jersey.client.JerseyClientBuilder;
 import org.glassfish.jersey.logging.LoggingFeature;

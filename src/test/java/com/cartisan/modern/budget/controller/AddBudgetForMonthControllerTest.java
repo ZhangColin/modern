@@ -2,15 +2,15 @@ package com.cartisan.modern.budget.controller;
 
 import com.cartisan.modern.budget.domain.MonthlyBudget;
 import com.cartisan.modern.budget.domain.MonthlyBudgetPlanner;
-import com.cartisan.modern.common.PostActions;
+import com.cartisan.modern.common.callback.PostActions;
 import org.junit.Test;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
-import static com.cartisan.modern.Urls.MONTHLYBUDGET_ADD;
+import static com.cartisan.modern.common.controller.Urls.MONTHLYBUDGET_ADD;
 import static com.cartisan.modern.common.Formats.parseDay;
-import static com.cartisan.modern.common.PostActionsFactory.failed;
-import static com.cartisan.modern.common.PostActionsFactory.success;
+import static com.cartisan.modern.common.callback.PostActionsFactory.failed;
+import static com.cartisan.modern.common.callback.PostActionsFactory.success;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;

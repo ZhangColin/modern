@@ -1,4 +1,4 @@
-package com.cartisan.modern.user;
+package com.cartisan.modern.user.domain;
 
 
 import lombok.Getter;

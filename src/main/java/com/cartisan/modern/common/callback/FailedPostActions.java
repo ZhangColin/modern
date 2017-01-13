@@ -1,4 +1,6 @@
-package com.cartisan.modern.common;
+package com.cartisan.modern.common.callback;
+
+import com.cartisan.modern.common.callback.PostActions;
 
 public class FailedPostActions implements PostActions {
     @Override

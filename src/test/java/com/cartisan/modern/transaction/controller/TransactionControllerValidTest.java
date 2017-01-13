@@ -6,10 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 
-import static com.cartisan.modern.Urls.TRANSACTION_ADD;
-import static java.util.Arrays.asList;
+import static com.cartisan.modern.common.controller.Urls.TRANSACTION_ADD;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 

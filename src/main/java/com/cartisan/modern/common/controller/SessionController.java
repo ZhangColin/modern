@@ -1,4 +1,4 @@
-package com.cartisan.modern.session.controller;
+package com.cartisan.modern.common.controller;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
