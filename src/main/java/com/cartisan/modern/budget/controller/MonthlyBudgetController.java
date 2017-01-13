@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.validation.Valid;
 import java.util.Date;
 
-import static com.cartisan.modern.common.controller.Urls.MONTHLYBUDGET_ADD;
-import static com.cartisan.modern.common.controller.Urls.MONTHLYBUDGET_TOTALAMOUNT;
 import static com.cartisan.modern.common.Formats.DAY;
 import static com.cartisan.modern.common.controller.ControllerHelper.setMessage;
+import static com.cartisan.modern.common.controller.Urls.MONTHLYBUDGET_ADD;
+import static com.cartisan.modern.common.controller.Urls.MONTHLYBUDGET_TOTALAMOUNT;
 
 @Controller
 @PropertySource("classpath:resultMessages.properties")

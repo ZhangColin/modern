@@ -1,6 +1,5 @@
-package com.cartisan.modern.session.controller;
+package com.cartisan.modern.common.controller;
 
-import com.cartisan.modern.common.controller.ErrorMessageInterceptor;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.MessageSource;
@@ -11,7 +10,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import java.util.Locale;
 
 import static java.util.AbstractMap.SimpleEntry;

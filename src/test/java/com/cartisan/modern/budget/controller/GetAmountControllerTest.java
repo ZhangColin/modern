@@ -7,8 +7,8 @@ import org.springframework.ui.Model;
 
 import java.util.Date;
 
-import static com.cartisan.modern.common.controller.Urls.MONTHLYBUDGET_TOTALAMOUNT;
 import static com.cartisan.modern.common.Formats.parseDay;
+import static com.cartisan.modern.common.controller.Urls.MONTHLYBUDGET_TOTALAMOUNT;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 

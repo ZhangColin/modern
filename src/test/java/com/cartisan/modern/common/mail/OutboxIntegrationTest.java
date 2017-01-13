@@ -1,11 +1,8 @@
-package com.cartisan.modern.common;
+package com.cartisan.modern.common.mail;
 
-import com.cartisan.modern.common.mail.Mail;
-import com.cartisan.modern.common.mail.Outbox;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
 
 //@RunWith(SpringJUnit4ClassRunner.class)
 //@SpringApplicationConfiguration(classes = Application.class)

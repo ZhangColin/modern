@@ -1,8 +1,8 @@
 package com.cartisan.modern.acceptancetest.pages;
 
+import com.cartisan.modern.acceptancetest.data.transaction.EditableTransaction;
 import com.cartisan.modern.acceptancetest.driver.UiDriver;
 import com.cartisan.modern.acceptancetest.driver.UiElement;
-import com.cartisan.modern.acceptancetest.data.transaction.EditableTransaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;

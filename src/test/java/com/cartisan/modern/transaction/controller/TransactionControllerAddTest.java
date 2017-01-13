@@ -7,9 +7,9 @@ import org.junit.Test;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
-import static com.cartisan.modern.common.controller.Urls.TRANSACTION_ADD;
 import static com.cartisan.modern.common.callback.PostActionsFactory.failed;
 import static com.cartisan.modern.common.callback.PostActionsFactory.success;
+import static com.cartisan.modern.common.controller.Urls.TRANSACTION_ADD;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
