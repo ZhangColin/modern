@@ -3,6 +3,8 @@ package com.cartisan.modern.transaction.controller;
 import com.cartisan.modern.transaction.domain.Transaction;
 import com.cartisan.modern.transaction.domain.Transactions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,8 +19,15 @@ import static com.cartisan.modern.Urls.TRANSACTION_LIST;
 import static com.cartisan.modern.common.controller.ControllerHelper.setMessage;
 
 @Controller
+@PropertySource("classpath:resultMessages.properties")
 public class TransactionController {
     private final Transactions transactions;
+
+    @Value("${transaction.add.success}")
+    String successMessage;
+
+    @Value("${transaction.add.failed}")
+    String failedMessage;
 
     @Autowired
     public TransactionController(Transactions transactions) {
@@ -29,8 +38,8 @@ public class TransactionController {
     public String submitAddTransaction(@Valid @ModelAttribute Transaction transaction, BindingResult result, Model model) {
         if (!result.hasFieldErrors())
             transactions.add(transaction)
-                    .success(setMessage(model, "Successfully add transaction"))
-                    .failed(setMessage(model, "Add transaction failed"));
+                    .success(setMessage(model, successMessage))
+                    .failed(setMessage(model, failedMessage));
         return addTransaction(model);
     }
 

@@ -61,19 +61,21 @@ public class TransactionControllerAddTest {
     @Test
     public void add_transaction_successfully() {
         given_add_transaction_will(success());
+        controller.successMessage = "a success message";
 
         submitAddTransaction();
 
-        verify(mockModel).addAttribute("message", "Successfully add transaction");
+        verify(mockModel).addAttribute("message", "a success message");
     }
 
     @Test
     public void add_transaction_failed() {
         given_add_transaction_will(failed());
+        controller.failedMessage = "a failed message";
 
         submitAddTransaction();
 
-        verify(mockModel).addAttribute("message", "Add transaction failed");
+        verify(mockModel).addAttribute("message", "a failed message");
     }
 
     private void submitAddTransaction() {
