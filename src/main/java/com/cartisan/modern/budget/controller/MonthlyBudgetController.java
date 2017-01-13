@@ -3,6 +3,8 @@ package com.cartisan.modern.budget.controller;
 import com.cartisan.modern.budget.domain.MonthlyBudget;
 import com.cartisan.modern.budget.domain.MonthlyBudgetPlanner;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,8 +24,15 @@ import static com.cartisan.modern.common.Formats.DAY;
 import static com.cartisan.modern.common.controller.ControllerHelper.setMessage;
 
 @Controller
+@PropertySource("classpath:resultMessages.properties")
 public class MonthlyBudgetController {
     private final MonthlyBudgetPlanner planner;
+
+    @Value("${monthlybudget.add.success}")
+    String successMessage;
+
+    @Value("${monthlybudget.add.failed")
+    String failedMessage;
 
     @Autowired
     public MonthlyBudgetController(MonthlyBudgetPlanner planner) {
@@ -34,8 +43,8 @@ public class MonthlyBudgetController {
     public String submitAddMonthlyBudget(@Valid @ModelAttribute MonthlyBudget monthlyBudget, BindingResult result, Model model) {
         if (!result.hasFieldErrors())
             planner.addMonthlyBudget(monthlyBudget)
-                    .success(setMessage(model, "Successfully add budget for month"))
-                    .failed(setMessage(model, "Add budget for month failed"));
+                    .success(setMessage(model, successMessage))
+                    .failed(setMessage(model, failedMessage));
 
         return MONTHLYBUDGET_ADD;
     }
