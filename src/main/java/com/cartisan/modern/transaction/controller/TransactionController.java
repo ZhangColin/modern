@@ -64,6 +64,7 @@ public class TransactionController {
 
         if (all.isEmpty()) {
             setMessage(model, noTransactionMessage);
+            model.addAttribute("table.hidden", "hidden");
         } else {
             model.addAttribute("transactions", all);
         }

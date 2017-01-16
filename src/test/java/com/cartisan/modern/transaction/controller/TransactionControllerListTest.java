@@ -53,6 +53,7 @@ public class TransactionControllerListTest {
         showAllTransactions();
 
         verify(mockModel).addAttribute("message", "no transaction message");
+        verify(mockModel).addAttribute("table.hidden", "hidden");
     }
 
     private PresentableTransaction expectedPresentableTransaction(Transaction.Type type, String description, Date date, int amount) {
