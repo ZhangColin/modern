@@ -3,6 +3,9 @@ package com.cartisan.modern.transaction.domain;
 import com.cartisan.modern.transaction.repository.TransactionRepository;
 import org.junit.Test;
 
+import java.util.function.Consumer;
+
+import static java.util.Arrays.asList;
 import static org.mockito.Mockito.*;
 
 public class TransactionsTest {
@@ -35,6 +38,16 @@ public class TransactionsTest {
 
         verify(afterFailed).run();
         verify(afterSuccess, never()).run();
+    }
+
+    @Test
+    public void process_all_transactions(){
+        when(mockRepository.findAll()).thenReturn(asList(transaction));
+
+        Consumer<Transaction> mockConsumber = mock(Consumer.class);
+        transactions.processAll(mockConsumber);
+
+        verify(mockConsumber).accept(transaction);
     }
 
     private void given_save_will_fail() {
