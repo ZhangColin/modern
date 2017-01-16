@@ -14,11 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.cartisan.modern.common.Formats.DAY;
+import static com.cartisan.modern.common.BeanUtils.copyProperties;
 import static com.cartisan.modern.common.controller.ControllerHelper.setMessage;
 import static com.cartisan.modern.common.controller.Urls.TRANSACTION_ADD;
 import static com.cartisan.modern.common.controller.Urls.TRANSACTION_LIST;
@@ -69,10 +68,7 @@ public class TransactionController {
 
     private PresentableTransaction presentableTransaction(Transaction transaction) {
         PresentableTransaction presentableTransaction = new PresentableTransaction();
-        presentableTransaction.setType(transaction.getType());
-        presentableTransaction.setDescription(transaction.getDescription());
-        presentableTransaction.setDate(new SimpleDateFormat(DAY).format(transaction.getDate()));
-        presentableTransaction.setAmount(transaction.getAmount());
+        copyProperties(presentableTransaction, transaction);
 
         return presentableTransaction;
     }
