@@ -33,6 +33,9 @@ public class TransactionController {
     @Value("${transaction.add.failed}")
     String failedMessage;
 
+    @Value("${transaction.list.empty}")
+    String noTransactionMessage;
+
     @Autowired
     public TransactionController(Transactions transactions) {
         this.transactions = transactions;
@@ -55,15 +58,16 @@ public class TransactionController {
 
     @RequestMapping(value = TRANSACTION_LIST, method = RequestMethod.GET)
     public String showTransactions(Model model) {
-        model.addAttribute("transactions", allTransactions());
-        return TRANSACTION_LIST;
-    }
-
-    private List<PresentableTransaction> allTransactions() {
         List<PresentableTransaction> all = new ArrayList<>();
         transactions.processAll(transaction -> all.add(presentableTransaction(transaction)));
 
-        return all;
+        if (all.isEmpty()) {
+            setMessage(model, noTransactionMessage).run();
+        } else {
+            model.addAttribute("transactions", all);
+        }
+
+        return TRANSACTION_LIST;
     }
 
     private PresentableTransaction presentableTransaction(Transaction transaction) {
