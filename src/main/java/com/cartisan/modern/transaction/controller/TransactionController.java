@@ -19,6 +19,7 @@ import java.util.List;
 
 import static com.cartisan.modern.common.BeanUtils.copyProperties;
 import static com.cartisan.modern.common.controller.ControllerHelper.setMessage;
+import static com.cartisan.modern.common.controller.ControllerHelper.thenSetMessage;
 import static com.cartisan.modern.common.controller.Urls.TRANSACTION_ADD;
 import static com.cartisan.modern.common.controller.Urls.TRANSACTION_LIST;
 
@@ -45,8 +46,8 @@ public class TransactionController {
     public String submitAddTransaction(@Valid @ModelAttribute Transaction transaction, BindingResult result, Model model) {
         if (!result.hasFieldErrors())
             transactions.add(transaction)
-                    .success(setMessage(model, successMessage))
-                    .failed(setMessage(model, failedMessage));
+                    .success(thenSetMessage(model, successMessage))
+                    .failed(thenSetMessage(model, failedMessage));
         return addTransaction(model);
     }
 
@@ -62,7 +63,7 @@ public class TransactionController {
         transactions.processAll(transaction -> all.add(presentableTransaction(transaction)));
 
         if (all.isEmpty()) {
-            setMessage(model, noTransactionMessage).run();
+            setMessage(model, noTransactionMessage);
         } else {
             model.addAttribute("transactions", all);
         }

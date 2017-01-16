@@ -19,6 +19,7 @@ import java.util.Date;
 
 import static com.cartisan.modern.common.Formats.DAY;
 import static com.cartisan.modern.common.controller.ControllerHelper.setMessage;
+import static com.cartisan.modern.common.controller.ControllerHelper.thenSetMessage;
 import static com.cartisan.modern.common.controller.Urls.MONTHLYBUDGET_ADD;
 import static com.cartisan.modern.common.controller.Urls.MONTHLYBUDGET_TOTALAMOUNT;
 
@@ -42,8 +43,8 @@ public class MonthlyBudgetController {
     public String submitAddMonthlyBudget(@Valid @ModelAttribute MonthlyBudget monthlyBudget, BindingResult result, Model model) {
         if (!result.hasFieldErrors())
             planner.addMonthlyBudget(monthlyBudget)
-                    .success(setMessage(model, successMessage))
-                    .failed(setMessage(model, failedMessage));
+                    .success(thenSetMessage(model, successMessage))
+                    .failed(thenSetMessage(model, failedMessage));
 
         return MONTHLYBUDGET_ADD;
     }
