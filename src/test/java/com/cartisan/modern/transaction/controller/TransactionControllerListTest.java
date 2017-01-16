@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.ui.Model;
 
+import java.util.Date;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -21,7 +22,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class TransactionControllerListTest {
-    private static final String DATE = "2016-08-15";
+    private static final Date DATE = parseDay("2016-08-15");
     private static final int AMOUNT = 100;
     private Transactions mockTransactions = mock(Transactions.class);
     private TransactionController controller = new TransactionController(mockTransactions);
@@ -45,7 +46,7 @@ public class TransactionControllerListTest {
         ));
     }
 
-    private PresentableTransaction expectedPresentableTransaction(Transaction.Type type, String description, String date, int amount) {
+    private PresentableTransaction expectedPresentableTransaction(Transaction.Type type, String description, Date date, int amount) {
         PresentableTransaction expected = new PresentableTransaction();
         expected.setType(type);
         expected.setDescription(description);
@@ -63,11 +64,11 @@ public class TransactionControllerListTest {
         }).when(mockTransactions).processAll(any(Consumer.class));
     }
 
-    private Transaction transaction(Transaction.Type type, String description, String date, int amount) {
+    private Transaction transaction(Transaction.Type type, String description, Date date, int amount) {
         Transaction expected = new Transaction();
         expected.setType(type);
         expected.setDescription(description);
-        expected.setDate(parseDay(date));
+        expected.setDate(date);
         expected.setAmount(amount);
 
         return expected;
