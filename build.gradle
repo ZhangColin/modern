@@ -5,7 +5,6 @@ buildscript {
     }
     dependencies {
         classpath "org.springframework.boot:spring-boot-gradle-plugin:1.4.3.RELEASE"
-        classpath "org.springframework:springloaded:1.2.6.RELEASE"
     }
 }
 
@@ -49,7 +48,8 @@ dependencies {
             "org.webjars:bootstrap:3.3.7-1",
             "org.webjars:jquery:3.1.1",
             "org.hibernate:hibernate-validator:5.3.4.Final",
-            "commons-beanutils:commons-beanutils:1.9.3"
+            "commons-beanutils:commons-beanutils:1.9.3",
+            "org.springframework.boot:spring-boot-devtools:1.4.2.RELEASE"
     )
     testCompile (
             "org.springframework.boot:spring-boot-starter-test:1.4.2.RELEASE",
