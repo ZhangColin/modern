@@ -2,7 +2,7 @@ package com.cartisan.modern.transaction.controller;
 
 import com.cartisan.modern.transaction.domain.Transaction;
 import com.cartisan.modern.transaction.domain.Transactions;
-import com.cartisan.modern.transaction.view.PresentableTransaction;
+import com.cartisan.modern.transaction.view.PresentableTransactions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -14,11 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 
-import static com.cartisan.modern.common.BeanUtils.copyProperties;
-import static com.cartisan.modern.common.controller.ControllerHelper.setMessage;
 import static com.cartisan.modern.common.controller.ControllerHelper.thenSetMessage;
 import static com.cartisan.modern.common.controller.Urls.TRANSACTION_ADD;
 import static com.cartisan.modern.common.controller.Urls.TRANSACTION_LIST;
@@ -59,23 +55,9 @@ public class TransactionController {
 
     @RequestMapping(value = TRANSACTION_LIST, method = RequestMethod.GET)
     public String showTransactions(Model model) {
-        List<PresentableTransaction> all = new ArrayList<>();
-        transactions.processAll(transaction -> all.add(presentableTransaction(transaction)));
-
-        if (all.isEmpty()) {
-            setMessage(model, noTransactionMessage);
-            model.addAttribute("table.hidden", "hidden");
-        } else {
-            model.addAttribute("transactions", all);
-        }
+        PresentableTransactions presentableTransactions = new PresentableTransactions(model, noTransactionMessage);
+        transactions.processAll(transaction -> presentableTransactions.add(transaction));
 
         return TRANSACTION_LIST;
-    }
-
-    private PresentableTransaction presentableTransaction(Transaction transaction) {
-        PresentableTransaction presentableTransaction = new PresentableTransaction();
-        copyProperties(presentableTransaction, transaction);
-
-        return presentableTransaction;
     }
 }

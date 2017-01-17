@@ -3,6 +3,7 @@ package com.cartisan.modern.transaction.controller;
 import com.cartisan.modern.transaction.domain.Transaction;
 import com.cartisan.modern.transaction.domain.Transactions;
 import com.cartisan.modern.transaction.view.PresentableTransaction;
+import com.cartisan.modern.transaction.view.PresentableTransactions;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.ui.Model;
@@ -39,11 +40,9 @@ public class TransactionControllerListTest {
 
         showAllTransactions();
 
-        ArgumentCaptor<List<PresentableTransaction>> captor = ArgumentCaptor.forClass((Class)List.class);
-        verify(mockModel).addAttribute(eq("transactions"), captor.capture());
-        captor.getValue().forEach(actual->assertThat(actual).isEqualToComparingFieldByField(
-                expectedPresentableTransaction(Income, "Description", DATE, AMOUNT)
-        ));
+        PresentableTransactions presentableTransactions = verifyAddPresentableTransactions();
+        assertPresentableTransactionEquals(presentableTransactions.getList(),
+                expected(Income, "Description", DATE, AMOUNT));
     }
 
     @Test
@@ -52,11 +51,12 @@ public class TransactionControllerListTest {
 
         showAllTransactions();
 
-        verify(mockModel).addAttribute("message", "no transaction message");
-        verify(mockModel).addAttribute("table.hidden", "hidden");
+        PresentableTransactions presentableTransactions = verifyAddPresentableTransactions();
+        assertThat(presentableTransactions.message()).isEqualTo("no transaction message");
+        assertThat(presentableTransactions.display()).isEqualTo("hidden");
     }
 
-    private PresentableTransaction expectedPresentableTransaction(Transaction.Type type, String description, Date date, int amount) {
+    private PresentableTransaction expected(Transaction.Type type, String description, Date date, int amount) {
         PresentableTransaction expected = new PresentableTransaction();
         expected.setType(type);
         expected.setDescription(description);
@@ -86,5 +86,15 @@ public class TransactionControllerListTest {
 
     private String showAllTransactions() {
         return controller.showTransactions(mockModel);
+    }
+
+    private void assertPresentableTransactionEquals(List<PresentableTransaction> presentableTransactions, PresentableTransaction expected) {
+        presentableTransactions.forEach(actual->assertThat(actual).isEqualToComparingFieldByField(expected));
+    }
+
+    private PresentableTransactions verifyAddPresentableTransactions() {
+        ArgumentCaptor<PresentableTransactions> captor = ArgumentCaptor.forClass(PresentableTransactions.class);
+        verify(mockModel).addAttribute(eq("transactions"), captor.capture());
+        return captor.getValue();
     }
 }
