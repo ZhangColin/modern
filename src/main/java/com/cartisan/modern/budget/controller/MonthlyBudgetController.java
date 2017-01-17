@@ -46,7 +46,7 @@ public class MonthlyBudgetController {
                     .success(thenSetMessage(model, successMessage))
                     .failed(thenSetMessage(model, failedMessage));
 
-        return MONTHLYBUDGET_ADD;
+        return addMonthlyBudget();
     }
 
     @RequestMapping(value = MONTHLYBUDGET_ADD, method = RequestMethod.GET)
