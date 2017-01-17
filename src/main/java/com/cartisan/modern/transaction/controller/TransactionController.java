@@ -3,6 +3,7 @@ package com.cartisan.modern.transaction.controller;
 import com.cartisan.modern.transaction.domain.Transaction;
 import com.cartisan.modern.transaction.domain.Transactions;
 import com.cartisan.modern.transaction.view.PresentableTransactions;
+import com.cartisan.modern.transaction.view.Types;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -49,7 +50,7 @@ public class TransactionController {
 
     @RequestMapping(value = TRANSACTION_ADD, method = RequestMethod.GET)
     public String addTransaction(Model model) {
-        model.addAttribute("types", Transaction.Type.values());
+        new Types(model, Transaction.Type.values());
         return TRANSACTION_ADD;
     }
 

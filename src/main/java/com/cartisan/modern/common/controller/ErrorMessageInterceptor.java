@@ -1,5 +1,6 @@
 package com.cartisan.modern.common.controller;
 
+import com.cartisan.modern.common.view.ErrorMessage;
 import org.springframework.context.MessageSource;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -50,7 +51,7 @@ public class ErrorMessageInterceptor implements HandlerInterceptor {
     }
 
     private void setErrorMessage(ModelMap model, FieldError fieldError) {
-        model.addAttribute("error." + fieldError.getField(), messageSource.getMessage(fieldError, null));
+        new ErrorMessage(model, fieldError, messageSource);
     }
 
     @Override

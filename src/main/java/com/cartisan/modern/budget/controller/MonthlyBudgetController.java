@@ -2,6 +2,7 @@ package com.cartisan.modern.budget.controller;
 
 import com.cartisan.modern.budget.domain.MonthlyBudget;
 import com.cartisan.modern.budget.domain.MonthlyBudgetPlanner;
+import com.cartisan.modern.budget.view.MonthlyBudgetAmount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -18,7 +19,6 @@ import javax.validation.Valid;
 import java.util.Date;
 
 import static com.cartisan.modern.common.Formats.DAY;
-import static com.cartisan.modern.common.controller.ControllerHelper.setMessage;
 import static com.cartisan.modern.common.controller.ControllerHelper.thenSetMessage;
 import static com.cartisan.modern.common.controller.Urls.MONTHLYBUDGET_ADD;
 import static com.cartisan.modern.common.controller.Urls.MONTHLYBUDGET_TOTALAMOUNT;
@@ -58,7 +58,7 @@ public class MonthlyBudgetController {
     public String totalAmountOfMonthlyBudget(
             @RequestParam("startDate") @DateTimeFormat(pattern = DAY) Date startDate,
             @RequestParam("endDate") @DateTimeFormat(pattern = DAY) Date endDate, Model model) {
-        model.addAttribute("amount", planner.getAmount(startDate, endDate));
+        new MonthlyBudgetAmount(model, planner.getAmount(startDate, endDate));
 
         return MONTHLYBUDGET_TOTALAMOUNT;
     }
