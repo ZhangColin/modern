@@ -3,32 +3,28 @@ package com.cartisan.modern.common.view;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.ui.Model;
 
 @Component
 @PropertySource("classpath:resultMessages.properties")
 public class SignIn {
     @Value("${authentication.failed}")
-    public String failedMessage;
+    String failedMessage;
 
     @Value("${authentication.logout}")
-    public String logoutMessage;
-
-    public ModelAndView getModel(String error, String logout) {
-        ModelAndView model = new ModelAndView();
-
+    String logoutMessage;
+    public void display(String error, String logout, Model model) {
         if (error != null) {
-            model.addObject("message", failedMessage);
-            model.addObject("type", "danger");
+            setMessageAndType(model, failedMessage, "danger");
         }
 
         if (logout != null) {
-            model.addObject("message", logoutMessage);
-            model.addObject("type", "info");
+            setMessageAndType(model, logoutMessage, "info");
         }
+    }
 
-        model.setViewName("signin");
-
-        return model;
+    private void setMessageAndType(Model model, String failedMessage, String danger) {
+        model.addAttribute("message", failedMessage);
+        model.addAttribute("type", danger);
     }
 }
