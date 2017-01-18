@@ -12,13 +12,14 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
 
 import static com.cartisan.modern.common.controller.ControllerHelper.thenSetMessage;
 import static com.cartisan.modern.common.controller.Urls.TRANSACTION_ADD;
 import static com.cartisan.modern.common.controller.Urls.TRANSACTION_LIST;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Controller
 @PropertySource("classpath:resultMessages.properties")
@@ -39,7 +40,7 @@ public class TransactionController {
         this.transactions = transactions;
     }
 
-    @RequestMapping(value = TRANSACTION_ADD, method = RequestMethod.POST)
+    @RequestMapping(value = TRANSACTION_ADD, method = POST)
     public String submitAddTransaction(@Valid @ModelAttribute Transaction transaction, BindingResult result, Model model) {
         if (!result.hasFieldErrors())
             transactions.add(transaction)
@@ -48,16 +49,15 @@ public class TransactionController {
         return addTransaction(model);
     }
 
-    @RequestMapping(value = TRANSACTION_ADD, method = RequestMethod.GET)
+    @RequestMapping(value = TRANSACTION_ADD, method = GET)
     public String addTransaction(Model model) {
         new Types(model, Transaction.Type.values());
         return TRANSACTION_ADD;
     }
 
-    @RequestMapping(value = TRANSACTION_LIST, method = RequestMethod.GET)
+    @RequestMapping(value = TRANSACTION_LIST, method = GET)
     public String showTransactions(Model model) {
-        PresentableTransactions presentableTransactions = new PresentableTransactions(model, noTransactionMessage);
-        transactions.processAll(transaction -> presentableTransactions.add(transaction));
+        new PresentableTransactions(model, noTransactionMessage, transactions);
 
         return TRANSACTION_LIST;
     }

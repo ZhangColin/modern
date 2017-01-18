@@ -1,44 +1,36 @@
 package com.cartisan.modern.transaction.view;
 
 import com.cartisan.modern.transaction.domain.Transaction;
+import com.cartisan.modern.transaction.domain.Transactions;
 import org.springframework.ui.Model;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static com.cartisan.modern.common.BeanUtils.copyProperties;
 
-public class PresentableTransactions {
-    private final List<PresentableTransaction> list = new ArrayList<>();
+public class PresentableTransactions extends ArrayList<PresentableTransaction> {
     private final Model model;
     private final String message;
 
-    public PresentableTransactions(Model model, String message) {
+    public PresentableTransactions(Model model, String message, Transactions transactions) {
         this.model = model;
         this.message = message;
+        transactions.processAll(this::add);
         this.model.addAttribute("transactions", this);
     }
 
     public void add(Transaction transaction) {
-        list.add(presentableTransactionFrom(transaction));
-    }
-
-    private PresentableTransaction presentableTransactionFrom(Transaction transaction) {
         PresentableTransaction presentableTransaction = new PresentableTransaction();
         copyProperties(presentableTransaction, transaction);
-        return presentableTransaction;
-    }
-
-    public List<PresentableTransaction> getList() {
-        return list;
+        add(presentableTransaction);
     }
 
     public String display() {
-        return list.isEmpty() ? "hidden" : "";
+        return isEmpty() ? "hidden" : "";
     }
 
     public String message() {
-        return list.isEmpty() ? message : "";
+        return isEmpty() ? message : "";
     }
 
     public int totalIncome(){

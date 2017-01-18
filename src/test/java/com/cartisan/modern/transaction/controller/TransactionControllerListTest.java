@@ -41,7 +41,7 @@ public class TransactionControllerListTest {
         showAllTransactions();
 
         PresentableTransactions presentableTransactions = verifyAddPresentableTransactions();
-        assertPresentableTransactionEquals(presentableTransactions.getList(),
+        assertPresentableTransactionEquals(presentableTransactions,
                 expected(Income, "Description", DATE, AMOUNT));
     }
 
