@@ -14,6 +14,7 @@ import cucumber.api.java.en.When;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Map;
 
 import static com.cartisan.modern.acceptancetest.steps.AssertionHelper.assertListDeepEquals;
 import static com.cartisan.modern.common.Formats.DAY;
@@ -57,5 +58,14 @@ public class TransactionSteps {
         transactions.forEach(transaction->assertThat(commonPage.getAllText()).contains(transaction.allViewText()));
     }
 
+    @When("^show total of all transactions$")
+    public void show_total_of_all_transactions() throws Throwable {
+        show_all_transactions();
+    }
+
+    @Then("^you will see the total as below$")
+    public void you_will_see_the_total_as_below(Map<String, String> totals) throws Throwable {
+        assertThat(commonPage.getAllText()).contains(totals.values());
+    }
 
 }
