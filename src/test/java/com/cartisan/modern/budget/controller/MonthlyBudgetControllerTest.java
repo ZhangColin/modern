@@ -82,7 +82,7 @@ public class MonthlyBudgetControllerTest {
 
         @Test
         public void should_go_to_add_budget_for_month_page() {
-            new AddSubmitSuccess().should_go_to_add_budget_for_month_page();;
+            new AddSubmitSuccess().should_go_to_add_budget_for_month_page();
         }
 
         @Test

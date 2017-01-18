@@ -10,19 +10,19 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 
 import static com.cartisan.modern.common.controller.ControllerHelper.thenSetMessage;
 import static com.cartisan.modern.common.controller.Urls.TRANSACTION_ADD;
-import static com.cartisan.modern.common.controller.Urls.TRANSACTION_LIST;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Controller
 @PropertySource("classpath:resultMessages.properties")
+@RequestMapping("/transactions")
 public class TransactionController {
     private final Transactions transactions;
 
@@ -40,7 +40,7 @@ public class TransactionController {
         this.transactions = transactions;
     }
 
-    @RequestMapping(value = TRANSACTION_ADD, method = POST)
+    @PostMapping("add")
     public String submitAddTransaction(@Valid @ModelAttribute Transaction transaction, BindingResult result, Model model) {
         if (!result.hasFieldErrors())
             transactions.add(transaction)
@@ -49,16 +49,16 @@ public class TransactionController {
         return addTransaction(model);
     }
 
-    @RequestMapping(value = TRANSACTION_ADD, method = GET)
+    @GetMapping("add")
     public String addTransaction(Model model) {
         new Types(model, Transaction.Type.values());
         return TRANSACTION_ADD;
     }
 
-    @RequestMapping(value = TRANSACTION_LIST, method = GET)
-    public String showTransactions(Model model) {
+    @GetMapping
+    public String index(Model model) {
         new PresentableTransactions(model, noTransactionMessage, transactions);
 
-        return TRANSACTION_LIST;
+        return "transactions/index";
     }
 }

@@ -14,6 +14,6 @@ public class ShowAllTransactionsPage {
     private UiDriver uiDriver;
 
     public void show(){
-        uiDriver.navigateTo(TRANSACTION_LIST);
+        uiDriver.navigateTo("/transactions");
     }
 }
