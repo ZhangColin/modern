@@ -143,7 +143,7 @@ public class TransactionControllerTest {
 
             showAllTransactions();
 
-            verify(mockPresentableTransactions).display(mockModel);
+            verify(mockPresentableTransactions).display();
         }
 
         private void given_exists_transactions(Transaction transaction) {
@@ -155,7 +155,7 @@ public class TransactionControllerTest {
         }
 
         private String showAllTransactions() {
-            return controller.index(mockModel);
+            return controller.index();
         }
     }
 

@@ -6,8 +6,8 @@ import com.nitorcreations.junit.runners.NestedRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.ui.Model;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.function.Consumer;
 
@@ -16,15 +16,13 @@ import static com.cartisan.modern.transaction.domain.Transaction.Type.Income;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.doAnswer;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @RunWith(NestedRunner.class)
 public class PresentableTransactionsTest {
     private Transactions stubTransactions = mock(Transactions.class);
-    private PresentableTransactions presentableTransactions = new PresentableTransactions(stubTransactions);
-    private Model mockModel = mock(Model.class);
+    HttpServletRequest mockRequest = mock(HttpServletRequest.class);
+    private PresentableTransactions presentableTransactions = new PresentableTransactions(stubTransactions, mockRequest);
 
     public class NoTransaction{
         @Before
@@ -76,7 +74,7 @@ public class PresentableTransactionsTest {
         public void should_pass_transaction_to_page(){
             display();
 
-            verify(mockModel).addAttribute("transactions", presentableTransactions);
+            verify(mockRequest).setAttribute("transactions", presentableTransactions);
             assertThat(presentableTransactions)
                     .usingFieldByFieldElementComparator()
                     .containsExactly(presentableTransaction(Income, "description", date, amount));
@@ -112,6 +110,6 @@ public class PresentableTransactionsTest {
     }
 
     private void display() {
-        presentableTransactions.display(mockModel);
+        presentableTransactions.display();
     }
 }
