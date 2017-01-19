@@ -1,6 +1,5 @@
-package com.cartisan.modern.common.controller;
+package com.cartisan.modern.common.interceptor;
 
-import com.cartisan.modern.common.interceptor.LayoutNavigationInterceptor;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 
