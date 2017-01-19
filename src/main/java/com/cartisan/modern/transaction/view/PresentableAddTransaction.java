@@ -6,8 +6,10 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
+import static com.cartisan.modern.common.view.Messages.RESULT_MESSAGES;
+
 @Component
-@PropertySource("classpath:resultMessages.properties")
+@PropertySource(RESULT_MESSAGES)
 public class PresentableAddTransaction {
     @Value("${label.type}")
     String type;

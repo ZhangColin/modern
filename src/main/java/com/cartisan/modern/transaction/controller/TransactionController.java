@@ -19,9 +19,10 @@ import javax.validation.Valid;
 
 import static com.cartisan.modern.common.controller.ControllerHelper.thenSetMessage;
 import static com.cartisan.modern.common.controller.Urls.*;
+import static com.cartisan.modern.common.view.Messages.RESULT_MESSAGES;
 
 @Controller
-@PropertySource("classpath:resultMessages.properties")
+@PropertySource(RESULT_MESSAGES)
 @RequestMapping(TRANSACTION)
 public class TransactionController {
     private final Transactions transactions;
