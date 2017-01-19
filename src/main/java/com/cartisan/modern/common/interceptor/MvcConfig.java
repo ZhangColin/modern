@@ -1,8 +1,5 @@
 package com.cartisan.modern.common.interceptor;
 
-import com.cartisan.modern.common.interceptor.AuthenticationInterceptor;
-import com.cartisan.modern.common.interceptor.ErrorMessageInterceptor;
-import com.cartisan.modern.common.interceptor.LayoutNavigationInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +16,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         registry.addInterceptor(new AuthenticationInterceptor());
         registry.addInterceptor(new LayoutNavigationInterceptor());
         registry.addInterceptor(new ErrorMessageInterceptor(messageSource));
+        registry.addInterceptor(new LabelTextInterceptor(new ExposedResourceBundleMessageSource()));
         super.addInterceptors(registry);
     }
 }
