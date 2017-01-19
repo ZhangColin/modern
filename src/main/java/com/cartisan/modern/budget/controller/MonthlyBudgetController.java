@@ -2,7 +2,6 @@ package com.cartisan.modern.budget.controller;
 
 import com.cartisan.modern.budget.domain.MonthlyBudget;
 import com.cartisan.modern.budget.domain.MonthlyBudgetPlanner;
-import com.cartisan.modern.budget.view.PresentableAddMonthlyBudget;
 import com.cartisan.modern.budget.view.PresentableMonthlyBudgetAmount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,15 +21,15 @@ import static com.cartisan.modern.common.Formats.DAY;
 import static com.cartisan.modern.common.controller.ControllerHelper.thenSetMessage;
 import static com.cartisan.modern.common.controller.Urls.MONTHLYBUDGET_ADD;
 import static com.cartisan.modern.common.controller.Urls.MONTHLYBUDGET_TOTALAMOUNT;
+import static com.cartisan.modern.common.view.Messages.RESULT_MESSAGES_FULL_NAME;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Controller
-@PropertySource("classpath:resultMessages.properties")
+@PropertySource(RESULT_MESSAGES_FULL_NAME)
 public class MonthlyBudgetController {
     private final MonthlyBudgetPlanner planner;
     private final PresentableMonthlyBudgetAmount presentableMonthlyBudgetAmount;
-    private final PresentableAddMonthlyBudget presentableAddMonthlyBudget;
 
     @Value("${monthlybudget.add.success}")
     String successMessage;
@@ -39,10 +38,9 @@ public class MonthlyBudgetController {
     String failedMessage;
 
     @Autowired
-    public MonthlyBudgetController(MonthlyBudgetPlanner planner, PresentableMonthlyBudgetAmount presentableMonthlyBudgetAmount, PresentableAddMonthlyBudget presentableAddMonthlyBudget) {
+    public MonthlyBudgetController(MonthlyBudgetPlanner planner, PresentableMonthlyBudgetAmount presentableMonthlyBudgetAmount) {
         this.planner = planner;
         this.presentableMonthlyBudgetAmount = presentableMonthlyBudgetAmount;
-        this.presentableAddMonthlyBudget = presentableAddMonthlyBudget;
     }
 
     @RequestMapping(value = MONTHLYBUDGET_ADD, method = POST)
@@ -52,21 +50,19 @@ public class MonthlyBudgetController {
                     .success(thenSetMessage(model, successMessage))
                     .failed(thenSetMessage(model, failedMessage));
 
-        return addMonthlyBudget(model);
+        return addMonthlyBudget();
     }
 
     @RequestMapping(value = MONTHLYBUDGET_ADD, method = GET)
-    public String addMonthlyBudget(Model model) {
-        presentableAddMonthlyBudget.display(model);
+    public String addMonthlyBudget() {
         return MONTHLYBUDGET_ADD;
     }
 
     @RequestMapping(value = MONTHLYBUDGET_TOTALAMOUNT, method = GET)
     public String totalAmountOfMonthlyBudget(
             @RequestParam("startDate") @DateTimeFormat(pattern = DAY) Date startDate,
-            @RequestParam("endDate") @DateTimeFormat(pattern = DAY) Date endDate,
-            Model model) {
-        presentableMonthlyBudgetAmount.display(model, planner.getAmount(startDate, endDate));
+            @RequestParam("endDate") @DateTimeFormat(pattern = DAY) Date endDate) {
+        presentableMonthlyBudgetAmount.display(planner.getAmount(startDate, endDate));
 
         return MONTHLYBUDGET_TOTALAMOUNT;
     }
