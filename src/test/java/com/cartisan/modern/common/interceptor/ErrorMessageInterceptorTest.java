@@ -1,8 +1,9 @@
 package com.cartisan.modern.common.interceptor;
 
+import com.cartisan.modern.common.view.ErrorMessage;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.context.MessageSource;
+import org.mockito.ArgumentCaptor;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -10,15 +11,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Locale;
 
-import static java.util.AbstractMap.SimpleEntry;
+import static com.cartisan.modern.common.builder.FieldErrorDataMother.fieldError;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.validation.BindingResult.MODEL_KEY_PREFIX;
 
 public class ErrorMessageInterceptorTest {
@@ -26,8 +24,8 @@ public class ErrorMessageInterceptorTest {
     HttpServletResponse notUsedResponse = mock(HttpServletResponse.class);
     Object notUsedHandler = new Object();
     ModelAndView stubModelAndView = mock(ModelAndView.class);
-    MessageSource stubMessageSource = mock(MessageSource.class);
-    ErrorMessageInterceptor interceptor = new ErrorMessageInterceptor(stubMessageSource);
+    ErrorMessage mockErrorMessage = mock(ErrorMessage.class);
+    ErrorMessageInterceptor interceptor = new ErrorMessageInterceptor(mockErrorMessage);
     ModelMap modelMap = new ModelMap();
 
     @Before
@@ -40,30 +38,36 @@ public class ErrorMessageInterceptorTest {
     public void will_do_nothing_when_has_no_field_error() throws Exception {
         postHandle();
 
-        assertThat(modelMap).isEmpty();
+        verify(mockErrorMessage, never()).display(any(FieldError.class));
     }
 
     @Test
     public void will_show_error_message_when_has_on_field_error() throws Exception {
-        givenFieldErrors(fieldError("field", "error message"));
+        givenFieldErrors(fieldError("field"));
 
         postHandle();
 
-        assertThat(modelMap).contains(new SimpleEntry("error.field", "error message"));
+        verifyDisplayWithFieldError(fieldError("field"));
     }
 
     @Test
     public void will_show_error_message_when_has_two_field_errors() throws Exception {
         givenFieldErrors(
-                fieldError( "field1", "error message"),
-                fieldError( "field2", "another error message")
+                fieldError( "field1"),
+                fieldError( "field2")
         );
 
         postHandle();
 
-        assertThat(modelMap).contains(
-                new SimpleEntry("error.field1", "error message"),
-                new SimpleEntry("error.field2", "another error message"));
+        verifyDisplayWithFieldError(
+                fieldError( "field1"),
+                fieldError( "field2"));
+    }
+
+    private void verifyDisplayWithFieldError(FieldError... expectedFieldErrors) {
+        ArgumentCaptor<FieldError> captor = ArgumentCaptor.forClass(FieldError.class);
+        verify(mockErrorMessage, times(expectedFieldErrors.length)).display(captor.capture());
+        assertThat(captor.getAllValues()).containsExactlyInAnyOrder(expectedFieldErrors);
     }
 
     private void postHandle() throws Exception {
@@ -73,12 +77,6 @@ public class ErrorMessageInterceptorTest {
     private void givenFieldErrors(FieldError... errors) {
         modelMap.put(MODEL_KEY_PREFIX + "anyObject", stubBindingResult(errors));
         add_another_attribute_so_that_concurrent_modification_exception_can_not_be_hidden();
-    }
-
-    private FieldError fieldError(String field, String errorMessage) {
-        FieldError fieldError = new FieldError("notUsedObjectName", field, errorMessage);
-        when(stubMessageSource.getMessage(eq(fieldError), any(Locale.class))).thenReturn(errorMessage);
-        return fieldError;
     }
 
     private void add_another_attribute_so_that_concurrent_modification_exception_can_not_be_hidden() {
