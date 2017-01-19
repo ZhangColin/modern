@@ -3,6 +3,7 @@ package com.cartisan.modern.transaction.controller;
 import com.cartisan.modern.common.callback.PostActions;
 import com.cartisan.modern.transaction.domain.Transaction;
 import com.cartisan.modern.transaction.domain.Transactions;
+import com.cartisan.modern.transaction.view.PresentableAddTransaction;
 import com.cartisan.modern.transaction.view.PresentableTransaction;
 import com.cartisan.modern.transaction.view.PresentableTransactions;
 import com.nitorcreations.junit.runners.NestedRunner;
@@ -20,6 +21,7 @@ import static com.cartisan.modern.common.Formats.parseDay;
 import static com.cartisan.modern.common.callback.PostActionsFactory.failed;
 import static com.cartisan.modern.common.callback.PostActionsFactory.success;
 import static com.cartisan.modern.common.controller.Urls.TRANSACTION_ADD;
+import static com.cartisan.modern.common.controller.Urls.TRANSACTION_INDEX;
 import static com.cartisan.modern.transaction.domain.Transaction.Type.Income;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
@@ -29,7 +31,8 @@ import static org.mockito.Mockito.*;
 @RunWith(NestedRunner.class)
 public class TransactionControllerTest {
     Transactions mockTransactions = mock(Transactions.class);
-    TransactionController controller = new TransactionController(mockTransactions);
+    PresentableAddTransaction mockPresentableAddTransaction = mock(PresentableAddTransaction.class);
+    TransactionController controller = new TransactionController(mockTransactions, mockPresentableAddTransaction);
     Model mockModel = mock(Model.class);
     Transaction transaction = new Transaction();
     BindingResult stubBindingResult = mock(BindingResult.class);
@@ -50,7 +53,7 @@ public class TransactionControllerTest {
         public void should_show_all_transaction_types() {
             addTransaction();
 
-            verify(mockModel).addAttribute("types", Transaction.Type.values());
+            verifyPresentableAddTransactionDisplay();
         }
 
         private String addTransaction() {
@@ -59,11 +62,11 @@ public class TransactionControllerTest {
     }
 
     public class AddSubmitSuccess {
+
         @Before
         public void given_add_transaction_will_success() {
             given_add_transaction_will(success());
         }
-
         @Test
         public void should_go_to_transaction_add_page() {
             assertThat(submitTransactionAdd(transaction)).isEqualTo(TRANSACTION_ADD);
@@ -73,7 +76,7 @@ public class TransactionControllerTest {
         public void should_show_all_transaction_types_after_submit() {
             submitTransactionAdd(transaction);
 
-            verify(mockModel).addAttribute("types", Transaction.Type.values());
+            verifyPresentableAddTransactionDisplay();
         }
 
         @Test
@@ -91,9 +94,10 @@ public class TransactionControllerTest {
 
             verify(mockModel).addAttribute("message", "a success message");
         }
-    }
 
+    }
     public class AddSubmitFailed {
+
         @Test
         public void should_return_add_failed_message_to_page() {
             given_add_transaction_will(failed());
@@ -104,13 +108,12 @@ public class TransactionControllerTest {
             verify(mockModel).addAttribute("message", "a failed message");
         }
     }
-
     public class Valid {
+
         @Before
         public void given_has_some_failed_error() {
             given_has_field_error(true);
         }
-
         @Test
         public void should_not_add_transaction() {
             submitTransactionAdd(transaction);
@@ -127,18 +130,18 @@ public class TransactionControllerTest {
         public void should_show_all_transaction_types(){
             submitTransactionAdd(transaction);
 
-            verify(mockModel).addAttribute("types", Transaction.Type.values());
+            verifyPresentableAddTransactionDisplay();
         }
-    }
 
+    }
     public class List {
 
         private final Date date = parseDay("2016-08-15");
-        private final int amount = 100;
 
+        private final int amount = 100;
         @Test
         public void should_go_to_transaction_list_page(){
-            assertThat(showAllTransactions()).isEqualTo("transactions/index");
+            assertThat(showAllTransactions()).isEqualTo(TRANSACTION_INDEX);
         }
 
         @Test
@@ -221,5 +224,9 @@ public class TransactionControllerTest {
 
     private void given_add_transaction_will(PostActions postActions) {
         when(mockTransactions.add(any(Transaction.class))).thenReturn(postActions);
+    }
+
+    private void verifyPresentableAddTransactionDisplay() {
+        verify(mockPresentableAddTransaction).display(mockModel, Transaction.Type.values());
     }
 }

@@ -47,7 +47,7 @@ public class MonthlyBudgetControllerTest {
         public void should_display_add_monthly_budget_view() {
             addMonthlyBudget();
 
-            verify(mockPresentableAddMonthlyBudget).display(mockModel);
+            verifyPresentableAddMonthlyBudgetDisplay();
         }
 
         private String addMonthlyBudget() {
@@ -56,8 +56,8 @@ public class MonthlyBudgetControllerTest {
     }
 
     public class AddSubmitSuccess{
-        private final MonthlyBudget monthlyBudget = new MonthlyBudget(parseDay("2016-07-01"), 100);
 
+        private final MonthlyBudget monthlyBudget = new MonthlyBudget(parseDay("2016-07-01"), 100);
         @Before
         public void given_add_monthly_budget_will_success(){
             given_add_monthly_budget_will(success());
@@ -72,7 +72,7 @@ public class MonthlyBudgetControllerTest {
         public void should_display_add_monthly_budget_view(){
             submitAddMonthlyBudget(monthlyBudget);
 
-            verify(mockPlanner).addMonthlyBudget(monthlyBudget);
+            verifyPresentableAddMonthlyBudgetDisplay();
         }
 
         @Test
@@ -90,11 +90,11 @@ public class MonthlyBudgetControllerTest {
 
             verify(mockModel).addAttribute("message", "a success message");
         }
+
     }
-
     public class AddSubmitFailed{
-        private final MonthlyBudget monthlyBudget = new MonthlyBudget(parseDay("2016-07-01"), 100);
 
+        private final MonthlyBudget monthlyBudget = new MonthlyBudget(parseDay("2016-07-01"), 100);
         @Before
         public void given_add_monthly_budget_will_failed(){
             given_add_monthly_budget_will(failed());
@@ -123,11 +123,11 @@ public class MonthlyBudgetControllerTest {
 
             verify(mockModel).addAttribute("message", "a failed message");
         }
+
     }
-
     public class Valid{
-        private MonthlyBudget invalidMonthlyBudget = new MonthlyBudget(null, null);
 
+        private MonthlyBudget invalidMonthlyBudget = new MonthlyBudget(null, null);
         @Before
         public void given_has_some_field_error(){
             given_has_field_error(true);
@@ -148,9 +148,9 @@ public class MonthlyBudgetControllerTest {
     }
 
     public class GetAmount{
+
         private Date startDate = parseDay("2016-07-01");
         private Date endDate = parseDay("2016-07-10");
-
         @Test
         public void should_go_to_get_amount_page(){
             assertThat(getAmount()).isEqualTo(MONTHLYBUDGET_TOTALAMOUNT);
@@ -175,6 +175,7 @@ public class MonthlyBudgetControllerTest {
         private String getAmount() {
             return controller.totalAmountOfMonthlyBudget(startDate, endDate, mockModel);
         }
+
     }
 
     private String submitAddMonthlyBudget(MonthlyBudget monthlyBudget) {
@@ -187,5 +188,9 @@ public class MonthlyBudgetControllerTest {
 
     private void given_has_field_error(boolean value) {
         when(stubBindingResult.hasFieldErrors()).thenReturn(value);
+    }
+
+    private void verifyPresentableAddMonthlyBudgetDisplay() {
+        verify(mockPresentableAddMonthlyBudget).display(mockModel);
     }
 }

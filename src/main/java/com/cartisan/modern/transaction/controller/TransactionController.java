@@ -2,8 +2,8 @@ package com.cartisan.modern.transaction.controller;
 
 import com.cartisan.modern.transaction.domain.Transaction;
 import com.cartisan.modern.transaction.domain.Transactions;
+import com.cartisan.modern.transaction.view.PresentableAddTransaction;
 import com.cartisan.modern.transaction.view.PresentableTransactions;
-import com.cartisan.modern.transaction.view.Types;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -18,13 +18,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 
 import static com.cartisan.modern.common.controller.ControllerHelper.thenSetMessage;
-import static com.cartisan.modern.common.controller.Urls.TRANSACTION_ADD;
+import static com.cartisan.modern.common.controller.Urls.*;
 
 @Controller
 @PropertySource("classpath:resultMessages.properties")
-@RequestMapping("/transactions")
+@RequestMapping(TRANSACTION)
 public class TransactionController {
     private final Transactions transactions;
+    private final PresentableAddTransaction presentableAddTransaction;
 
     @Value("${transaction.add.success}")
     String successMessage;
@@ -36,11 +37,12 @@ public class TransactionController {
     String noTransactionMessage;
 
     @Autowired
-    public TransactionController(Transactions transactions) {
+    public TransactionController(Transactions transactions, PresentableAddTransaction presentableAddTransaction) {
         this.transactions = transactions;
+        this.presentableAddTransaction = presentableAddTransaction;
     }
 
-    @PostMapping("add")
+    @PostMapping(ADD)
     public String submitAddTransaction(@Valid @ModelAttribute Transaction transaction, BindingResult result, Model model) {
         if (!result.hasFieldErrors())
             transactions.add(transaction)
@@ -49,9 +51,9 @@ public class TransactionController {
         return addTransaction(model);
     }
 
-    @GetMapping("add")
+    @GetMapping(ADD)
     public String addTransaction(Model model) {
-        new Types(model, Transaction.Type.values());
+        presentableAddTransaction.display(model, Transaction.Type.values());
         return TRANSACTION_ADD;
     }
 
@@ -59,6 +61,6 @@ public class TransactionController {
     public String index(Model model) {
         new PresentableTransactions(model, noTransactionMessage, transactions);
 
-        return "transactions/index";
+        return TRANSACTION_INDEX;
     }
 }

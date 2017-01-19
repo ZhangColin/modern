@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import static com.cartisan.modern.common.controller.Urls.MONTHLYBUDGET_ADD;
-import static com.cartisan.modern.common.controller.Urls.TRANSACTION_LIST;
+import static com.cartisan.modern.common.controller.Urls.TRANSACTION;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
@@ -25,6 +25,6 @@ public class LayoutNavigationTest {
         interceptor.postHandle(anyRequest, anyResponse, anyHandler, modelAndView);
 
         assertThat(modelAndView.getModelMap().get("monthlyBudgetAddUrl")).isEqualTo(MONTHLYBUDGET_ADD);
-        assertThat(modelAndView.getModelMap().get("transactionUrl")).isEqualTo(TRANSACTION_LIST);
+        assertThat(modelAndView.getModelMap().get("transactionUrl")).isEqualTo(TRANSACTION);
     }
 }

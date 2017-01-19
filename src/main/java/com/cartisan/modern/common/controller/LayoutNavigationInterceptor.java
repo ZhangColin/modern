@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import static com.cartisan.modern.common.controller.Urls.MONTHLYBUDGET_ADD;
-import static com.cartisan.modern.common.controller.Urls.TRANSACTION_LIST;
+import static com.cartisan.modern.common.controller.Urls.TRANSACTION;
 
 public class LayoutNavigationInterceptor implements HandlerInterceptor {
     @Override
@@ -18,7 +18,7 @@ public class LayoutNavigationInterceptor implements HandlerInterceptor {
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
         modelAndView.addObject("monthlyBudgetAddUrl", MONTHLYBUDGET_ADD);
-        modelAndView.addObject("transactionUrl", TRANSACTION_LIST);
+        modelAndView.addObject("transactionUrl", TRANSACTION);
     }
 
     @Override
