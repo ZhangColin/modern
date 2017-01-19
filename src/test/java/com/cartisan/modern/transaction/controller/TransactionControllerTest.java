@@ -4,25 +4,20 @@ import com.cartisan.modern.common.callback.PostActions;
 import com.cartisan.modern.transaction.domain.Transaction;
 import com.cartisan.modern.transaction.domain.Transactions;
 import com.cartisan.modern.transaction.view.PresentableAddTransaction;
-import com.cartisan.modern.transaction.view.PresentableTransaction;
 import com.cartisan.modern.transaction.view.PresentableTransactions;
 import com.nitorcreations.junit.runners.NestedRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 
-import java.util.Date;
 import java.util.function.Consumer;
 
-import static com.cartisan.modern.common.Formats.parseDay;
 import static com.cartisan.modern.common.callback.PostActionsFactory.failed;
 import static com.cartisan.modern.common.callback.PostActionsFactory.success;
 import static com.cartisan.modern.common.controller.Urls.TRANSACTION_ADD;
 import static com.cartisan.modern.common.controller.Urls.TRANSACTION_INDEX;
-import static com.cartisan.modern.transaction.domain.Transaction.Type.Income;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
@@ -32,7 +27,8 @@ import static org.mockito.Mockito.*;
 public class TransactionControllerTest {
     Transactions mockTransactions = mock(Transactions.class);
     PresentableAddTransaction mockPresentableAddTransaction = mock(PresentableAddTransaction.class);
-    TransactionController controller = new TransactionController(mockTransactions, mockPresentableAddTransaction);
+    PresentableTransactions mockPresentableTransactions = mock(PresentableTransactions.class);
+    TransactionController controller = new TransactionController(mockTransactions, mockPresentableAddTransaction, mockPresentableTransactions);
     Model mockModel = mock(Model.class);
     Transaction transaction = new Transaction();
     BindingResult stubBindingResult = mock(BindingResult.class);
@@ -50,7 +46,7 @@ public class TransactionControllerTest {
         }
 
         @Test
-        public void should_show_all_transaction_types() {
+        public void should_display_view() {
             addTransaction();
 
             verifyPresentableAddTransactionDisplay();
@@ -73,7 +69,7 @@ public class TransactionControllerTest {
         }
 
         @Test
-        public void should_show_all_transaction_types_after_submit() {
+        public void should_display_view() {
             submitTransactionAdd(transaction);
 
             verifyPresentableAddTransactionDisplay();
@@ -127,18 +123,15 @@ public class TransactionControllerTest {
         }
 
         @Test
-        public void should_show_all_transaction_types(){
+        public void should_display_view(){
             submitTransactionAdd(transaction);
 
             verifyPresentableAddTransactionDisplay();
         }
 
     }
+
     public class List {
-
-        private final Date date = parseDay("2016-08-15");
-
-        private final int amount = 100;
         @Test
         public void should_go_to_transaction_list_page(){
             assertThat(showAllTransactions()).isEqualTo(TRANSACTION_INDEX);
@@ -146,48 +139,11 @@ public class TransactionControllerTest {
 
         @Test
         public void should_show_all_transactions(){
-            given_exists_transactions(transaction(Income, "Description", date, amount));
+            given_exists_transactions(transaction);
 
             showAllTransactions();
 
-            PresentableTransactions presentableTransactions = verifyAddPresentableTransactions();
-            assertPresentableTransactionEquals(presentableTransactions,
-                    expected(Income, "Description", date, amount));
-            assertThat(presentableTransactions.message()).isEqualTo("");
-            assertThat(presentableTransactions.display()).isEqualTo("");
-        }
-
-        @Test
-        public void should_show_no_transaction(){
-            controller.noTransactionMessage = "no transaction message";
-
-            showAllTransactions();
-
-            PresentableTransactions presentableTransactions = verifyAddPresentableTransactions();
-
-            assertThat(presentableTransactions).isEmpty();
-            assertThat(presentableTransactions.message()).isEqualTo("no transaction message");
-            assertThat(presentableTransactions.display()).isEqualTo("hidden");
-        }
-
-        private PresentableTransaction expected(Transaction.Type type, String description, Date date, int amount) {
-            PresentableTransaction expected = new PresentableTransaction();
-            expected.setType(type);
-            expected.setDescription(description);
-            expected.setDate(date);
-            expected.setAmount(amount);
-
-            return expected;
-        }
-
-        private Transaction transaction(Transaction.Type type, String description, Date date, int amount) {
-            Transaction expected = new Transaction();
-            expected.setType(type);
-            expected.setDescription(description);
-            expected.setDate(date);
-            expected.setAmount(amount);
-
-            return expected;
+            verify(mockPresentableTransactions).display(mockModel);
         }
 
         private void given_exists_transactions(Transaction transaction) {
@@ -201,17 +157,6 @@ public class TransactionControllerTest {
         private String showAllTransactions() {
             return controller.index(mockModel);
         }
-
-        private PresentableTransactions verifyAddPresentableTransactions() {
-            ArgumentCaptor<PresentableTransactions> captor = ArgumentCaptor.forClass(PresentableTransactions.class);
-            verify(mockModel).addAttribute(eq("transactions"), captor.capture());
-            return captor.getValue();
-        }
-
-        private void assertPresentableTransactionEquals(PresentableTransactions presentableTransactions, PresentableTransaction expected) {
-            presentableTransactions.forEach(actual->assertThat(actual).isEqualToComparingFieldByField(expected));
-        }
-
     }
 
     private void given_has_field_error(boolean value) {

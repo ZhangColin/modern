@@ -2,21 +2,28 @@ package com.cartisan.modern.transaction.view;
 
 import com.cartisan.modern.transaction.domain.Transaction;
 import com.cartisan.modern.transaction.domain.Transactions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
 import java.util.ArrayList;
 
 import static com.cartisan.modern.common.BeanUtils.copyProperties;
+import static com.cartisan.modern.common.view.Messages.RESULT_MESSAGES;
 
+@Component
+@PropertySource(RESULT_MESSAGES)
 public class PresentableTransactions extends ArrayList<PresentableTransaction> {
-    private final Model model;
-    private final String message;
+    private final Transactions transactions;
 
-    public PresentableTransactions(Model model, String message, Transactions transactions) {
-        this.model = model;
-        this.message = message;
-        transactions.processAll(this::add);
-        this.model.addAttribute("transactions", this);
+    @Value("${transaction.list.empty}")
+    String noTransactionMessage;
+
+    @Autowired
+    public PresentableTransactions(Transactions transactions) {
+        this.transactions = transactions;
     }
 
     public void add(Transaction transaction) {
@@ -25,12 +32,12 @@ public class PresentableTransactions extends ArrayList<PresentableTransaction> {
         add(presentableTransaction);
     }
 
-    public String display() {
+    public String hidden() {
         return isEmpty() ? "hidden" : "";
     }
 
     public String message() {
-        return isEmpty() ? message : "";
+        return isEmpty() ? noTransactionMessage : "";
     }
 
     public int totalIncome(){
@@ -43,5 +50,10 @@ public class PresentableTransactions extends ArrayList<PresentableTransaction> {
 
     public int balance() {
         return -16000;
+    }
+
+    public void display(Model model){
+        transactions.processAll(this::add);
+        model.addAttribute("transactions", this);
     }
 }
