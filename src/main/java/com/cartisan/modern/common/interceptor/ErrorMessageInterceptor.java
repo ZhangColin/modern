@@ -1,4 +1,4 @@
-package com.cartisan.modern.common.controller;
+package com.cartisan.modern.common.interceptor;
 
 import com.cartisan.modern.common.view.ErrorMessage;
 import org.springframework.context.MessageSource;
