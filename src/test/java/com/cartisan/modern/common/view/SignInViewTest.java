@@ -2,14 +2,12 @@ package com.cartisan.modern.common.view;
 
 import org.junit.Test;
 
-import javax.servlet.http.HttpServletRequest;
-
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 public class SignInViewTest {
-    private HttpServletRequest mockHttpServletRequest = mock(HttpServletRequest.class);
-    private SignInView view = new SignInView(mockHttpServletRequest);
+    private Model mockModel = mock(Model.class);
+    private SignInView view = new SignInView(mockModel);
 
     @Test
     public void message_when_sign_in_error() {
@@ -17,8 +15,8 @@ public class SignInViewTest {
 
         view.display("any error", null);
 
-        verify(mockHttpServletRequest).setAttribute("message", "a failed message");
-        verify(mockHttpServletRequest).setAttribute("type", "danger");
+        verify(mockModel).addAttribute("message", "a failed message");
+        verify(mockModel).addAttribute("type", "danger");
     }
 
     @Test
@@ -27,7 +25,7 @@ public class SignInViewTest {
 
         view.display(null, "something logout");
 
-        verify(mockHttpServletRequest).setAttribute("message", "a logout message");
-        verify(mockHttpServletRequest).setAttribute("type", "info");
+        verify(mockModel).addAttribute("message", "a logout message");
+        verify(mockModel).addAttribute("type", "info");
     }
 }

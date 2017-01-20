@@ -1,5 +1,6 @@
 package com.cartisan.modern.transaction.view;
 
+import com.cartisan.modern.common.view.Model;
 import com.cartisan.modern.transaction.domain.Transaction;
 import com.cartisan.modern.transaction.domain.Transactions;
 import com.nitorcreations.junit.runners.NestedRunner;
@@ -7,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.function.Consumer;
 
@@ -21,8 +21,8 @@ import static org.mockito.Mockito.*;
 @RunWith(NestedRunner.class)
 public class PresentableTransactionsTest {
     private Transactions stubTransactions = mock(Transactions.class);
-    HttpServletRequest mockRequest = mock(HttpServletRequest.class);
-    private PresentableTransactions presentableTransactions = new PresentableTransactions(stubTransactions, mockRequest);
+    private Model mockModel = mock(Model.class);
+    private PresentableTransactions presentableTransactions = new PresentableTransactions(stubTransactions, mockModel);
 
     public class NoTransaction{
         @Before
@@ -74,7 +74,7 @@ public class PresentableTransactionsTest {
         public void should_pass_transaction_to_page(){
             display();
 
-            verify(mockRequest).setAttribute("transactions", presentableTransactions);
+            verify(mockModel).addAttribute("transactions", presentableTransactions);
             assertThat(presentableTransactions)
                     .usingFieldByFieldElementComparator()
                     .containsExactly(presentableTransaction(Income, "description", date, amount));

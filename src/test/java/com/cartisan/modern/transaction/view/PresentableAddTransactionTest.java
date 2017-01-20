@@ -1,22 +1,20 @@
 package com.cartisan.modern.transaction.view;
 
+import com.cartisan.modern.common.view.Model;
 import org.junit.Test;
 
-import javax.servlet.http.HttpServletRequest;
-
+import static com.cartisan.modern.transaction.domain.Transaction.Type.values;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-
-import static com.cartisan.modern.transaction.domain.Transaction.Type.values;
 
 public class PresentableAddTransactionTest {
     @Test
     public void should_pass_type_values_to_page(){
-        HttpServletRequest mockHttpServletRequest = mock(HttpServletRequest.class);
-        PresentableAddTransaction presentableAddTransaction = new PresentableAddTransaction(mockHttpServletRequest);
+        Model mockModel = mock(Model.class);
+        PresentableAddTransaction presentableAddTransaction = new PresentableAddTransaction(mockModel);
 
         presentableAddTransaction.display();
 
-        verify(mockHttpServletRequest).setAttribute("types", values());
+        verify(mockModel).addAttribute("types", values());
     }
 }
