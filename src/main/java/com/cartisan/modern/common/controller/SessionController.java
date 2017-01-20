@@ -1,29 +1,26 @@
 package com.cartisan.modern.common.controller;
 
-import com.cartisan.modern.common.view.SignIn;
+import com.cartisan.modern.common.view.SignInView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import static com.cartisan.modern.common.controller.Urls.SIGNIN;
 
 @Controller
 public class SessionController {
-    private final SignIn signIn;
+    private final SignInView signInView;
 
     @Autowired
-    public SessionController(SignIn signIn) {
-        this.signIn = signIn;
+    public SessionController(SignInView signInView) {
+        this.signInView = signInView;
     }
 
-    @RequestMapping(value = SIGNIN, method = RequestMethod.GET)
+    @GetMapping(SIGNIN)
     public String signIn(@RequestParam(value = "error", required = false)String error,
-                               @RequestParam(value = "logout", required = false)String logout,
-                               Model model){
-        signIn.display(error, logout, model);
+                               @RequestParam(value = "logout", required = false)String logout){
+        signInView.display(error, logout);
 
         return SIGNIN;
     }
