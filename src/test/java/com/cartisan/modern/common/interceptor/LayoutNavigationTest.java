@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import static com.cartisan.modern.common.controller.Urls.MONTHLYBUDGET_ADD;
+import static com.cartisan.modern.common.controller.Urls.SIGNOUT;
 import static com.cartisan.modern.common.controller.Urls.TRANSACTION;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -26,5 +27,6 @@ public class LayoutNavigationTest {
 
         assertThat(modelAndView.getModelMap().get("monthlyBudgetAddUrl")).isEqualTo(MONTHLYBUDGET_ADD);
         assertThat(modelAndView.getModelMap().get("transactionUrl")).isEqualTo(TRANSACTION);
+        assertThat(modelAndView.getModelMap().get("signoutUrl")).isEqualTo(SIGNOUT);
     }
 }
