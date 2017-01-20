@@ -4,6 +4,7 @@ import com.cartisan.modern.budget.domain.MonthlyBudget;
 import com.cartisan.modern.budget.domain.MonthlyBudgetPlanner;
 import com.cartisan.modern.budget.view.PresentableMonthlyBudgetAmount;
 import com.cartisan.modern.common.callback.PostActions;
+import com.cartisan.modern.common.view.Message;
 import com.nitorcreations.junit.runners.NestedRunner;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,8 +27,8 @@ import static org.mockito.Mockito.*;
 public class MonthlyBudgetControllerTest {
     private MonthlyBudgetPlanner mockPlanner = mock(MonthlyBudgetPlanner.class);
     private PresentableMonthlyBudgetAmount mockPresentableMonthlyBudgetAmount = mock(PresentableMonthlyBudgetAmount.class);
-    private MonthlyBudgetController controller = new MonthlyBudgetController(mockPlanner, mockPresentableMonthlyBudgetAmount);
-    private Model mockModel = mock(Model.class);
+    private Message mockMessage = mock(Message.class);
+    private MonthlyBudgetController controller = new MonthlyBudgetController(mockPlanner, mockPresentableMonthlyBudgetAmount, mockMessage);
     private BindingResult stubBindingResult = mock(BindingResult.class);
 
     @Before
@@ -63,12 +64,12 @@ public class MonthlyBudgetControllerTest {
         }
 
         @Test
-        public void should_return_add_success_message_to_page() {
+        public void should_display_success_message_to_page() {
             controller.successMessage = "a success message";
 
             submitAddMonthlyBudget(monthlyBudget);
 
-            verify(mockModel).addAttribute("message", "a success message");
+            verify(mockMessage).display("a success message");
         }
 
     }
@@ -78,13 +79,13 @@ public class MonthlyBudgetControllerTest {
         private final MonthlyBudget monthlyBudget = new MonthlyBudget(parseDay("2016-07-01"), 100);
 
         @Test
-        public void should_return_add_fail_message_to_page(){
+        public void should_display_fail_message_to_page(){
             given_add_monthly_budget_will(failed());
             controller.failedMessage = "a failed message";
 
             submitAddMonthlyBudget(monthlyBudget);
 
-            verify(mockModel).addAttribute("message", "a failed message");
+            verify(mockMessage).display("a failed message");
         }
 
     }
@@ -142,7 +143,7 @@ public class MonthlyBudgetControllerTest {
     }
 
     private String submitAddMonthlyBudget(MonthlyBudget monthlyBudget) {
-        return controller.submitAddMonthlyBudget(monthlyBudget, stubBindingResult, mockModel);
+        return controller.submitAddMonthlyBudget(monthlyBudget, stubBindingResult);
     }
 
     private void given_add_monthly_budget_will(PostActions postActions) {

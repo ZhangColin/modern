@@ -1,6 +1,7 @@
 package com.cartisan.modern.transaction.controller;
 
 import com.cartisan.modern.common.callback.PostActions;
+import com.cartisan.modern.common.view.Message;
 import com.cartisan.modern.transaction.domain.Transaction;
 import com.cartisan.modern.transaction.domain.Transactions;
 import com.cartisan.modern.transaction.view.PresentableAddTransaction;
@@ -28,8 +29,9 @@ public class TransactionControllerTest {
     Transactions mockTransactions = mock(Transactions.class);
     PresentableAddTransaction mockPresentableAddTransaction = mock(PresentableAddTransaction.class);
     PresentableTransactions mockPresentableTransactions = mock(PresentableTransactions.class);
-    TransactionController controller = new TransactionController(mockTransactions, mockPresentableAddTransaction, mockPresentableTransactions);
-    Model mockModel = mock(Model.class);
+    Message mockMessage = mock(Message.class);
+    TransactionController controller = new TransactionController(
+            mockTransactions, mockPresentableAddTransaction, mockPresentableTransactions, mockMessage);
     Transaction transaction = new Transaction();
     BindingResult stubBindingResult = mock(BindingResult.class);
 
@@ -83,25 +85,25 @@ public class TransactionControllerTest {
         }
 
         @Test
-        public void should_return_add_success_message_to_page() {
+        public void should_display_success_message() {
             controller.successMessage = "a success message";
 
             submitTransactionAdd(transaction);
 
-            verify(mockModel).addAttribute("message", "a success message");
+            verify(mockMessage).display("a success message");
         }
 
     }
     public class AddSubmitFailed {
 
         @Test
-        public void should_return_add_failed_message_to_page() {
+        public void should_display_failed_message() {
             given_add_transaction_will(failed());
             controller.failedMessage = "a failed message";
 
             submitTransactionAdd(transaction);
 
-            verify(mockModel).addAttribute("message", "a failed message");
+            verify(mockMessage).display("a failed message");
         }
     }
     public class Valid {
@@ -164,7 +166,7 @@ public class TransactionControllerTest {
     }
 
     private String submitTransactionAdd(Transaction transaction) {
-        return controller.submitAddTransaction(transaction, stubBindingResult, mockModel);
+        return controller.submitAddTransaction(transaction, stubBindingResult);
     }
 
     private void given_add_transaction_will(PostActions postActions) {
