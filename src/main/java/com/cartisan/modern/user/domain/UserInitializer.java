@@ -12,7 +12,7 @@ public class UserInitializer {
     private UserRepository userRepository;
 
     @PostConstruct
-    public void afterPropertiesSet(){
+    public void createDefaultUser(){
         userRepository.deleteAll();
         userRepository.save(new User("user", "password"));
     }
