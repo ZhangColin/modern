@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    username: colin
+    password: truth
+    url: jdbc:mysql://localhost:3306/modern?createDatabaseIfNotExist=true&useSSL=false
+    testWhileIdle: true
+    validationQuery: SELECT 1
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+    show-sql: true
+
+  messages:
+    basename: BindingErrorMessages
