@@ -48,12 +48,12 @@ public class TransactionController {
             transactions.add(transaction)
                     .success(thenSetMessage(model, successMessage))
                     .failed(thenSetMessage(model, failedMessage));
-        return addTransaction(model);
+        return addTransaction();
     }
 
     @GetMapping(ADD)
-    public String addTransaction(Model model) {
-        presentableAddTransaction.display(model, Transaction.Type.values());
+    public String addTransaction() {
+        presentableAddTransaction.display();
         return TRANSACTION_ADD;
     }
 

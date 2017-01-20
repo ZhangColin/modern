@@ -53,7 +53,7 @@ public class TransactionControllerTest {
         }
 
         private String addTransaction() {
-            return controller.addTransaction(mockModel);
+            return controller.addTransaction();
         }
     }
 
@@ -172,6 +172,6 @@ public class TransactionControllerTest {
     }
 
     private void verifyPresentableAddTransactionDisplay() {
-        verify(mockPresentableAddTransaction).display(mockModel, Transaction.Type.values());
+        verify(mockPresentableAddTransaction).display();
     }
 }
