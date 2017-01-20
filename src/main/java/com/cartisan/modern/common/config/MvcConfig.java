@@ -1,5 +1,6 @@
-package com.cartisan.modern.common.interceptor;
+package com.cartisan.modern.common.config;
 
+import com.cartisan.modern.common.interceptor.*;
 import com.cartisan.modern.common.view.ErrorMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

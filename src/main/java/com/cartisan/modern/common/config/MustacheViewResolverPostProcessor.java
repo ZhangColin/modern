@@ -1,4 +1,4 @@
-package com.cartisan.modern.common;
+package com.cartisan.modern.common.config;
 
 import com.github.mjeanroy.springmvc.view.mustache.MustacheViewResolver;
 import org.springframework.beans.BeansException;
