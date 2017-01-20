@@ -1,5 +1,6 @@
 package com.cartisan.modern.acceptancetest.steps;
 
+import com.cartisan.modern.acceptancetest.data.Messages;
 import com.cartisan.modern.acceptancetest.pages.CommonPage;
 import com.cartisan.modern.acceptancetest.pages.SignInPage;
 import com.cartisan.modern.user.domain.User;
@@ -22,6 +23,9 @@ public class SignInSteps {
     @Autowired
     private SignInPage page;
 
+    @Autowired
+    private Messages messages;
+
     @Given("^there is a user named \"([^\"]*)\" and password is \"([^\"]*)\"$")
     public void there_is_a_user_named_and_password_is(String userName, String password) {
         userRepository.save(new User(userName, password));
@@ -34,7 +38,6 @@ public class SignInSteps {
 
     @Then("^login successfully$")
     public void login_successfully() {
-        assertThat(commonPage.getAllText()).contains("Welcome");
+        assertThat(commonPage.getAllText()).contains(messages.welcome);
     }
-
 }

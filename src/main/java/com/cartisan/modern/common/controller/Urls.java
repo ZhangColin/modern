@@ -5,7 +5,7 @@ public class Urls {
     public static final String INDEX = "/index";
 
     public static final String MONTHLYBUDGET = "/monthlybudget";
-    public static final String TOTALAMOUNT = "/TOTALAMOUNT";
+    public static final String TOTALAMOUNT = "/totalamount";
     public static final String MONTHLYBUDGET_ADD = MONTHLYBUDGET+ADD;
     public static final String MONTHLYBUDGET_TOTALAMOUNT = MONTHLYBUDGET+TOTALAMOUNT;
 
