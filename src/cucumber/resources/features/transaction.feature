@@ -15,7 +15,7 @@ Feature: Add Transaction
     When add transactions with the following information
       | Type   | Description | Date         | Amount |
       | Income |             | wrong format |        |
-    Then there is an error message for blank
+    Then there is an error message for blank description
     And there is an error message for invalid date date
     And there is an error message for null amount
 

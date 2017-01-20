@@ -41,10 +41,10 @@ public class LabelTextInterceptor implements HandlerInterceptor {
     }
 
     private boolean isLabelMessageKeyForView(String key, String viewName) {
-        return isAllNameInKey(key, viewName) || key.startsWith(PREFIX);
+        return isAllNameInKey(viewName, key) || key.startsWith(PREFIX);
     }
 
-    private boolean isAllNameInKey(String key, String viewName) {
+    private boolean isAllNameInKey(String viewName, String key) {
         return Stream.of(viewName.split(VIEW_NAME_DELIMITER)).allMatch(name->key.contains(name));
     }
 
