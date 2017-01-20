@@ -1,30 +1,29 @@
-<link href="/css/table.css" rel="stylesheet"/>
-<div>{{transactions.message}}</div>
-<table class="table-fill" {{transactions.hidden}}>
-    <thead>
-    <tr>
-        <th class="text-left">{{label.type}}</th>
-        <th class="text-left">{{label.description}}</th>
-        <th class="text-left">{{label.date}}</th>
-        <th class="text-left">{{label.amount}}</th>
-    </tr>
-    </thead>
-    {{#transactions}}
-    <tr>
-        <td class="text-left">{{type}}</td>
-        <td class="text-left">{{description}}</td>
-        <td class="text-left">{{dateForView}}</td>
-        <td class="text-left">{{amount}}</td>
-    </tr>
-    {{/transactions}}
-</table>
-<hr {{transactions.hidden}}/>
-<table align="center" {{transactions.hidden}}>
-    <tbody>
-    <tr>
-        <td>Total Income is {{transactions.totalIncome}}</td>
-        <td>Total Outcome is {{transactions.totalOutcome}}</td>
-        <td>Balance is {{transactions.balance}}</td>
-    </tr>
-    </tbody>
-</table>
+<div class="panel panel-primary">
+    <div class="panel-heading">Panel heading</div>
+    <div class="panel-body">{{transactions.message}}</div>
+    <table class="table table-hover" {{transactions.hidden}}>
+        <thead>
+        <tr>
+            <th class="text-left">{{label.type}}</th>
+            <th class="text-left">{{label.description}}</th>
+            <th class="text-left">{{label.date}}</th>
+            <th class="text-left">{{label.amount}}</th>
+        </tr>
+        </thead>
+        {{#transactions}}
+        <tr>
+            <td class="text-left">{{type}}</td>
+            <td class="text-left">{{description}}</td>
+            <td class="text-left">{{dateForView}}</td>
+            <td class="text-left">{{amount}}</td>
+        </tr>
+        {{/transactions}}
+    </table>
+    <div class="panel-footer" {{transactions.hidden}}>
+        <div class="row">
+            <div class="col-md-4">Total Income is {{transactions.totalIncome}}</div>
+            <div class="col-md-4">Total Outcome is {{transactions.totalOutcome}}</div>
+            <div class="col-md-4">Balance is {{transactions.balance}}</div>
+        </div>
+    </div>
+</div>
