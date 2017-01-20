@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static com.cartisan.modern.common.view.Messages.RESULT_MESSAGES_FULL_NAME;
+import static com.cartisan.modern.common.view.MessageSources.RESULT_MESSAGES_FULL_NAME;
 import static java.lang.String.format;
 import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLASS;
 

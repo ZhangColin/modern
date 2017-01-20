@@ -13,7 +13,7 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static com.cartisan.modern.common.view.Messages.LABEL_TEXT_SHORT_NAME;
+import static com.cartisan.modern.common.view.MessageSources.LABEL_TEXT_SHORT_NAME;
 import static org.mockito.Matchers.anyObject;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;

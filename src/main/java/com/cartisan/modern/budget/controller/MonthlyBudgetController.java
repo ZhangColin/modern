@@ -18,9 +18,7 @@ import java.util.Date;
 import static com.cartisan.modern.common.Formats.DAY;
 import static com.cartisan.modern.common.controller.ControllerHelper.thenSetMessage;
 import static com.cartisan.modern.common.controller.Urls.*;
-import static com.cartisan.modern.common.view.Messages.RESULT_MESSAGES_FULL_NAME;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static com.cartisan.modern.common.view.MessageSources.RESULT_MESSAGES_FULL_NAME;
 
 @Controller
 @RequestMapping(MONTHLYBUDGET)

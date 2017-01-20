@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
 import static com.cartisan.modern.common.BeanUtils.copyProperties;
-import static com.cartisan.modern.common.view.Messages.RESULT_MESSAGES_FULL_NAME;
+import static com.cartisan.modern.common.view.MessageSources.RESULT_MESSAGES_FULL_NAME;
 import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLASS;
 
 @Component

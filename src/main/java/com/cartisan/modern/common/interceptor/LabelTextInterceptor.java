@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import static com.cartisan.modern.common.view.Messages.LABEL_TEXT_SHORT_NAME;
+import static com.cartisan.modern.common.view.MessageSources.LABEL_TEXT_SHORT_NAME;
 
 public class LabelTextInterceptor implements HandlerInterceptor {
     private static final String PREFIX = "label";
