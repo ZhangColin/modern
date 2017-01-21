@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 
@@ -63,9 +64,7 @@ public class TransactionController {
     }
 
     @GetMapping
-    public String index() {
-        presentableTransactions.display();
-
-        return TRANSACTION_INDEX;
+    public ModelAndView index() {
+        return presentableTransactions;
     }
 }

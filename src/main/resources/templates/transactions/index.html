@@ -1,7 +1,7 @@
 <div class="panel panel-primary">
     <div class="panel-heading">Transactions</div>
-    <div class="panel-body">{{transactions.message}}</div>
-    <table class="table table-hover" {{transactions.hidden}}>
+    <div class="panel-body">{{message}}</div>
+    <table class="table table-hover" {{hidden}}>
         <thead>
         <tr>
             <th class="text-left">{{label.type}}</th>
@@ -10,6 +10,7 @@
             <th class="text-left">{{label.amount}}</th>
         </tr>
         </thead>
+        <tbody class="table-hover">
         {{#transactions}}
         <tr>
             <td class="text-left">{{type}}</td>
@@ -18,12 +19,13 @@
             <td class="text-left">{{amount}}</td>
         </tr>
         {{/transactions}}
+        </tbody>
     </table>
-    <div class="panel-footer" {{transactions.hidden}}>
+    <div class="panel-footer" {{hidden}}>
         <div class="row">
-            <div class="col-md-4">Total Income: {{transactions.totalIncome}}</div>
-            <div class="col-md-4">Total Outcome: {{transactions.totalOutcome}}</div>
-            <div class="col-md-4">Balance: {{transactions.balance}}</div>
+            <div class="col-md-4">Total Income: {{totalIncome}}</div>
+            <div class="col-md-4">Total Outcome: {{totalOutcome}}</div>
+            <div class="col-md-4">Balance: {{balance}}</div>
         </div>
     </div>
 </div>

@@ -1,6 +1,5 @@
 package com.cartisan.modern.transaction.view;
 
-import com.cartisan.modern.common.view.Model;
 import com.cartisan.modern.transaction.domain.Transaction;
 import com.cartisan.modern.transaction.domain.Transactions;
 import com.nitorcreations.junit.runners.NestedRunner;
@@ -9,48 +8,52 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 
 import static com.cartisan.modern.common.Formats.parseDay;
+import static com.cartisan.modern.common.controller.Urls.TRANSACTION_INDEX;
 import static com.cartisan.modern.transaction.domain.Transaction.Type.Income;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doAnswer;
+import static org.mockito.Mockito.mock;
 
 @RunWith(NestedRunner.class)
 public class PresentableTransactionsTest {
     private Transactions stubTransactions = mock(Transactions.class);
-    private Model mockModel = mock(Model.class);
-    private PresentableTransactions presentableTransactions = new PresentableTransactions(stubTransactions, mockModel);
+
+    @Test
+    public void should_go_to_index_page(){
+        assertThat(presentableTransactions().getViewName()).isEqualTo(TRANSACTION_INDEX);
+    }
 
     public class NoTransaction{
+
         @Before
         public void given_has_no_transaction() {
             given_has_transaction();
         }
-
         @Test
         public void should_hide_list_view(){
-            display();
-
-            assertThat(presentableTransactions.hidden()).isEqualTo("hidden");
+            assertThat(modelOfPresentableTransactions().get("hidden")).isEqualTo("hidden");
         }
 
         @Test
         public void should_show_message(){
-            presentableTransactions.noTransactionMessage = "no transaction message";
+            PresentableTransactions presentableTransactions = new PresentableTransactions(stubTransactions,
+                    "no transaction message");
 
-            display();
-
-            assertThat(presentableTransactions.message()).isEqualTo("no transaction message");
+            assertThat(presentableTransactions.getModel().get("message")).isEqualTo("no transaction message");
         }
-    }
 
+    }
     public class HasSomeTransactions{
+
         private Date date = parseDay("2016-07-01");
         private int amount = 100;
-
         @Before
         public void given_has_some_transaction(){
             given_has_transaction(transaction(Income, "description", date, amount));
@@ -58,24 +61,17 @@ public class PresentableTransactionsTest {
 
         @Test
         public void should_not_hide_list_view() {
-            display();
-
-            assertThat(presentableTransactions.hidden()).isEqualTo("");
+            assertThat(modelOfPresentableTransactions()).doesNotContainKey("hidden");
         }
 
         @Test
         public void should_not_show_message(){
-            display();
-
-            assertThat(presentableTransactions.message()).isEqualTo("");
+            assertThat(modelOfPresentableTransactions()).doesNotContainKey("message");
         }
 
         @Test
         public void should_pass_transaction_to_page(){
-            display();
-
-            verify(mockModel).addAttribute("transactions", presentableTransactions);
-            assertThat(presentableTransactions)
+            assertThat((List<PresentableTransaction>)modelOfPresentableTransactions().get("transactions"))
                     .usingFieldByFieldElementComparator()
                     .containsExactly(presentableTransaction(Income, "description", date, amount));
         }
@@ -99,8 +95,8 @@ public class PresentableTransactionsTest {
 
             return transaction;
         }
-    }
 
+    }
     private void given_has_transaction(Transaction... transactions) {
         doAnswer(invocation -> {
             Consumer<Transaction> consumer = invocation.getArgumentAt(0, Consumer.class);
@@ -109,7 +105,11 @@ public class PresentableTransactionsTest {
         }).when(stubTransactions).processAll(any(Consumer.class));
     }
 
-    private void display() {
-        presentableTransactions.display();
+    private Map<String, Object> modelOfPresentableTransactions(){
+        return presentableTransactions().getModel();
+    }
+
+    private PresentableTransactions presentableTransactions() {
+        return new PresentableTransactions(stubTransactions, "whatever message");
     }
 }
