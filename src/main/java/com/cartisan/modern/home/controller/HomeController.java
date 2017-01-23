@@ -1,6 +1,6 @@
 package com.cartisan.modern.home.controller;
 
-import com.cartisan.modern.home.view.Home;
+import com.cartisan.modern.home.view.HomeView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,10 +13,10 @@ import static com.cartisan.modern.common.controller.Urls.ROOT;
 @RequestMapping(ROOT)
 public class HomeController {
     @Autowired
-    private Home home;
+    private HomeView homeView;
 
     @GetMapping
     public ModelAndView index(){
-        return home;
+        return homeView;
     }
 }

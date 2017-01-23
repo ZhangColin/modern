@@ -2,12 +2,11 @@ package com.cartisan.modern.common.view;
 
 import org.junit.Test;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static com.cartisan.modern.common.controller.Urls.SIGNIN;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class SignInViewTest {
-    private Model mockModel = mock(Model.class);
-    private SignInView view = new SignInView(mockModel);
+    private SignInView view = new SignInView();
 
     @Test
     public void message_when_sign_in_error() {
@@ -15,8 +14,8 @@ public class SignInViewTest {
 
         view.display("any error", null);
 
-        verify(mockModel).addAttribute("message", "a failed message");
-        verify(mockModel).addAttribute("type", "danger");
+        assertMessageEquals("a failed message");
+        assertTypeEquals("danger");
     }
 
     @Test
@@ -25,7 +24,20 @@ public class SignInViewTest {
 
         view.display(null, "something logout");
 
-        verify(mockModel).addAttribute("message", "a logout message");
-        verify(mockModel).addAttribute("type", "info");
+        assertMessageEquals("a logout message");
+        assertTypeEquals("info");
+    }
+
+    @Test
+    public void should_go_to_sign_in_view(){
+        assertThat(view.display("any error", "any logout").getViewName()).isEqualTo(SIGNIN);
+    }
+
+    private void assertMessageEquals(String message) {
+        assertThat(view.getModel().get("message")).isEqualTo(message);
+    }
+
+    private void assertTypeEquals(String type) {
+        assertThat(view.getModel().get("type")).isEqualTo(type);
     }
 }
