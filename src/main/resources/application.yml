@@ -2,7 +2,6 @@ spring:
   datasource:
     username: colin
     password: truth
-    url: jdbc:mysql://localhost:3306/modern?createDatabaseIfNotExist=true&useSSL=false
     testWhileIdle: true
     validationQuery: SELECT 1
 
@@ -17,3 +16,27 @@ spring:
 
   messages:
     basename: BindingErrorMessages
+
+---
+
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:mysql://localhost:3306/moderndev?createDatabaseIfNotExist=true&useSSL=false
+
+server:
+  port: 8090
+
+---
+
+spring:
+  profiles: test
+  datasource:
+    url: jdbc:mysql://localhost:3306/moderntest?createDatabaseIfNotExist=true&useSSL=false
+  jpa:
+    hibernate:
+      ddl-auto: create
+
+server:
+  port: 8080
+
