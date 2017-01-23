@@ -2,6 +2,7 @@ package com.cartisan.modern.budget.controller;
 
 import com.cartisan.modern.budget.domain.MonthlyBudget;
 import com.cartisan.modern.budget.domain.MonthlyBudgetPlanner;
+import com.cartisan.modern.budget.view.PresentableAddMonthlyBudget;
 import com.cartisan.modern.budget.view.PresentableMonthlyBudgetAmount;
 import com.cartisan.modern.common.view.Message;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ import static com.cartisan.modern.common.view.MessageSources.RESULT_MESSAGES_FUL
 public class MonthlyBudgetController {
     private final MonthlyBudgetPlanner planner;
     private final PresentableMonthlyBudgetAmount presentableMonthlyBudgetAmount;
+    private final PresentableAddMonthlyBudget presentableAddMonthlyBudget;
     private final Message message;
 
     @Value("${monthlybudget.add.success}")
@@ -37,14 +39,15 @@ public class MonthlyBudgetController {
     @Autowired
     public MonthlyBudgetController(MonthlyBudgetPlanner planner,
                                    PresentableMonthlyBudgetAmount presentableMonthlyBudgetAmount,
-                                   Message message) {
+                                   PresentableAddMonthlyBudget presentableAddMonthlyBudget, Message message) {
         this.planner = planner;
         this.presentableMonthlyBudgetAmount = presentableMonthlyBudgetAmount;
+        this.presentableAddMonthlyBudget = presentableAddMonthlyBudget;
         this.message = message;
     }
 
     @PostMapping(ADD)
-    public String submitAddMonthlyBudget(
+    public ModelAndView submitAddMonthlyBudget(
             @Valid @ModelAttribute MonthlyBudget monthlyBudget, BindingResult result) {
         if (!result.hasFieldErrors())
             planner.addMonthlyBudget(monthlyBudget)
@@ -55,8 +58,8 @@ public class MonthlyBudgetController {
     }
 
     @GetMapping(ADD)
-    public String addMonthlyBudget() {
-        return MONTHLYBUDGET_ADD;
+    public ModelAndView addMonthlyBudget() {
+        return presentableAddMonthlyBudget;
     }
 
     @GetMapping(TOTALAMOUNT)

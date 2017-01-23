@@ -2,6 +2,7 @@ package com.cartisan.modern.budget.controller;
 
 import com.cartisan.modern.budget.domain.MonthlyBudget;
 import com.cartisan.modern.budget.domain.MonthlyBudgetPlanner;
+import com.cartisan.modern.budget.view.PresentableAddMonthlyBudget;
 import com.cartisan.modern.budget.view.PresentableMonthlyBudgetAmount;
 import com.cartisan.modern.common.callback.PostActions;
 import com.cartisan.modern.common.view.Message;
@@ -17,8 +18,6 @@ import java.util.Date;
 import static com.cartisan.modern.common.Formats.parseDay;
 import static com.cartisan.modern.common.callback.PostActionsFactory.failed;
 import static com.cartisan.modern.common.callback.PostActionsFactory.success;
-import static com.cartisan.modern.common.controller.Urls.MONTHLYBUDGET_ADD;
-import static com.cartisan.modern.common.controller.Urls.MONTHLYBUDGET_TOTALAMOUNT;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
@@ -27,8 +26,11 @@ import static org.mockito.Mockito.*;
 public class MonthlyBudgetControllerTest {
     private MonthlyBudgetPlanner mockPlanner = mock(MonthlyBudgetPlanner.class);
     private Message mockMessage = mock(Message.class);
-    private MonthlyBudgetController controller = new MonthlyBudgetController(mockPlanner, new PresentableMonthlyBudgetAmount(), mockMessage);
+    private final PresentableAddMonthlyBudget presentableAddMonthlyBudget = new PresentableAddMonthlyBudget();
+    private MonthlyBudgetController controller = new MonthlyBudgetController(mockPlanner,
+            new PresentableMonthlyBudgetAmount(), presentableAddMonthlyBudget, mockMessage);
     private BindingResult stubBindingResult = mock(BindingResult.class);
+    private MonthlyBudget monthlyBudget = new MonthlyBudget(parseDay("2016-07-01"), 100);
 
     @Before
     public void given_has_no_field_error() {
@@ -38,7 +40,7 @@ public class MonthlyBudgetControllerTest {
     public class Add {
         @Test
         public void should_go_to_monthly_budget_add_page() {
-            assertThat(controller.addMonthlyBudget()).isEqualTo(MONTHLYBUDGET_ADD);
+            assertThat(controller.addMonthlyBudget()).isInstanceOf(PresentableAddMonthlyBudget.class);
         }
     }
 
@@ -53,7 +55,7 @@ public class MonthlyBudgetControllerTest {
 
         @Test
         public void should_go_to_add_monthly_budget_page() {
-            assertThat(submitAddMonthlyBudget(monthlyBudget)).isEqualTo(MONTHLYBUDGET_ADD);
+            assertThat(submitAddMonthlyBudget(monthlyBudget)).isInstanceOf(PresentableAddMonthlyBudget.class);
         }
 
         @Test
@@ -75,8 +77,6 @@ public class MonthlyBudgetControllerTest {
     }
 
     public class AddSubmitFailed {
-
-        private final MonthlyBudget monthlyBudget = new MonthlyBudget(parseDay("2016-07-01"), 100);
 
         @Test
         public void should_display_fail_message_to_page() {
@@ -108,7 +108,7 @@ public class MonthlyBudgetControllerTest {
 
         @Test
         public void should_go_to_add_monthly_budget_page() {
-            assertThat(submitAddMonthlyBudget(invalidMonthlyBudget)).isEqualTo(MONTHLYBUDGET_ADD);
+            assertThat(submitAddMonthlyBudget(invalidMonthlyBudget)).isInstanceOf(PresentableAddMonthlyBudget.class);
         }
 
     }
@@ -121,7 +121,7 @@ public class MonthlyBudgetControllerTest {
         private MonthlyBudgetController controller = new MonthlyBudgetController(mockPlanner,
                 new PresentableMonthlyBudgetAmount() {{
                     message = "whatever message";
-                }}, mockMessage);
+                }}, presentableAddMonthlyBudget, mockMessage);
 
         @Test
         public void should_go_to_get_amount_page() {
@@ -139,7 +139,7 @@ public class MonthlyBudgetControllerTest {
         public void should_pass_amount_to_page() {
             given_planner_will_return_total_as(total);
             PresentableMonthlyBudgetAmount mockPresentableMonthlyBudgetAmount = mock(PresentableMonthlyBudgetAmount.class);
-            controller = new MonthlyBudgetController(mockPlanner, mockPresentableMonthlyBudgetAmount, mockMessage);
+            controller = new MonthlyBudgetController(mockPlanner, mockPresentableMonthlyBudgetAmount, presentableAddMonthlyBudget, mockMessage);
 
             getAmount();
 
@@ -156,7 +156,7 @@ public class MonthlyBudgetControllerTest {
 
     }
 
-    private String submitAddMonthlyBudget(MonthlyBudget monthlyBudget) {
+    private ModelAndView submitAddMonthlyBudget(MonthlyBudget monthlyBudget) {
         return controller.submitAddMonthlyBudget(monthlyBudget, stubBindingResult);
     }
 
