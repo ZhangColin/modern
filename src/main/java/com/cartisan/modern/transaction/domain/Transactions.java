@@ -5,14 +5,11 @@ import com.cartisan.modern.transaction.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.util.List;
 import java.util.function.Consumer;
 
-import static com.cartisan.modern.common.Formats.parseDay;
 import static com.cartisan.modern.common.callback.PostActionsFactory.failed;
 import static com.cartisan.modern.common.callback.PostActionsFactory.success;
-import static com.cartisan.modern.transaction.domain.Transaction.Type.Income;
-import static com.cartisan.modern.transaction.domain.Transaction.Type.Outcome;
 
 @Service
 public class Transactions {
@@ -20,7 +17,6 @@ public class Transactions {
 
     @Autowired
     public Transactions(TransactionRepository repository) {
-
         this.repository = repository;
     }
 
@@ -34,7 +30,9 @@ public class Transactions {
         }
     }
 
-    public void processAll(Consumer<Transaction> consumer) {
-        repository.findAll().forEach(consumer::accept);
+    public TransactionPostActions processAll(Consumer<Transaction> consumer) {
+        List<Transaction> all = repository.findAll();
+        all.forEach(consumer::accept);
+        return new SummaryOfTransactions(all);
     }
 }

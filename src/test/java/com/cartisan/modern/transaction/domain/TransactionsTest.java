@@ -1,13 +1,17 @@
 package com.cartisan.modern.transaction.domain;
 
 import com.cartisan.modern.transaction.repository.TransactionRepository;
+import com.nitorcreations.junit.runners.NestedRunner;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.util.function.Consumer;
 
 import static java.util.Arrays.asList;
 import static org.mockito.Mockito.*;
 
+@RunWith(NestedRunner.class)
 public class TransactionsTest {
     TransactionRepository mockRepository = mock(TransactionRepository.class);
     Transactions transactions = new Transactions(mockRepository);
@@ -16,42 +20,66 @@ public class TransactionsTest {
     Runnable afterSuccess = mock(Runnable.class);
     Runnable afterFailed = mock(Runnable.class);
 
-    @Test
-    public void save_transaction() {
-        transactions.add(transaction);
-        verify(mockRepository).save(transaction);
+    public class Save{
+        @Test
+        public void should_save_transaction() {
+            transactions.add(transaction);
+            verify(mockRepository).save(transaction);
+        }
+
+        @Test
+        public void should_call_after_success_when_save_successfully() {
+            transactions.add(transaction).success(afterSuccess).failed(afterFailed);
+
+            verify(afterSuccess).run();
+            verify(afterFailed, never()).run();
+        }
+
+        @Test
+        public void should_call_after_failed_when_save_failed(){
+            given_save_will_fail();
+
+            transactions.add(transaction).success(afterSuccess).failed(afterFailed);
+
+            verify(afterFailed).run();
+            verify(afterSuccess, never()).run();
+        }
+
+        private void given_save_will_fail() {
+            doThrow(IllegalArgumentException.class).when(mockRepository).save(any(Transaction.class));
+        }
+
     }
 
-    @Test
-    public void call_after_success_when_save_successfully() {
-        transactions.add(transaction).success(afterSuccess).failed(afterFailed);
+    public class ProcessAll{
+        private Consumer<Transaction> whateverConsumer = transaction -> {};
 
-        verify(afterSuccess).run();
-        verify(afterFailed, never()).run();
-    }
+        @Before
+        public void given_findAll_will_return_transaction(){
+            given_findAll_will_return(transaction);
+        }
 
-    @Test
-    public void call_after_failed_when_save_failed(){
-        given_save_will_fail();
+        @Test
+        public void should_process_all_transactions(){
+            Consumer<Transaction> mockConsumer = mock(Consumer.class);
+            transactions.processAll(mockConsumer);
 
-        transactions.add(transaction).success(afterSuccess).failed(afterFailed);
+            verify(mockConsumer).accept(transaction);
+        }
 
-        verify(afterFailed).run();
-        verify(afterSuccess, never()).run();
-    }
+        @Test
+        public void process_all_transactions_with_summary(){
+            Consumer<SummaryOfTransactions> mockConsumer = mock(Consumer.class);
 
-    @Test
-    public void process_all_transactions(){
-        when(mockRepository.findAll()).thenReturn(asList(transaction));
+            transactions.processAll(whateverConsumer).withSummary(mockConsumer);
 
-        Consumer<Transaction> mockConsumber = mock(Consumer.class);
-        transactions.processAll(mockConsumber);
+            verify(mockConsumer).accept(any(SummaryOfTransactions.class));
+        }
 
-        verify(mockConsumber).accept(transaction);
-    }
+        private void given_findAll_will_return(Transaction transaction) {
+            when(mockRepository.findAll()).thenReturn(asList(transaction));
+        }
 
-    private void given_save_will_fail() {
-        doThrow(IllegalArgumentException.class).when(mockRepository).save(any(Transaction.class));
     }
 
 

@@ -4,6 +4,7 @@ import com.cartisan.modern.common.view.Message;
 import com.cartisan.modern.transaction.domain.Transaction;
 import com.cartisan.modern.transaction.domain.Transactions;
 import com.cartisan.modern.transaction.view.PresentableAddTransaction;
+import com.cartisan.modern.transaction.view.PresentableSummaryOfTransactions;
 import com.cartisan.modern.transaction.view.PresentableTransactions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,6 +29,7 @@ public class TransactionController {
     private final Transactions transactions;
     private final PresentableAddTransaction presentableAddTransaction;
     private final PresentableTransactions presentableTransactions;
+    private final PresentableSummaryOfTransactions presentableSummaryOfTransactions;
     private final Message message;
 
     @Value("${transaction.add.success}")
@@ -40,10 +42,11 @@ public class TransactionController {
     public TransactionController(Transactions transactions,
                                  PresentableAddTransaction presentableAddTransaction,
                                  PresentableTransactions presentableTransactions,
-                                 Message message) {
+                                 PresentableSummaryOfTransactions presentableSummaryOfTransactions, Message message) {
         this.transactions = transactions;
         this.presentableAddTransaction = presentableAddTransaction;
         this.presentableTransactions = presentableTransactions;
+        this.presentableSummaryOfTransactions = presentableSummaryOfTransactions;
         this.message = message;
     }
 
@@ -64,6 +67,8 @@ public class TransactionController {
 
     @GetMapping
     public ModelAndView index() {
-        return presentableTransactions;
+        transactions.processAll(presentableTransactions::display)
+                .withSummary(presentableSummaryOfTransactions::display);
+        return presentableTransactions.with(presentableSummaryOfTransactions);
     }
 }
