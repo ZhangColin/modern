@@ -9,8 +9,8 @@ import com.nitorcreations.junit.runners.NestedRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Date;
 
@@ -26,28 +26,28 @@ import static org.mockito.Mockito.*;
 @RunWith(NestedRunner.class)
 public class MonthlyBudgetControllerTest {
     private MonthlyBudgetPlanner mockPlanner = mock(MonthlyBudgetPlanner.class);
-    private PresentableMonthlyBudgetAmount mockPresentableMonthlyBudgetAmount = mock(PresentableMonthlyBudgetAmount.class);
     private Message mockMessage = mock(Message.class);
-    private MonthlyBudgetController controller = new MonthlyBudgetController(mockPlanner, mockPresentableMonthlyBudgetAmount, mockMessage);
+    private MonthlyBudgetController controller = new MonthlyBudgetController(mockPlanner, new PresentableMonthlyBudgetAmount(), mockMessage);
     private BindingResult stubBindingResult = mock(BindingResult.class);
 
     @Before
-    public void given_has_no_field_error(){
+    public void given_has_no_field_error() {
         given_has_field_error(false);
     }
 
-    public class Add{
+    public class Add {
         @Test
         public void should_go_to_monthly_budget_add_page() {
             assertThat(controller.addMonthlyBudget()).isEqualTo(MONTHLYBUDGET_ADD);
         }
     }
 
-    public class AddSubmitSuccess{
+    public class AddSubmitSuccess {
 
         private final MonthlyBudget monthlyBudget = new MonthlyBudget(parseDay("2016-07-01"), 100);
+
         @Before
-        public void given_add_monthly_budget_will_success(){
+        public void given_add_monthly_budget_will_success() {
             given_add_monthly_budget_will(success());
         }
 
@@ -57,7 +57,7 @@ public class MonthlyBudgetControllerTest {
         }
 
         @Test
-        public void should_add_monthly_budget(){
+        public void should_add_monthly_budget() {
             submitAddMonthlyBudget(monthlyBudget);
 
             verify(mockPlanner).addMonthlyBudget(monthlyBudget);
@@ -74,12 +74,12 @@ public class MonthlyBudgetControllerTest {
 
     }
 
-    public class AddSubmitFailed{
+    public class AddSubmitFailed {
 
         private final MonthlyBudget monthlyBudget = new MonthlyBudget(parseDay("2016-07-01"), 100);
 
         @Test
-        public void should_display_fail_message_to_page(){
+        public void should_display_fail_message_to_page() {
             given_add_monthly_budget_will(failed());
             controller.failedMessage = "a failed message";
 
@@ -89,11 +89,13 @@ public class MonthlyBudgetControllerTest {
         }
 
     }
-    public class Valid{
+
+    public class Valid {
 
         private MonthlyBudget invalidMonthlyBudget = new MonthlyBudget(null, null);
+
         @Before
-        public void given_has_some_field_error(){
+        public void given_has_some_field_error() {
             given_has_field_error(true);
         }
 
@@ -111,13 +113,19 @@ public class MonthlyBudgetControllerTest {
 
     }
 
-    public class GetAmount{
-
+    public class GetAmount {
+        private final long total = 100L;
         private Date startDate = parseDay("2016-07-01");
         private Date endDate = parseDay("2016-07-10");
+
+        private MonthlyBudgetController controller = new MonthlyBudgetController(mockPlanner,
+                new PresentableMonthlyBudgetAmount() {{
+                    message = "whatever message";
+                }}, mockMessage);
+
         @Test
-        public void should_go_to_get_amount_page(){
-            assertThat(getAmount()).isEqualTo(MONTHLYBUDGET_TOTALAMOUNT);
+        public void should_go_to_get_amount_page() {
+            assertThat(getAmount()).isInstanceOf(PresentableMonthlyBudgetAmount.class);
         }
 
         @Test
@@ -129,14 +137,20 @@ public class MonthlyBudgetControllerTest {
 
         @Test
         public void should_pass_amount_to_page() {
-            when(mockPlanner.getAmount(startDate, endDate)).thenReturn(100L);
+            given_planner_will_return_total_as(total);
+            PresentableMonthlyBudgetAmount mockPresentableMonthlyBudgetAmount = mock(PresentableMonthlyBudgetAmount.class);
+            controller = new MonthlyBudgetController(mockPlanner, mockPresentableMonthlyBudgetAmount, mockMessage);
 
             getAmount();
 
             verify(mockPresentableMonthlyBudgetAmount).display(100L);
         }
 
-        private String getAmount() {
+        private void given_planner_will_return_total_as(long total) {
+            when(mockPlanner.getAmount(startDate, endDate)).thenReturn(total);
+        }
+
+        private ModelAndView getAmount() {
             return controller.totalAmountOfMonthlyBudget(startDate, endDate);
         }
 
