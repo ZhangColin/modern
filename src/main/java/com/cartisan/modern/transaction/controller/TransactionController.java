@@ -48,7 +48,7 @@ public class TransactionController {
     }
 
     @PostMapping(ADD)
-    public String submitAddTransaction(
+    public ModelAndView submitAddTransaction(
             @Valid @ModelAttribute Transaction transaction, BindingResult result) {
         if (!result.hasFieldErrors())
             transactions.add(transaction)
@@ -58,9 +58,8 @@ public class TransactionController {
     }
 
     @GetMapping(ADD)
-    public String addTransaction() {
-        presentableAddTransaction.display();
-        return TRANSACTION_ADD;
+    public ModelAndView addTransaction() {
+        return presentableAddTransaction;
     }
 
     @GetMapping

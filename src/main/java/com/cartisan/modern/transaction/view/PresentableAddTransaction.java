@@ -1,22 +1,18 @@
 package com.cartisan.modern.transaction.view;
 
-import com.cartisan.modern.common.view.Model;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.ModelAndView;
 
+import static com.cartisan.modern.common.controller.Urls.TRANSACTION_ADD;
 import static com.cartisan.modern.transaction.domain.Transaction.Type.values;
+import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLASS;
 
 @Component
-public class PresentableAddTransaction {
-
-    private final Model model;
-
-    @Autowired
-    public PresentableAddTransaction(Model model) {
-        this.model = model;
-    }
-
-    public void display() {
-        model.addAttribute("types", values());
+@Scope(value = "request", proxyMode = TARGET_CLASS)
+public class PresentableAddTransaction extends ModelAndView{
+    public PresentableAddTransaction() {
+        addObject("types", values());
+        setViewName(TRANSACTION_ADD);
     }
 }
