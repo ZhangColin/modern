@@ -1,10 +1,11 @@
 package com.cartisan.modern.user.controller;
 
+import com.cartisan.modern.user.domain.AuthenticationResult;
 import com.cartisan.modern.user.view.SignInView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import static com.cartisan.modern.common.controller.Urls.SIGNIN;
@@ -19,8 +20,8 @@ public class SessionController {
     }
 
     @GetMapping(SIGNIN)
-    public ModelAndView signIn(@RequestParam(value = "error", required = false)String error,
-                               @RequestParam(value = "logout", required = false)String logout){
-        return signInView.display(error, logout);
+    public ModelAndView signIn(@ModelAttribute AuthenticationResult authenticationResult){
+        signInView.display(authenticationResult);
+        return signInView;
     }
 }

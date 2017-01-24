@@ -1,5 +1,6 @@
 package com.cartisan.modern.user.view;
 
+import com.cartisan.modern.user.domain.AuthenticationResult;
 import lombok.Builder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -26,20 +27,17 @@ public class SignInView extends ModelAndView {
         setViewName(SIGNIN);
     }
 
-    public ModelAndView display(String error, String logout) {
-        if (error != null) {
-            setMessageAndType(failedMessage, "danger");
-        }
-
-        if (logout != null) {
-            setMessageAndType(logoutMessage, "info");
-        }
-
-        return this;
-    }
-
     private void setMessageAndType(String failedMessage, String danger) {
         addObject("message", failedMessage);
         addObject("type", danger);
+    }
+
+    public void display(AuthenticationResult authenticationResult){
+        if (authenticationResult.hasError()){
+            setMessageAndType(failedMessage, "danger");
+        }
+        if (authenticationResult.isLogout()) {
+            setMessageAndType(logoutMessage, "info");
+        }
     }
 }
