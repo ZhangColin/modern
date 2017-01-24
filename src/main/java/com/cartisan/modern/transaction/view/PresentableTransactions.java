@@ -2,6 +2,7 @@ package com.cartisan.modern.transaction.view;
 
 import com.cartisan.modern.common.view.View;
 import com.cartisan.modern.transaction.domain.Transaction;
+import lombok.Builder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
@@ -21,6 +22,8 @@ import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLAS
 @PropertySource(RESULT_MESSAGES_FULL_NAME)
 public class PresentableTransactions extends ModelAndView implements View<Transaction>{
     private final List<PresentableTransaction> presentableTransactions = new ArrayList<>();
+
+    @Builder
     public PresentableTransactions(@Value("${transaction.list.empty}") String noTransactionMessage) {
         addObject("transactions", presentableTransactions);
         hiddenViewAndShowMessage(noTransactionMessage);

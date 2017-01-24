@@ -15,9 +15,9 @@ import java.util.function.Consumer;
 
 import static com.cartisan.modern.common.controller.ControllerTestHelper.spyOnDisplayOf;
 import static com.cartisan.modern.transaction.builder.PresentableSummaryOfTransactionsBuilder.defaultPresentableSummaryOfTransactions;
+import static com.cartisan.modern.transaction.builder.PresentableTransactionsBuilder.defaultPresentableTransactions;
 import static com.cartisan.modern.transaction.builder.SummaryOfTransactionsBuilder.builder;
 import static com.cartisan.modern.transaction.builder.TransactionBuilder.defaultTransaction;
-import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
@@ -26,8 +26,7 @@ public class TransactionListControllerTest {
     SummaryOfTransactions summaryOfTransactions = builder().build();
     Transaction transaction = defaultTransaction().build();
     Transactions mockTransactions = mock(Transactions.class);
-    PresentableTransactions presentableTransactions =
-            spy(new PresentableTransactions("whatever message"));
+    PresentableTransactions presentableTransactions = spy(defaultPresentableTransactions().build());
     PresentableSummaryOfTransactions presentableSummaryOfTransactions =
             spy(defaultPresentableSummaryOfTransactions().build());
 

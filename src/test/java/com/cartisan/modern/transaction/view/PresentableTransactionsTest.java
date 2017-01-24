@@ -11,6 +11,7 @@ import java.util.Map;
 
 import static com.cartisan.modern.common.Formats.parseDay;
 import static com.cartisan.modern.common.controller.Urls.TRANSACTION_INDEX;
+import static com.cartisan.modern.transaction.builder.PresentableTransactionsBuilder.defaultPresentableTransactions;
 import static com.cartisan.modern.transaction.domain.Transaction.Type.Income;
 import static com.cartisan.modern.transaction.domain.Transaction.Type.Outcome;
 import static com.cartisan.modern.transaction.domain.Transaction.builder;
@@ -18,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(NestedRunner.class)
 public class PresentableTransactionsTest {
-    private PresentableTransactions presentableTransactions = new PresentableTransactions("whatever message");
+    private PresentableTransactions presentableTransactions = defaultPresentableTransactions().build();
 
     @Test
     public void should_go_to_index_page(){
