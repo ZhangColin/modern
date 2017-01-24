@@ -46,11 +46,4 @@ public class PresentableTransactions extends ModelAndView {
         getModelMap().remove("hidden");
         getModelMap().remove("message");
     }
-
-    public ModelAndView with(PresentableSummaryOfTransactions presentableSummaryOfTransactions) {
-        addObject("balance", presentableSummaryOfTransactions.getModel().get("balance"));
-        addObject("totalIncome", presentableSummaryOfTransactions.getModel().get("totalIncome"));
-        addObject("totalOutcome", presentableSummaryOfTransactions.getModel().get("totalOutcome"));
-        return this;
-    }
 }
