@@ -1,6 +1,7 @@
 package com.cartisan.modern.transaction.view;
 
 import com.cartisan.modern.transaction.domain.summary.SummaryOfTransactions;
+import lombok.Builder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
@@ -14,6 +15,7 @@ import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLAS
 @Component
 @Scope(value = "request", proxyMode = TARGET_CLASS)
 @PropertySource(RESULT_MESSAGES_FULL_NAME)
+@Builder
 public class PresentableSummaryOfTransactions extends ModelAndView {
     private final String balanceMessage;
     private final String totalIncomeMessage;

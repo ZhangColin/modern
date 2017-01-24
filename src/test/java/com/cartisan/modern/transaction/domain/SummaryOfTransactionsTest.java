@@ -3,47 +3,44 @@ package com.cartisan.modern.transaction.domain;
 import com.cartisan.modern.transaction.domain.summary.SummaryOfTransactions;
 import org.junit.Test;
 
-import static com.cartisan.modern.transaction.builder.TransactionBuilder.defaultTransaction;
-import static com.cartisan.modern.transaction.domain.Transaction.Type.Income;
-import static com.cartisan.modern.transaction.domain.Transaction.Type.Outcome;
-import static java.util.Arrays.asList;
+import static com.cartisan.modern.transaction.builder.SummaryOfTransactionsBuilder.builder;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SummaryOfTransactionsTest {
     private final int whateverAmount = 1000;
+    private SummaryOfTransactions summaryOfTransactions;
 
     @Test
     public void total_of_income() {
-        SummaryOfTransactions summaryOfTransactions = new SummaryOfTransactions(asList(
-                incomeTransactionWithAmount(100),
-                incomeTransactionWithAmount(200)));
+        summaryOfTransactions = builder()
+                .incomeWithAmount(100)
+                .incomeWithAmount(200).build();
         assertThat(summaryOfTransactions.totalIncome()).isEqualTo(300);
     }
 
-
     @Test
     public void total_of_income_not_including_any_outcome() {
-        SummaryOfTransactions summaryOfTransactions = new SummaryOfTransactions(asList(
-                incomeTransactionWithAmount(100),
-                incomeTransactionWithAmount(200),
-                outcomeTransactionWithAmount(whateverAmount)));
+        summaryOfTransactions = builder()
+                .incomeWithAmount(100)
+                .incomeWithAmount(200)
+                .outcomeWithAmount(whateverAmount).build();
         assertThat(summaryOfTransactions.totalIncome()).isEqualTo(300);
     }
 
     @Test
     public void total_of_outcome() {
-        SummaryOfTransactions summaryOfTransactions = new SummaryOfTransactions(asList(
-                outcomeTransactionWithAmount(100),
-                outcomeTransactionWithAmount(200)));
+        summaryOfTransactions = builder()
+                .outcomeWithAmount(100)
+                .outcomeWithAmount(200).build();
         assertThat(summaryOfTransactions.totalOutcome()).isEqualTo(300);
     }
 
     @Test
     public void total_of_outcome_not_including_any_income() {
-        SummaryOfTransactions summaryOfTransactions = new SummaryOfTransactions(asList(
-                outcomeTransactionWithAmount(100),
-                outcomeTransactionWithAmount(200),
-                incomeTransactionWithAmount(whateverAmount)));
+        summaryOfTransactions = builder()
+                .outcomeWithAmount(100)
+                .outcomeWithAmount(200)
+                .incomeWithAmount(whateverAmount).build();
 
         assertThat(summaryOfTransactions.totalOutcome()).isEqualTo(300);
     }
@@ -51,19 +48,10 @@ public class SummaryOfTransactionsTest {
 
     @Test
     public void balance() {
-        SummaryOfTransactions summaryOfTransactions = new SummaryOfTransactions(asList(
-                incomeTransactionWithAmount(200),
-                outcomeTransactionWithAmount(50)
-        ));
+        summaryOfTransactions = builder()
+                .incomeWithAmount(200)
+                .outcomeWithAmount(50).build();
 
         assertThat(summaryOfTransactions.balance()).isEqualTo(150);
-    }
-
-    private Transaction outcomeTransactionWithAmount(int amount) {
-        return defaultTransaction().type(Outcome).amount(amount).build();
-    }
-
-    private Transaction incomeTransactionWithAmount(int amount) {
-        return defaultTransaction().type(Income).amount(amount).build();
     }
 }
