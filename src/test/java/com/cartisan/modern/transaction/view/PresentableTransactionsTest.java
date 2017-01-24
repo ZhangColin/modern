@@ -13,6 +13,7 @@ import static com.cartisan.modern.common.Formats.parseDay;
 import static com.cartisan.modern.common.controller.Urls.TRANSACTION_INDEX;
 import static com.cartisan.modern.transaction.domain.Transaction.Type.Income;
 import static com.cartisan.modern.transaction.domain.Transaction.Type.Outcome;
+import static com.cartisan.modern.transaction.domain.Transaction.builder;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(NestedRunner.class)
@@ -83,13 +84,7 @@ public class PresentableTransactionsTest {
         }
 
         private Transaction transaction(Transaction.Type type, String description, Date date, int amount) {
-            Transaction transaction = new Transaction();
-            transaction.setType(type);
-            transaction.setDescription(description);
-            transaction.setDate(date);
-            transaction.setAmount(amount);
-
-            return transaction;
+            return builder().type(type).description(description).date(date).amount(amount).build();
         }
 
     }

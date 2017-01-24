@@ -1,7 +1,6 @@
 package com.cartisan.modern.transaction.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -17,6 +16,9 @@ import static com.cartisan.modern.common.Formats.DAY;
 @Table(name="transactions")
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -24,9 +24,11 @@ import java.util.function.Consumer;
 import static com.cartisan.modern.common.Formats.parseDay;
 import static com.cartisan.modern.common.callback.PostActionsFactory.failed;
 import static com.cartisan.modern.common.callback.PostActionsFactory.success;
+import static com.cartisan.modern.transaction.builder.TransactionBuilder.defaultTransaction;
 import static com.cartisan.modern.transaction.domain.Transaction.Type.Outcome;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.in;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.*;
@@ -43,8 +45,7 @@ public class TransactionControllerTest {
     TransactionController controller = new TransactionController(
             mockTransactions, new PresentableAddTransaction(),
             presentableTransactions, presentableSummaryOfTransactions, mockMessage);
-    Transaction transaction = transaction(Outcome, "Outcome description",
-            parseDay("2016-07-01"), 100);
+    Transaction transaction = defaultTransaction().build();
     BindingResult stubBindingResult = mock(BindingResult.class);
 
     @Before
@@ -103,6 +104,7 @@ public class TransactionControllerTest {
     }
 
     public class Valid {
+        Transaction invalidTransaction = invalidTransaction();
         @Before
         public void given_has_some_failed_error() {
             given_has_field_error(true);
@@ -110,16 +112,19 @@ public class TransactionControllerTest {
 
         @Test
         public void should_not_add_transaction() {
-            submitTransactionAdd(transaction);
+            submitTransactionAdd(invalidTransaction);
 
-            verify(mockTransactions, never()).add(transaction);
+            verify(mockTransactions, never()).add(invalidTransaction);
         }
 
         @Test
         public void should_display_view(){
-            assertThat(submitTransactionAdd(transaction)).isInstanceOf(PresentableAddTransaction.class);
+            assertThat(submitTransactionAdd(invalidTransaction)).isInstanceOf(PresentableAddTransaction.class);
         }
 
+        private Transaction invalidTransaction(){
+            return defaultTransaction().type(null).description(null).date(null).amount(null).build();
+        }
     }
 
     public class List{
@@ -192,14 +197,5 @@ public class TransactionControllerTest {
 
     private void given_add_transaction_will(PostActions postActions) {
         when(mockTransactions.add(any(Transaction.class))).thenReturn(postActions);
-    }
-
-    private Transaction transaction(Transaction.Type type, String description, Date date, int amount) {
-        Transaction transaction = new Transaction();
-        transaction.setType(type);
-        transaction.setDescription(description);
-        transaction.setDate(date);
-        transaction.setAmount(amount);
-        return transaction;
     }
 }
