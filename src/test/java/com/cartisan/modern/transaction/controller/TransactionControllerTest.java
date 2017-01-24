@@ -1,31 +1,20 @@
 package com.cartisan.modern.transaction.controller;
 
 import com.cartisan.modern.common.callback.PostActions;
-import com.cartisan.modern.common.view.Message;
 import com.cartisan.modern.common.view.View;
 import com.cartisan.modern.transaction.domain.Transaction;
-import com.cartisan.modern.transaction.domain.TransactionPostActions;
 import com.cartisan.modern.transaction.domain.Transactions;
-import com.cartisan.modern.transaction.domain.summary.SummaryOfTransactions;
 import com.cartisan.modern.transaction.view.PresentableAddTransaction;
-import com.cartisan.modern.transaction.view.PresentableSummaryOfTransactions;
-import com.cartisan.modern.transaction.view.PresentableTransactions;
 import com.nitorcreations.junit.runners.NestedRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.function.Consumer;
-
 import static com.cartisan.modern.common.callback.PostActionsFactory.failed;
 import static com.cartisan.modern.common.callback.PostActionsFactory.success;
-import static com.cartisan.modern.common.controller.ControllerTestHelper.spyOnDisplayOf;
 import static com.cartisan.modern.transaction.builder.TransactionBuilder.defaultTransaction;
-import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
@@ -34,15 +23,9 @@ import static org.mockito.Mockito.*;
 @RunWith(NestedRunner.class)
 public class TransactionControllerTest {
     Transactions mockTransactions = mock(Transactions.class);
-    PresentableTransactions presentableTransactions =
-            spy(new PresentableTransactions("whatever message"));
-    PresentableSummaryOfTransactions presentableSummaryOfTransactions =
-            spy(new PresentableSummaryOfTransactions("whatever message",
-                    "whatever message", "whatever message"));
+
     View mockView = mock(View.class);
-    TransactionController controller = new TransactionController(
-            mockTransactions, new PresentableAddTransaction(),
-            presentableTransactions, presentableSummaryOfTransactions, mockView);
+    TransactionController controller = new TransactionController(mockTransactions, new PresentableAddTransaction(), mockView);
     Transaction transaction = defaultTransaction().build();
     BindingResult stubBindingResult = mock(BindingResult.class);
 
@@ -123,58 +106,6 @@ public class TransactionControllerTest {
 
         private Transaction invalidTransaction() {
             return defaultTransaction().type(null).description(null).date(null).amount(null).build();
-        }
-    }
-
-    public class List {
-        SummaryOfTransactions summaryOfTransactions = new SummaryOfTransactions(asList());
-
-        @Before
-        public void given_transactions_processAll_is_ready_to_be_called() {
-            given_transactions_processAll_will_return(transaction, summaryOfTransactions);
-        }
-
-        @Test
-        public void should_display_view() {
-            assertThat(controller.index()).isInstanceOf(PresentableTransactions.class);
-        }
-
-        @Test
-        public void should_let_view_display_transaction() {
-            spyOnDisplayOf(presentableTransactions);
-
-            controller.index();
-            verify(presentableTransactions).display(transaction);
-        }
-
-        @Test
-        public void should_let_view_display_summary_of_transactions() {
-            spyOnDisplayOf(presentableSummaryOfTransactions);
-
-            controller.index();
-
-            verify(presentableSummaryOfTransactions).display(summaryOfTransactions);
-        }
-
-        private void given_transactions_processAll_will_return(Transaction transaction, SummaryOfTransactions summaryOfTransactions) {
-            when(mockTransactions.processAll(any(Consumer.class))).thenAnswer(new Answer<TransactionPostActions>() {
-                @Override
-                public TransactionPostActions answer(InvocationOnMock invocation) throws Throwable {
-                    Consumer<Transaction> consumer = invocation.getArgumentAt(0, Consumer.class);
-                    consumer.accept(transaction);
-                    return stubTransactionsPostActionsWith(summaryOfTransactions);
-                }
-            });
-        }
-
-        private TransactionPostActions stubTransactionsPostActionsWith(SummaryOfTransactions summaryOfTransactions) {
-            TransactionPostActions stubTransactionsPostActions = mock(TransactionPostActions.class);
-            doAnswer(invocation -> {
-                Consumer<SummaryOfTransactions> consumer = invocation.getArgumentAt(0, Consumer.class);
-                consumer.accept(summaryOfTransactions);
-                return null;
-            }).when(stubTransactionsPostActions).withSummary(any(Consumer.class));
-            return stubTransactionsPostActions;
         }
     }
 
