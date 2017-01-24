@@ -1,5 +1,6 @@
 package com.cartisan.modern.budget.view;
 
+import lombok.Builder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
@@ -18,6 +19,7 @@ public class PresentableMonthlyBudgetAmount extends ModelAndView{
 
     public final String message;
 
+    @Builder
     public PresentableMonthlyBudgetAmount(@Value("${monthlybudget.totalamount.amount}") String message) {
         this.message = message;
         setViewName(MONTHLYBUDGET_TOTALAMOUNT);

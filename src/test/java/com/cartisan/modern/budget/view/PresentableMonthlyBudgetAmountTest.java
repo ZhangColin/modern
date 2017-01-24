@@ -3,6 +3,7 @@ package com.cartisan.modern.budget.view;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 
+import static com.cartisan.modern.budget.builder.PresentableMonthlyBudgetAmountBuilder.defaultPresentableMonthlyBudgetAmount;
 import static com.cartisan.modern.common.controller.Urls.MONTHLYBUDGET_TOTALAMOUNT;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -12,7 +13,7 @@ public class PresentableMonthlyBudgetAmountTest {
 
     @Test
     public void should_pass_amount_message_to_page() {
-        presentableMonthlyBudgetAmount = new PresentableMonthlyBudgetAmount("Amount is %s");
+        presentableMonthlyBudgetAmount = defaultPresentableMonthlyBudgetAmount().message("Amount is %s").build();
 
         display();
 
@@ -21,7 +22,7 @@ public class PresentableMonthlyBudgetAmountTest {
 
     @Test
     public void should_go_to_total_amount_view() {
-        presentableMonthlyBudgetAmount = new PresentableMonthlyBudgetAmount("Whatever message");
+        presentableMonthlyBudgetAmount = defaultPresentableMonthlyBudgetAmount().build();
         assertThat(display().getViewName()).isEqualTo(MONTHLYBUDGET_TOTALAMOUNT);
     }
 

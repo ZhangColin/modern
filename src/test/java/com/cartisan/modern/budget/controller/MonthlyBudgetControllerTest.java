@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.Date;
 
 import static com.cartisan.modern.budget.builder.MonthlyBudgetBuilder.defaultMonthlyBudget;
+import static com.cartisan.modern.budget.builder.PresentableMonthlyBudgetAmountBuilder.defaultPresentableMonthlyBudgetAmount;
 import static com.cartisan.modern.common.Formats.parseDay;
 import static com.cartisan.modern.common.callback.PostActionsFactory.failed;
 import static com.cartisan.modern.common.callback.PostActionsFactory.success;
@@ -27,7 +28,7 @@ import static org.mockito.Mockito.*;
 public class MonthlyBudgetControllerTest {
     private MonthlyBudgetPlanner mockPlanner = mock(MonthlyBudgetPlanner.class);
     private Message mockMessage = mock(Message.class);
-    private final PresentableMonthlyBudgetAmount presentableMonthlyBudgetAmount = spy(new PresentableMonthlyBudgetAmount("whatever message"));
+    private final PresentableMonthlyBudgetAmount presentableMonthlyBudgetAmount = spy(defaultPresentableMonthlyBudgetAmount().build());
     private MonthlyBudgetController controller = new MonthlyBudgetController(mockPlanner,
             presentableMonthlyBudgetAmount, new PresentableAddMonthlyBudget(), mockMessage);
     private BindingResult stubBindingResult = mock(BindingResult.class);
