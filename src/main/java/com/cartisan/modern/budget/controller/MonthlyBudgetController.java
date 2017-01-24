@@ -4,7 +4,7 @@ import com.cartisan.modern.budget.domain.MonthlyBudget;
 import com.cartisan.modern.budget.domain.MonthlyBudgetPlanner;
 import com.cartisan.modern.budget.view.PresentableAddMonthlyBudget;
 import com.cartisan.modern.budget.view.PresentableMonthlyBudgetAmount;
-import com.cartisan.modern.common.view.Message;
+import com.cartisan.modern.common.view.View;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -28,7 +28,7 @@ public class MonthlyBudgetController {
     private final MonthlyBudgetPlanner planner;
     private final PresentableMonthlyBudgetAmount presentableMonthlyBudgetAmount;
     private final PresentableAddMonthlyBudget presentableAddMonthlyBudget;
-    private final Message message;
+    private final View message;
 
     @Value("${monthlybudget.add.success}")
     String successMessage;
@@ -39,7 +39,7 @@ public class MonthlyBudgetController {
     @Autowired
     public MonthlyBudgetController(MonthlyBudgetPlanner planner,
                                    PresentableMonthlyBudgetAmount presentableMonthlyBudgetAmount,
-                                   PresentableAddMonthlyBudget presentableAddMonthlyBudget, Message message) {
+                                   PresentableAddMonthlyBudget presentableAddMonthlyBudget, View<String> message) {
         this.planner = planner;
         this.presentableMonthlyBudgetAmount = presentableMonthlyBudgetAmount;
         this.presentableAddMonthlyBudget = presentableAddMonthlyBudget;
@@ -66,6 +66,7 @@ public class MonthlyBudgetController {
     public ModelAndView totalAmountOfMonthlyBudget(
             @RequestParam("startDate") @DateTimeFormat(pattern = DAY) Date startDate,
             @RequestParam("endDate") @DateTimeFormat(pattern = DAY) Date endDate) {
-        return presentableMonthlyBudgetAmount.display(planner.getAmount(startDate, endDate));
+        presentableMonthlyBudgetAmount.display(planner.getAmount(startDate, endDate));
+        return presentableMonthlyBudgetAmount;
     }
 }

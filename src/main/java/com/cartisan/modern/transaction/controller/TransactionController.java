@@ -1,6 +1,7 @@
 package com.cartisan.modern.transaction.controller;
 
 import com.cartisan.modern.common.view.Message;
+import com.cartisan.modern.common.view.View;
 import com.cartisan.modern.transaction.domain.Transaction;
 import com.cartisan.modern.transaction.domain.Transactions;
 import com.cartisan.modern.transaction.view.PresentableAddTransaction;
@@ -31,7 +32,7 @@ public class TransactionController {
     private final PresentableAddTransaction presentableAddTransaction;
     private final PresentableTransactions presentableTransactions;
     private final PresentableSummaryOfTransactions presentableSummaryOfTransactions;
-    private final Message message;
+    private final View<String> message;
 
     @Value("${transaction.add.success}")
     String successMessage;
@@ -43,7 +44,7 @@ public class TransactionController {
     public TransactionController(Transactions transactions,
                                  PresentableAddTransaction presentableAddTransaction,
                                  PresentableTransactions presentableTransactions,
-                                 PresentableSummaryOfTransactions presentableSummaryOfTransactions, Message message) {
+                                 PresentableSummaryOfTransactions presentableSummaryOfTransactions, View<String> message) {
         this.transactions = transactions;
         this.presentableAddTransaction = presentableAddTransaction;
         this.presentableTransactions = presentableTransactions;

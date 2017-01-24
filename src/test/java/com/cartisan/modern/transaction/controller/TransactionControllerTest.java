@@ -2,6 +2,7 @@ package com.cartisan.modern.transaction.controller;
 
 import com.cartisan.modern.common.callback.PostActions;
 import com.cartisan.modern.common.view.Message;
+import com.cartisan.modern.common.view.View;
 import com.cartisan.modern.transaction.domain.Transaction;
 import com.cartisan.modern.transaction.domain.TransactionPostActions;
 import com.cartisan.modern.transaction.domain.Transactions;
@@ -18,17 +19,14 @@ import org.mockito.stubbing.Answer;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.Date;
 import java.util.function.Consumer;
 
-import static com.cartisan.modern.common.Formats.parseDay;
 import static com.cartisan.modern.common.callback.PostActionsFactory.failed;
 import static com.cartisan.modern.common.callback.PostActionsFactory.success;
+import static com.cartisan.modern.common.controller.ControllerTestHelper.spyOnDisplayOf;
 import static com.cartisan.modern.transaction.builder.TransactionBuilder.defaultTransaction;
-import static com.cartisan.modern.transaction.domain.Transaction.Type.Outcome;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.in;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.*;
@@ -41,10 +39,10 @@ public class TransactionControllerTest {
     PresentableSummaryOfTransactions presentableSummaryOfTransactions =
             spy(new PresentableSummaryOfTransactions("whatever message",
                     "whatever message", "whatever message"));
-    Message mockMessage = mock(Message.class);
+    View mockView = mock(View.class);
     TransactionController controller = new TransactionController(
             mockTransactions, new PresentableAddTransaction(),
-            presentableTransactions, presentableSummaryOfTransactions, mockMessage);
+            presentableTransactions, presentableSummaryOfTransactions, mockView);
     Transaction transaction = defaultTransaction().build();
     BindingResult stubBindingResult = mock(BindingResult.class);
 
@@ -85,7 +83,7 @@ public class TransactionControllerTest {
 
             submitTransactionAdd(transaction);
 
-            verify(mockMessage).display("a success message");
+            verify(mockView).display("a success message");
         }
 
     }
@@ -99,12 +97,13 @@ public class TransactionControllerTest {
 
             submitTransactionAdd(transaction);
 
-            verify(mockMessage).display("a failed message");
+            verify(mockView).display("a failed message");
         }
     }
 
     public class Valid {
         Transaction invalidTransaction = invalidTransaction();
+
         @Before
         public void given_has_some_failed_error() {
             given_has_field_error(true);
@@ -118,51 +117,43 @@ public class TransactionControllerTest {
         }
 
         @Test
-        public void should_display_view(){
+        public void should_display_view() {
             assertThat(submitTransactionAdd(invalidTransaction)).isInstanceOf(PresentableAddTransaction.class);
         }
 
-        private Transaction invalidTransaction(){
+        private Transaction invalidTransaction() {
             return defaultTransaction().type(null).description(null).date(null).amount(null).build();
         }
     }
 
-    public class List{
+    public class List {
         SummaryOfTransactions summaryOfTransactions = new SummaryOfTransactions(asList());
 
         @Before
-        public void given_transactions_processAll_is_ready_to_be_called(){
+        public void given_transactions_processAll_is_ready_to_be_called() {
             given_transactions_processAll_will_return(transaction, summaryOfTransactions);
         }
 
         @Test
-        public void should_display_view(){
+        public void should_display_view() {
             assertThat(controller.index()).isInstanceOf(PresentableTransactions.class);
         }
 
         @Test
-        public void should_let_view_display_transaction(){
-            spyOnDisplayOfPresentableTransactions();
+        public void should_let_view_display_transaction() {
+            spyOnDisplayOf(presentableTransactions);
 
             controller.index();
             verify(presentableTransactions).display(transaction);
         }
 
         @Test
-        public void should_let_view_display_summary_of_transactions(){
-            spyOnDisplayOfPresentableSummaryOfTransactions();
+        public void should_let_view_display_summary_of_transactions() {
+            spyOnDisplayOf(presentableSummaryOfTransactions);
 
             controller.index();
 
             verify(presentableSummaryOfTransactions).display(summaryOfTransactions);
-        }
-
-        private void spyOnDisplayOfPresentableSummaryOfTransactions() {
-            doNothing().when(presentableSummaryOfTransactions).display(any(SummaryOfTransactions.class));
-        }
-
-        private void spyOnDisplayOfPresentableTransactions() {
-            doNothing().when(presentableTransactions).display(any(Transaction.class));
         }
 
         private void given_transactions_processAll_will_return(Transaction transaction, SummaryOfTransactions summaryOfTransactions) {
