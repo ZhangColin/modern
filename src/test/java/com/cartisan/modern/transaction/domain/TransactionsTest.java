@@ -1,13 +1,17 @@
 package com.cartisan.modern.transaction.domain;
 
+import com.cartisan.modern.transaction.domain.summary.SummaryOfTransactions;
 import com.cartisan.modern.transaction.repository.TransactionRepository;
 import com.nitorcreations.junit.runners.NestedRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.Date;
 import java.util.function.Consumer;
 
+import static com.cartisan.modern.common.Formats.parseDay;
+import static com.cartisan.modern.transaction.domain.Transaction.Type.Income;
 import static java.util.Arrays.asList;
 import static org.mockito.Mockito.*;
 
@@ -15,7 +19,7 @@ import static org.mockito.Mockito.*;
 public class TransactionsTest {
     TransactionRepository mockRepository = mock(TransactionRepository.class);
     Transactions transactions = new Transactions(mockRepository);
-    Transaction transaction = new Transaction();
+    Transaction transaction = transaction(Income, "any description", parseDay("2016-07-01"), 100);
 
     Runnable afterSuccess = mock(Runnable.class);
     Runnable afterFailed = mock(Runnable.class);
@@ -82,5 +86,12 @@ public class TransactionsTest {
 
     }
 
-
+    private Transaction transaction(Transaction.Type type, String description, Date date, int amount) {
+        Transaction transaction = new Transaction();
+        transaction.setType(type);
+        transaction.setDescription(description);
+        transaction.setDate(date);
+        transaction.setAmount(amount);
+        return transaction;
+    }
 }

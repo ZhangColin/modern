@@ -1,6 +1,6 @@
 package com.cartisan.modern.transaction.view;
 
-import com.cartisan.modern.transaction.domain.SummaryOfTransactions;
+import com.cartisan.modern.transaction.domain.summary.SummaryOfTransactions;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;

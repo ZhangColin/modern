@@ -1,5 +1,6 @@
 package com.cartisan.modern.transaction.domain;
 
+import com.cartisan.modern.transaction.domain.summary.SummaryOfTransactions;
 import org.junit.Test;
 
 import java.util.ArrayList;

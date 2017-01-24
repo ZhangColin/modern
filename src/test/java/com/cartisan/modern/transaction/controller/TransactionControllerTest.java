@@ -2,10 +2,10 @@ package com.cartisan.modern.transaction.controller;
 
 import com.cartisan.modern.common.callback.PostActions;
 import com.cartisan.modern.common.view.Message;
-import com.cartisan.modern.transaction.domain.SummaryOfTransactions;
 import com.cartisan.modern.transaction.domain.Transaction;
 import com.cartisan.modern.transaction.domain.TransactionPostActions;
 import com.cartisan.modern.transaction.domain.Transactions;
+import com.cartisan.modern.transaction.domain.summary.SummaryOfTransactions;
 import com.cartisan.modern.transaction.view.PresentableAddTransaction;
 import com.cartisan.modern.transaction.view.PresentableSummaryOfTransactions;
 import com.cartisan.modern.transaction.view.PresentableTransactions;

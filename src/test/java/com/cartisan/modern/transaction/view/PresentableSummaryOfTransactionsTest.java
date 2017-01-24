@@ -1,6 +1,6 @@
 package com.cartisan.modern.transaction.view;
 
-import com.cartisan.modern.transaction.domain.SummaryOfTransactions;
+import com.cartisan.modern.transaction.domain.summary.SummaryOfTransactions;
 import org.junit.Test;
 import org.springframework.ui.ModelMap;
 
