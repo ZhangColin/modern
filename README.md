@@ -24,7 +24,7 @@ Use git to clone this project into a folder. Then in this folder, run the comman
 * Run All Tests `SPRING_PROFILES_ACTIVE=test gradle clean check cucumber` (on port 8080)
 
 # Setup Intellij Development Environment
-* Start Web Application. Run com.cartisan.bbuddy.Application as a Sspring Boot application by using "dev" as the active profile
+* Start Web Application. Run com.cartisan.modern.Application as a Spring Boot application by using "dev" as the active profile
 * Run Unit Tests. Run those unit tests as normal. The only limitation is that you can't run those "Nested" tests together with other non "Nested" tests
 * Run Acceptance Test (cucumber). In feature file, you can select the feature or one scenario and then run it. In the configuration, you need to set the active profile as "test" by adding `SPRING_PROFILES_ACTIVE=test` to the environment variables.
 * [Spring Boot Developer Tools](http://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-devtools.html) is used so that you can hot load any modified code, template file and resource file without restart the application. Please follow the steps below to enable this hot load feature.

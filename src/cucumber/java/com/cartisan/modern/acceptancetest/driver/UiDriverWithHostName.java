@@ -38,4 +38,9 @@ public class UiDriverWithHostName implements UiDriver {
     public UiSelect findSelectByName(String name) {
         return originalDriver.findSelectByName(name);
     }
+
+    @Override
+    public UiElement findElementById(String id) {
+        return originalDriver.findElementById(id);
+    }
 }

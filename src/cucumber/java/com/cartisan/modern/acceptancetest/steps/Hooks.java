@@ -54,7 +54,7 @@ public class Hooks {
         monthlyBudgetRepository.deleteAll();
     }
 
-    @After("@user")
+    @After("@user,@deleteUser")
     public void cleanUpUser(){
         userRepository.deleteAll();
     }
