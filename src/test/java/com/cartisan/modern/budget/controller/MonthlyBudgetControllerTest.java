@@ -28,7 +28,7 @@ public class MonthlyBudgetControllerTest {
     private Message mockMessage = mock(Message.class);
     private final PresentableAddMonthlyBudget presentableAddMonthlyBudget = new PresentableAddMonthlyBudget();
     private MonthlyBudgetController controller = new MonthlyBudgetController(mockPlanner,
-            new PresentableMonthlyBudgetAmount(), presentableAddMonthlyBudget, mockMessage);
+            new PresentableMonthlyBudgetAmount("whatever message"), presentableAddMonthlyBudget, mockMessage);
     private BindingResult stubBindingResult = mock(BindingResult.class);
     private MonthlyBudget monthlyBudget = new MonthlyBudget(parseDay("2016-07-01"), 100);
 
@@ -119,9 +119,7 @@ public class MonthlyBudgetControllerTest {
         private Date endDate = parseDay("2016-07-10");
 
         private MonthlyBudgetController controller = new MonthlyBudgetController(mockPlanner,
-                new PresentableMonthlyBudgetAmount() {{
-                    message = "whatever message";
-                }}, presentableAddMonthlyBudget, mockMessage);
+                new PresentableMonthlyBudgetAmount("whatever message"), presentableAddMonthlyBudget, mockMessage);
 
         @Test
         public void should_go_to_get_amount_page() {

@@ -13,25 +13,24 @@ import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLAS
 @Component
 @Scope(value = "request", proxyMode = TARGET_CLASS)
 @PropertySource(RESULT_MESSAGES_FULL_NAME)
-public class SignInView extends ModelAndView{
+public class SignInView extends ModelAndView {
+    private final String failedMessage;
+    private final String logoutMessage;
 
-    @Value("${authentication.failed}")
-    String failedMessage;
-
-    @Value("${authentication.logout}")
-    String logoutMessage;
-
-    public SignInView() {
+    public SignInView(@Value("${authentication.failed}") String failedMessage,
+                      @Value("${authentication.logout}") String logoutMessage) {
+        this.failedMessage = failedMessage;
+        this.logoutMessage = logoutMessage;
         setViewName(SIGNIN);
     }
 
     public ModelAndView display(String error, String logout) {
         if (error != null) {
-            setMessageAndType( failedMessage, "danger");
+            setMessageAndType(failedMessage, "danger");
         }
 
         if (logout != null) {
-            setMessageAndType( logoutMessage, "info");
+            setMessageAndType(logoutMessage, "info");
         }
 
         return this;
