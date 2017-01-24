@@ -9,14 +9,13 @@ import org.mockito.ArgumentCaptor;
 import java.text.ParseException;
 import java.util.Date;
 
+import static com.cartisan.modern.budget.builder.MonthlyBudgetBuilder.defaultMonthlyBudget;
+import static com.cartisan.modern.budget.builder.MonthlyBudgetBuilder.monthlyBudget;
 import static com.cartisan.modern.common.Formats.parseDay;
-import static com.cartisan.modern.common.Formats.parseMonth;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.never;
 
 @RunWith(NestedRunner.class)
 public class MonthlyBudgetPlannerTest {
@@ -25,8 +24,7 @@ public class MonthlyBudgetPlannerTest {
     MonthlyBudgetPlanner planner = new MonthlyBudgetPlanner(mockBudgetCategory, mockMonthlyBudgetRepository);
 
     public class AddMonthlyBudget {
-        private Date monthDate = parseDay("2016-07-01");
-        private MonthlyBudget monthlyBudget = new MonthlyBudget(monthDate, 100);
+        private MonthlyBudget monthlyBudget = defaultMonthlyBudget().build();
 
         Runnable afterSuccess = mock(Runnable.class);
         Runnable afterFail = mock(Runnable.class);
@@ -64,17 +62,17 @@ public class MonthlyBudgetPlannerTest {
 
         @Test
         public void overwrite_monthly_budget_when_budget_has_been_set_for_that_month() {
-            given_existing_monthly_budget_with_id(MONTH_BUDGET_ID);
+            given_existing_monthly_budget_with_id(monthlyBudget("2016-07", 100), MONTH_BUDGET_ID);
 
-            MonthlyBudget overwrittenMonthlyBudget = new MonthlyBudget(monthDate, 200);
+            MonthlyBudget overwrittenMonthlyBudget = monthlyBudget("2016-07", 200);
             planner.addMonthlyBudget(overwrittenMonthlyBudget);
 
             MonthlyBudget savedMonthlyBudget = assertSavedMonthlyBudgetEquals(overwrittenMonthlyBudget);
             assertThat(savedMonthlyBudget.getId()).isEqualTo(MONTH_BUDGET_ID);
         }
 
-        private void given_existing_monthly_budget_with_id(long id) {
-            when(mockMonthlyBudgetRepository.findByMonth(monthDate)).thenReturn(monthlyBudget);
+        private void given_existing_monthly_budget_with_id(MonthlyBudget monthlyBudget, long id) {
+            when(mockMonthlyBudgetRepository.findByMonth(monthlyBudget.getMonth())).thenReturn(monthlyBudget);
             monthlyBudget.setId(id);
         }
 
@@ -110,8 +108,8 @@ public class MonthlyBudgetPlannerTest {
         @Test
         public void read_from_repo_and_set_amount() {
             given_monthly_budget_planned_as(
-                    budget("2016-06", 30),
-                    budget("2016-07", 31));
+                    monthlyBudget("2016-06", 30),
+                    monthlyBudget("2016-07", 31));
 
             planner.getAmount(startDate, endDate);
 
@@ -121,10 +119,6 @@ public class MonthlyBudgetPlannerTest {
 
         private void given_monthly_budget_planned_as(MonthlyBudget... budget) {
             when(mockMonthlyBudgetRepository.findAll()).thenReturn(asList(budget));
-        }
-
-        private MonthlyBudget budget(String month, int budget) {
-            return new MonthlyBudget(parseMonth(month), budget);
         }
 
         private void given_total_amount_is(long total) {

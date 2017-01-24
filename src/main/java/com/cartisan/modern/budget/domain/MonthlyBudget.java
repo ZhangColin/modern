@@ -1,5 +1,6 @@
 package com.cartisan.modern.budget.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,6 +18,7 @@ import static com.cartisan.modern.common.Formats.MONTH;
 @Setter
 @NoArgsConstructor
 public class MonthlyBudget {
+    @Builder
     public MonthlyBudget(Date month, Integer budget) {
         this.month = month;
         this.budget = budget;

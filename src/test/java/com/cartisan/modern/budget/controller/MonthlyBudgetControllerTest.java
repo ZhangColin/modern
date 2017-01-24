@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Date;
 
+import static com.cartisan.modern.budget.builder.MonthlyBudgetBuilder.defaultMonthlyBudget;
 import static com.cartisan.modern.common.Formats.parseDay;
 import static com.cartisan.modern.common.callback.PostActionsFactory.failed;
 import static com.cartisan.modern.common.callback.PostActionsFactory.success;
@@ -30,7 +31,7 @@ public class MonthlyBudgetControllerTest {
     private MonthlyBudgetController controller = new MonthlyBudgetController(mockPlanner,
             presentableMonthlyBudgetAmount, new PresentableAddMonthlyBudget(), mockMessage);
     private BindingResult stubBindingResult = mock(BindingResult.class);
-    private MonthlyBudget monthlyBudget = new MonthlyBudget(parseDay("2016-07-01"), 100);
+    private MonthlyBudget monthlyBudget = defaultMonthlyBudget().build();
 
     @Before
     public void given_has_no_field_error() {
