@@ -26,9 +26,9 @@ import static org.mockito.Mockito.*;
 public class MonthlyBudgetControllerTest {
     private MonthlyBudgetPlanner mockPlanner = mock(MonthlyBudgetPlanner.class);
     private Message mockMessage = mock(Message.class);
-    private final PresentableAddMonthlyBudget presentableAddMonthlyBudget = new PresentableAddMonthlyBudget();
+    private final PresentableMonthlyBudgetAmount presentableMonthlyBudgetAmount = spy(new PresentableMonthlyBudgetAmount("whatever message"));
     private MonthlyBudgetController controller = new MonthlyBudgetController(mockPlanner,
-            new PresentableMonthlyBudgetAmount("whatever message"), presentableAddMonthlyBudget, mockMessage);
+            presentableMonthlyBudgetAmount, new PresentableAddMonthlyBudget(), mockMessage);
     private BindingResult stubBindingResult = mock(BindingResult.class);
     private MonthlyBudget monthlyBudget = new MonthlyBudget(parseDay("2016-07-01"), 100);
 
@@ -118,9 +118,6 @@ public class MonthlyBudgetControllerTest {
         private Date startDate = parseDay("2016-07-01");
         private Date endDate = parseDay("2016-07-10");
 
-        private MonthlyBudgetController controller = new MonthlyBudgetController(mockPlanner,
-                new PresentableMonthlyBudgetAmount("whatever message"), presentableAddMonthlyBudget, mockMessage);
-
         @Test
         public void should_go_to_get_amount_page() {
             assertThat(getAmount()).isInstanceOf(PresentableMonthlyBudgetAmount.class);
@@ -136,12 +133,16 @@ public class MonthlyBudgetControllerTest {
         @Test
         public void should_pass_amount_to_page() {
             given_planner_will_return_total_as(total);
-            PresentableMonthlyBudgetAmount mockPresentableMonthlyBudgetAmount = mock(PresentableMonthlyBudgetAmount.class);
-            controller = new MonthlyBudgetController(mockPlanner, mockPresentableMonthlyBudgetAmount, presentableAddMonthlyBudget, mockMessage);
+
+            spyOnDisplayOfPresentableMonthlyBudgetAmount();
 
             getAmount();
 
-            verify(mockPresentableMonthlyBudgetAmount).display(100L);
+            verify(presentableMonthlyBudgetAmount).display(total);
+        }
+
+        private void spyOnDisplayOfPresentableMonthlyBudgetAmount() {
+            doReturn(presentableMonthlyBudgetAmount).when(presentableMonthlyBudgetAmount).display(anyLong());
         }
 
         private void given_planner_will_return_total_as(long total) {
