@@ -2,6 +2,7 @@ package com.cartisan.modern.common.config;
 
 import com.cartisan.modern.common.interceptor.*;
 import com.cartisan.modern.common.view.ErrorMessage;
+import com.cartisan.modern.user.interceptor.AuthenticationInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

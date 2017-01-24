@@ -1,4 +1,4 @@
-package com.cartisan.modern.common.view;
+package com.cartisan.modern.user.view;
 
 import lombok.Builder;
 import org.springframework.beans.factory.annotation.Value;

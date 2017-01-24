@@ -1,6 +1,6 @@
-package com.cartisan.modern.common.controller;
+package com.cartisan.modern.user.controller;
 
-import com.cartisan.modern.common.view.SignInView;
+import com.cartisan.modern.user.view.SignInView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

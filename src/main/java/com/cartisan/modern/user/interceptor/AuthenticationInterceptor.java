@@ -1,4 +1,4 @@
-package com.cartisan.modern.common.interceptor;
+package com.cartisan.modern.user.interceptor;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;

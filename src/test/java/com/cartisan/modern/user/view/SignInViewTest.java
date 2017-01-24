@@ -1,8 +1,9 @@
-package com.cartisan.modern.common.view;
+package com.cartisan.modern.user.view;
 
+import com.cartisan.modern.user.view.SignInView;
 import org.junit.Test;
 
-import static com.cartisan.modern.common.builder.SignInViewBuilder.defaultSignInView;
+import static com.cartisan.modern.user.builder.SignInViewBuilder.defaultSignInView;
 import static com.cartisan.modern.common.controller.Urls.SIGNIN;
 import static org.assertj.core.api.Assertions.assertThat;
 

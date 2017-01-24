@@ -1,10 +1,10 @@
-package com.cartisan.modern.common.controller;
+package com.cartisan.modern.user.controller;
 
-import com.cartisan.modern.common.view.SignInView;
+import com.cartisan.modern.user.view.SignInView;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 
-import static com.cartisan.modern.common.builder.SignInViewBuilder.defaultSignInView;
+import static com.cartisan.modern.user.builder.SignInViewBuilder.defaultSignInView;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
