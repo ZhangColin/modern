@@ -23,13 +23,7 @@ public class PresentableTransactions extends ModelAndView {
     public PresentableTransactions(@Value("${transaction.list.empty}") String noTransactionMessage) {
         addObject("transactions", presentableTransactions);
         hiddenViewAndShowMessage(noTransactionMessage);
-        showTotals();
         setViewName(TRANSACTION_INDEX);
-    }
-
-    private void showTotals() {
-        addObject("totalIncome", 14000);
-        addObject("totalOutcome", 30000);
     }
 
     private void hiddenViewAndShowMessage(String noTransactionMessage) {
@@ -55,6 +49,8 @@ public class PresentableTransactions extends ModelAndView {
 
     public ModelAndView with(PresentableSummaryOfTransactions presentableSummaryOfTransactions) {
         addObject("balance", presentableSummaryOfTransactions.getModel().get("balance"));
+        addObject("totalIncome", presentableSummaryOfTransactions.getModel().get("totalIncome"));
+        addObject("totalOutcome", presentableSummaryOfTransactions.getModel().get("totalOutcome"));
         return this;
     }
 }

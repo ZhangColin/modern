@@ -34,12 +34,17 @@ import static org.mockito.Mockito.*;
 @RunWith(NestedRunner.class)
 public class TransactionControllerTest {
     Transactions mockTransactions = mock(Transactions.class);
-    PresentableTransactions presentableTransactions = spy(new PresentableTransactions("whatever message"));
-    PresentableSummaryOfTransactions presentableSummaryOfTransactions = spy(PresentableSummaryOfTransactions.class);
+    PresentableTransactions presentableTransactions =
+            spy(new PresentableTransactions("whatever message"));
+    PresentableSummaryOfTransactions presentableSummaryOfTransactions =
+            spy(new PresentableSummaryOfTransactions("whatever message",
+                    "whatever message", "whatever message"));
     Message mockMessage = mock(Message.class);
     TransactionController controller = new TransactionController(
-            mockTransactions, new PresentableAddTransaction(), presentableTransactions, presentableSummaryOfTransactions, mockMessage);
-    Transaction transaction = transaction(Outcome, "Outcome description", parseDay("2016-07-01"), 100);
+            mockTransactions, new PresentableAddTransaction(),
+            presentableTransactions, presentableSummaryOfTransactions, mockMessage);
+    Transaction transaction = transaction(Outcome, "Outcome description",
+            parseDay("2016-07-01"), 100);
     BindingResult stubBindingResult = mock(BindingResult.class);
 
     @Before
