@@ -1,6 +1,7 @@
 package com.cartisan.modern.transaction.domain;
 
 import com.cartisan.modern.common.callback.PostActions;
+import com.cartisan.modern.common.controller.ResultRange;
 import com.cartisan.modern.transaction.domain.summary.SummaryOfTransactions;
 import com.cartisan.modern.transaction.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class Transactions {
         }
     }
 
-    public TransactionPostActions processAll(Consumer<Transaction> consumer) {
+    public TransactionPostActions processAll(Consumer<Transaction> consumer, ResultRange resultRange) {
         List<Transaction> all = repository.findAll();
         all.forEach(consumer::accept);
         return new SummaryOfTransactions(all);

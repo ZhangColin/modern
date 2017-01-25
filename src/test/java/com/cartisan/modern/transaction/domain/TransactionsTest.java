@@ -1,5 +1,6 @@
 package com.cartisan.modern.transaction.domain;
 
+import com.cartisan.modern.common.controller.ResultRange;
 import com.cartisan.modern.transaction.domain.summary.SummaryOfTransactions;
 import com.cartisan.modern.transaction.repository.TransactionRepository;
 import com.nitorcreations.junit.runners.NestedRunner;
@@ -7,9 +8,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.Date;
 import java.util.function.Consumer;
 
+import static com.cartisan.modern.common.builder.ResultRangeBuilder.defaultResultRange;
 import static com.cartisan.modern.transaction.builder.TransactionBuilder.defaultTransaction;
 import static java.util.Arrays.asList;
 import static org.mockito.Mockito.*;
@@ -56,6 +57,7 @@ public class TransactionsTest {
 
     public class ProcessAll{
         private Consumer<Transaction> whateverConsumer = transaction -> {};
+        private ResultRange whateverResultRange = defaultResultRange().build();
 
         @Before
         public void given_findAll_will_return_transaction(){
@@ -65,7 +67,7 @@ public class TransactionsTest {
         @Test
         public void should_process_all_transactions(){
             Consumer<Transaction> mockConsumer = mock(Consumer.class);
-            transactions.processAll(mockConsumer);
+            processAll(mockConsumer);
 
             verify(mockConsumer).accept(transaction);
         }
@@ -74,9 +76,13 @@ public class TransactionsTest {
         public void process_all_transactions_with_summary(){
             Consumer<SummaryOfTransactions> mockConsumer = mock(Consumer.class);
 
-            transactions.processAll(whateverConsumer).withSummary(mockConsumer);
+            processAll(whateverConsumer).withSummary(mockConsumer);
 
             verify(mockConsumer).accept(any(SummaryOfTransactions.class));
+        }
+
+        private TransactionPostActions processAll(Consumer<Transaction> whateverConsumer) {
+            return transactions.processAll(whateverConsumer, whateverResultRange);
         }
 
         private void given_findAll_will_return(Transaction transaction) {

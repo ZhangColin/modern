@@ -1,5 +1,7 @@
 package com.cartisan.modern.transaction.controller;
 
+import com.cartisan.modern.common.controller.ResultRange;
+import com.cartisan.modern.common.controller.ResultRangeFactory;
 import com.cartisan.modern.transaction.domain.Transaction;
 import com.cartisan.modern.transaction.domain.TransactionPostActions;
 import com.cartisan.modern.transaction.domain.Transactions;
@@ -10,9 +12,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.function.Consumer;
 
+import static com.cartisan.modern.common.builder.ResultRangeBuilder.defaultResultRange;
 import static com.cartisan.modern.common.controller.ControllerTestHelper.spyOnDisplayOf;
 import static com.cartisan.modern.transaction.builder.PresentableSummaryOfTransactionsBuilder.defaultPresentableSummaryOfTransactions;
 import static com.cartisan.modern.transaction.builder.PresentableTransactionsBuilder.defaultPresentableTransactions;
@@ -29,8 +33,10 @@ public class TransactionListControllerTest {
     PresentableTransactions presentableTransactions = spy(defaultPresentableTransactions().build());
     PresentableSummaryOfTransactions presentableSummaryOfTransactions =
             spy(defaultPresentableSummaryOfTransactions().build());
-
-    TransactionListController controller = new TransactionListController(mockTransactions, presentableTransactions, presentableSummaryOfTransactions);
+    ResultRangeFactory mockResultRangeFactory = mock(ResultRangeFactory.class);
+    TransactionListController controller = new TransactionListController(
+            mockTransactions, presentableTransactions, presentableSummaryOfTransactions,
+            mockResultRangeFactory);
 
     @Before
     public void given_transactions_processAll_is_ready_to_be_called() {
@@ -39,14 +45,14 @@ public class TransactionListControllerTest {
 
     @Test
     public void should_display_view() {
-        assertThat(controller.index()).isInstanceOf(PresentableTransactions.class);
+        assertThat(list()).isInstanceOf(PresentableTransactions.class);
     }
 
     @Test
     public void should_let_view_display_transaction() {
         spyOnDisplayOf(presentableTransactions);
 
-        controller.index();
+        list();
         verify(presentableTransactions).display(transaction);
     }
 
@@ -54,13 +60,28 @@ public class TransactionListControllerTest {
     public void should_let_view_display_summary_of_transactions() {
         spyOnDisplayOf(presentableSummaryOfTransactions);
 
-        controller.index();
+        list();
 
         verify(presentableSummaryOfTransactions).display(summaryOfTransactions);
     }
 
+    @Test
+    public void should_pass_result_range_to_transactions(){
+        ResultRange resultRange = defaultResultRange().build();
+        int pageNumber = 1;
+        given_result_range_will_be_created_with(resultRange, pageNumber);
+
+        controller.index(pageNumber);
+
+        verify(mockTransactions).processAll(any(Consumer.class), eq(resultRange));
+    }
+
+    private void given_result_range_will_be_created_with(ResultRange resultRange, int pageNumber) {
+        when(mockResultRangeFactory.create(pageNumber)).thenReturn(resultRange);
+    }
+
     private void given_transactions_processAll_will_return(Transaction transaction, SummaryOfTransactions summaryOfTransactions) {
-        when(mockTransactions.processAll(any(Consumer.class))).thenAnswer(new Answer<TransactionPostActions>() {
+        when(mockTransactions.processAll(any(Consumer.class), any(ResultRange.class))).thenAnswer(new Answer<TransactionPostActions>() {
             @Override
             public TransactionPostActions answer(InvocationOnMock invocation) throws Throwable {
                 Consumer<Transaction> consumer = invocation.getArgumentAt(0, Consumer.class);
@@ -78,5 +99,9 @@ public class TransactionListControllerTest {
             return null;
         }).when(stubTransactionsPostActions).withSummary(any(Consumer.class));
         return stubTransactionsPostActions;
+    }
+
+    private ModelAndView list() {
+        return controller.index(1);
     }
 }
