@@ -1,14 +1,14 @@
 package com.cartisan.modern.common.builder;
 
-import com.cartisan.modern.common.controller.Pageable;
 import com.cartisan.modern.common.controller.PageableFactory;
+import org.springframework.data.domain.Pageable;
 
 public class PageableBuilder {
-    public static PageableBuilder defaultResultRange(){
+    public static PageableBuilder defaultPageable(){
         return new PageableBuilder();
     }
 
     public Pageable build(){
-        return new PageableFactory().create(1);
+        return new PageableFactory(10).create(1);
     }
 }

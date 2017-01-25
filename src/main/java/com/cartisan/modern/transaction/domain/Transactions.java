@@ -1,13 +1,13 @@
 package com.cartisan.modern.transaction.domain;
 
 import com.cartisan.modern.common.callback.PostActions;
-import com.cartisan.modern.common.controller.Pageable;
 import com.cartisan.modern.transaction.domain.summary.SummaryOfTransactions;
 import com.cartisan.modern.transaction.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.function.Consumer;
 
 import static com.cartisan.modern.common.callback.PostActionsFactory.failed;
@@ -33,8 +33,8 @@ public class Transactions {
     }
 
     public TransactionPostActions processAll(Consumer<Transaction> consumer, Pageable pageable) {
-        List<Transaction> all = repository.findAll();
+        Page<Transaction> all = repository.findAll(pageable);
         all.forEach(consumer::accept);
-        return new SummaryOfTransactions(all);
+        return new SummaryOfTransactions(all.getContent());
     }
 }

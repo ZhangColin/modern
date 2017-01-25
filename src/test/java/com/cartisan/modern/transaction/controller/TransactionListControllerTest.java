@@ -1,6 +1,5 @@
 package com.cartisan.modern.transaction.controller;
 
-import com.cartisan.modern.common.controller.Pageable;
 import com.cartisan.modern.common.controller.PageableFactory;
 import com.cartisan.modern.transaction.domain.Transaction;
 import com.cartisan.modern.transaction.domain.TransactionPostActions;
@@ -12,11 +11,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.function.Consumer;
 
-import static com.cartisan.modern.common.builder.PageableBuilder.defaultResultRange;
+import static com.cartisan.modern.common.builder.PageableBuilder.defaultPageable;
 import static com.cartisan.modern.common.controller.ControllerTestHelper.spyOnDisplayOf;
 import static com.cartisan.modern.transaction.builder.PresentableSummaryOfTransactionsBuilder.defaultPresentableSummaryOfTransactions;
 import static com.cartisan.modern.transaction.builder.PresentableTransactionsBuilder.defaultPresentableTransactions;
@@ -67,7 +67,7 @@ public class TransactionListControllerTest {
 
     @Test
     public void should_pass_result_range_to_transactions(){
-        Pageable pageable = defaultResultRange().build();
+        Pageable pageable = defaultPageable().build();
         int pageNumber = 1;
         given_result_range_will_be_created_with(pageable, pageNumber);
 
