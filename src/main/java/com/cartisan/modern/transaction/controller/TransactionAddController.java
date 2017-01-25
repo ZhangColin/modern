@@ -24,7 +24,7 @@ import static com.cartisan.modern.common.view.MessageSources.RESULT_MESSAGES_FUL
 @Controller
 @PropertySource(RESULT_MESSAGES_FULL_NAME)
 @RequestMapping(TRANSACTION)
-public class TransactionController {
+public class TransactionAddController {
     private final Transactions transactions;
     private final PresentableAddTransaction presentableAddTransaction;
     private final View<String> message;
@@ -36,9 +36,9 @@ public class TransactionController {
     String failedMessage;
 
     @Autowired
-    public TransactionController(Transactions transactions,
-                                 PresentableAddTransaction presentableAddTransaction,
-                                 View<String> message) {
+    public TransactionAddController(Transactions transactions,
+                                    PresentableAddTransaction presentableAddTransaction,
+                                    View<String> message) {
         this.transactions = transactions;
         this.presentableAddTransaction = presentableAddTransaction;
         this.message = message;
