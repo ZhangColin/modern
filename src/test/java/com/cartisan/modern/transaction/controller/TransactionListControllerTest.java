@@ -1,6 +1,7 @@
 package com.cartisan.modern.transaction.controller;
 
 import com.cartisan.modern.common.controller.PageableFactory;
+import com.cartisan.modern.common.view.PageView;
 import com.cartisan.modern.transaction.domain.Transaction;
 import com.cartisan.modern.transaction.domain.TransactionPostActions;
 import com.cartisan.modern.transaction.domain.Transactions;
@@ -34,9 +35,10 @@ public class TransactionListControllerTest {
     PresentableSummaryOfTransactions presentableSummaryOfTransactions =
             spy(defaultPresentableSummaryOfTransactions().build());
     PageableFactory mockPageableFactory = mock(PageableFactory.class);
+    PageView mockPageView = mock(PageView.class);
     TransactionListController controller = new TransactionListController(
             mockTransactions, presentableTransactions, presentableSummaryOfTransactions,
-            mockPageableFactory);
+            mockPageableFactory, mockPageView);
 
     @Before
     public void given_transactions_processAll_is_ready_to_be_called() {
