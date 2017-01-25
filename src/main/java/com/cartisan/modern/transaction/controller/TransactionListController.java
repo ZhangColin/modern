@@ -1,6 +1,6 @@
 package com.cartisan.modern.transaction.controller;
 
-import com.cartisan.modern.common.controller.ResultRangeFactory;
+import com.cartisan.modern.common.controller.PageableFactory;
 import com.cartisan.modern.transaction.domain.Transactions;
 import com.cartisan.modern.transaction.view.PresentableSummaryOfTransactions;
 import com.cartisan.modern.transaction.view.PresentableTransactions;
@@ -19,22 +19,22 @@ public class TransactionListController {
     private final Transactions transactions;
     private final PresentableTransactions presentableTransactions;
     private final PresentableSummaryOfTransactions presentableSummaryOfTransactions;
-    private final ResultRangeFactory resultRangeFactory;
+    private final PageableFactory pageableFactory;
 
     public TransactionListController(
             Transactions transactions,
             PresentableTransactions presentableTransactions,
             PresentableSummaryOfTransactions presentableSummaryOfTransactions,
-            ResultRangeFactory resultRangeFactory) {
+            PageableFactory pageableFactory) {
         this.transactions = transactions;
         this.presentableTransactions = presentableTransactions;
         this.presentableSummaryOfTransactions = presentableSummaryOfTransactions;
-        this.resultRangeFactory = resultRangeFactory;
+        this.pageableFactory = pageableFactory;
     }
 
     @GetMapping
     public ModelAndView index(@RequestParam(defaultValue = "1") int page) {
-        transactions.processAll(presentableTransactions::display, resultRangeFactory.create(page))
+        transactions.processAll(presentableTransactions::display, pageableFactory.create(page))
                 .withSummary(presentableSummaryOfTransactions::display);
         return combine(presentableTransactions).with(presentableSummaryOfTransactions);
     }

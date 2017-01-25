@@ -1,6 +1,6 @@
 package com.cartisan.modern.transaction.domain;
 
-import com.cartisan.modern.common.controller.ResultRange;
+import com.cartisan.modern.common.controller.Pageable;
 import com.cartisan.modern.transaction.domain.summary.SummaryOfTransactions;
 import com.cartisan.modern.transaction.repository.TransactionRepository;
 import com.nitorcreations.junit.runners.NestedRunner;
@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
 
 import java.util.function.Consumer;
 
-import static com.cartisan.modern.common.builder.ResultRangeBuilder.defaultResultRange;
+import static com.cartisan.modern.common.builder.PageableBuilder.defaultResultRange;
 import static com.cartisan.modern.transaction.builder.TransactionBuilder.defaultTransaction;
 import static java.util.Arrays.asList;
 import static org.mockito.Mockito.*;
@@ -57,7 +57,7 @@ public class TransactionsTest {
 
     public class ProcessAll{
         private Consumer<Transaction> whateverConsumer = transaction -> {};
-        private ResultRange whateverResultRange = defaultResultRange().build();
+        private Pageable whateverPageable = defaultResultRange().build();
 
         @Before
         public void given_findAll_will_return_transaction(){
@@ -82,7 +82,7 @@ public class TransactionsTest {
         }
 
         private TransactionPostActions processAll(Consumer<Transaction> whateverConsumer) {
-            return transactions.processAll(whateverConsumer, whateverResultRange);
+            return transactions.processAll(whateverConsumer, whateverPageable);
         }
 
         private void given_findAll_will_return(Transaction transaction) {
