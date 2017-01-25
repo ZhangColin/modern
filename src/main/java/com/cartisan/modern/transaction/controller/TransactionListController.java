@@ -7,10 +7,8 @@ import com.cartisan.modern.transaction.view.PresentableTransactions;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import static com.cartisan.modern.common.controller.PageableFactory.DEFAULT_PAGE_NUMBER;
 import static com.cartisan.modern.common.controller.Urls.TRANSACTION;
 import static com.cartisan.modern.common.view.ModelAndViewCombiner.combine;
 
@@ -34,8 +32,8 @@ public class TransactionListController {
     }
 
     @GetMapping
-    public ModelAndView index(@RequestParam(defaultValue = DEFAULT_PAGE_NUMBER) int page) {
-        transactions.processAll(presentableTransactions::display, pageableFactory.create(page))
+    public ModelAndView index() {
+        transactions.processAll(presentableTransactions::display, pageableFactory.create())
                 .withSummary(presentableSummaryOfTransactions::display);
         return combine(presentableTransactions).with(presentableSummaryOfTransactions);
     }

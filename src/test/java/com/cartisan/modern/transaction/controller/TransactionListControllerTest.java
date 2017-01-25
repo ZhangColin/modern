@@ -68,16 +68,15 @@ public class TransactionListControllerTest {
     @Test
     public void should_pass_result_range_to_transactions(){
         Pageable pageable = defaultPageable().build();
-        int pageNumber = 1;
-        given_result_range_will_be_created_with(pageable, pageNumber);
+        given_result_range_will_be_created_with(pageable);
 
-        controller.index(pageNumber);
+        controller.index();
 
         verify(mockTransactions).processAll(any(Consumer.class), eq(pageable));
     }
 
-    private void given_result_range_will_be_created_with(Pageable pageable, int pageNumber) {
-        when(mockPageableFactory.create(pageNumber)).thenReturn(pageable);
+    private void given_result_range_will_be_created_with(Pageable pageable) {
+        when(mockPageableFactory.create()).thenReturn(pageable);
     }
 
     private void given_transactions_processAll_will_return(Transaction transaction, SummaryOfTransactions summaryOfTransactions) {
@@ -102,6 +101,6 @@ public class TransactionListControllerTest {
     }
 
     private ModelAndView list() {
-        return controller.index(1);
+        return controller.index();
     }
 }

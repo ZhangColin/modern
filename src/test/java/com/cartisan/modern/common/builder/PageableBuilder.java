@@ -1,6 +1,6 @@
 package com.cartisan.modern.common.builder;
 
-import com.cartisan.modern.common.controller.PageableFactory;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 public class PageableBuilder {
@@ -9,6 +9,6 @@ public class PageableBuilder {
     }
 
     public Pageable build(){
-        return new PageableFactory(10).create(1);
+        return new PageRequest(1,10);
     }
 }
