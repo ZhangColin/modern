@@ -33,12 +33,12 @@ public class MonthlyBudgetSteps {
     private MonthlyBudgetRepositoryForTest monthlyBudgetRepository;
 
     @Given("^budget (\\d+) has been set for month \"([^\"]*)\"$")
-    public void budget_has_been_set_for_month(Integer budget, @Format(MONTH)Date month) {
+    public void budget_has_been_set_for_month(Integer budget, @Format(MONTH) Date month) {
         monthlyBudgetRepository.save(new MonthlyBudget(month, budget));
     }
 
     @Given("^budget planned for \"([^\"]*)\" is (\\d+)$")
-    public void budget_planned_for_is(@Format(MONTH)Date month, Integer budget) {
+    public void budget_planned_for_is(@Format(MONTH) Date month, Integer budget) {
         budget_has_been_set_for_month(budget, month);
     }
 
@@ -53,12 +53,12 @@ public class MonthlyBudgetSteps {
     }
 
     @Then("^monthly budget (\\d+) for \"([^\"]*)\" is saved$")
-    public void monthly_budget_for_is_saved(Integer budget, @Format(MONTH)Date month) {
+    public void monthly_budget_for_is_saved(Integer budget, @Format(MONTH) Date month) {
         assertListDeepEquals(asList(new MonthlyBudget(month, budget)), monthlyBudgetRepository.findAll(), "month");
     }
 
     @Then("^the budget for \"([^\"]*)\" is (\\d+)$")
-    public void the_budget_for_with_a_new_amount(@Format(MONTH)Date month, Integer budget) {
+    public void the_budget_for_with_a_new_amount(@Format(MONTH) Date month, Integer budget) {
         monthly_budget_for_is_saved(budget, month);
     }
 

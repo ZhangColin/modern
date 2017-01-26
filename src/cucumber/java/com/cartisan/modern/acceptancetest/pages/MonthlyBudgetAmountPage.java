@@ -1,7 +1,7 @@
 package com.cartisan.modern.acceptancetest.pages;
 
-import com.cartisan.modern.common.view.Params;
 import com.cartisan.modern.acceptancetest.driver.UiDriver;
+import com.cartisan.modern.common.view.Params;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;

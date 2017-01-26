@@ -16,7 +16,7 @@ import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLAS
 @Component
 @Scope(value = "request", proxyMode = TARGET_CLASS)
 @PropertySource(RESULT_MESSAGES_FULL_NAME)
-public class PresentableMonthlyBudgetAmount extends ModelAndView implements View<Long>{
+public class PresentableMonthlyBudgetAmount extends ModelAndView implements View<Long> {
 
     public final String message;
 

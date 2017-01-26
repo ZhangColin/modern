@@ -13,7 +13,7 @@ public abstract class BudgetCategoryType {
     /**
      * Method to move forwards or backwards by the given number of periods.  This
      * must conform to the following statements:
-     *
+     * <p>
      * If offset is 0, return the same date
      * If offset is positive, add that many budget periods.  For instance, if
      * the value 3 is given, MONTHLY period is selected, and the current date
@@ -36,6 +36,7 @@ public abstract class BudgetCategoryType {
      * SimpleDateFormatter javadocs.  For instance, for Monthly type, the
      * value would be "MMM yyyy" (to show Aug 2007).  For the Weekly type, since
      * we want to show days as well, the format would be "dd MMM yyyy".
+     *
      * @return
      */
     public abstract String getDateFormat();
@@ -46,6 +47,7 @@ public abstract class BudgetCategoryType {
      * class defines a Monthly type, passing in a date of August 4 2007 would
      * return the value 31; passing in the date of September 20 2009 would
      * return the value 30.
+     *
      * @param date
      * @return
      */
@@ -53,6 +55,7 @@ public abstract class BudgetCategoryType {
 
     /**
      * Returns the end of the budget period which contains the given date.
+     *
      * @param date
      * @return
      */
@@ -61,12 +64,14 @@ public abstract class BudgetCategoryType {
     /**
      * Returns the name of this budget period.  It will be filtered through the translator
      * before displaying it, do this can be a translation key if desired.
+     *
      * @return
      */
     public abstract String getName();
 
     /**
      * Returns the start of the budget period which contains the given date.
+     *
      * @param date
      * @return
      */
@@ -86,6 +91,7 @@ public abstract class BudgetCategoryType {
      * Returns the base key of the budget period.  For instance, the monthly period with
      * enum type BUDGET_CATEGORY_TYPE_MONTH would return MONTH.
      * Used for the Buddi Live export plugin.
+     *
      * @return
      */
     public abstract String getKey();

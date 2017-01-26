@@ -26,8 +26,7 @@ public class Transactions {
         try {
             repository.save(transaction);
             return success();
-        }
-        catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             return failed();
         }
     }

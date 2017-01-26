@@ -1,4 +1,4 @@
-package com.cartisan.modern.common.controller;
+package com.cartisan.modern.common.page;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +15,7 @@ public class PageableFactory {
     private final int perPageLimit;
     private final CurrentPage currentPage;
 
-    public PageableFactory(@Value("${application.perPageLimit}")int perPageLimit,
+    public PageableFactory(@Value("${application.perPageLimit}") int perPageLimit,
                            @Autowired CurrentPage currentPage) {
         this.currentPage = currentPage;
         this.perPageLimit = perPageLimit;

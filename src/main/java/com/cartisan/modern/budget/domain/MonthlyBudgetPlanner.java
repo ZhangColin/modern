@@ -50,11 +50,10 @@ public class MonthlyBudgetPlanner {
 
     private void saveMonthlyBudget(MonthlyBudget monthlyBudget) {
         MonthlyBudget existingBudget = monthlyBudgetRepository.findByMonth(monthlyBudget.getMonth());
-        if (existingBudget!=null) {
+        if (existingBudget != null) {
             existingBudget.setBudget(monthlyBudget.getBudget());
             monthlyBudgetRepository.save(existingBudget);
-        }
-        else{
+        } else {
             monthlyBudgetRepository.save(monthlyBudget);
         }
     }

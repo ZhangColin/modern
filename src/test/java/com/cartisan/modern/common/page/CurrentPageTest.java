@@ -1,4 +1,4 @@
-package com.cartisan.modern.common.controller;
+package com.cartisan.modern.common.page;
 
 import org.junit.Test;
 
@@ -14,7 +14,7 @@ public class CurrentPageTest {
     CurrentPage currentPage = new CurrentPage(mockRequest);
 
     @Test
-    public void no_page_param(){
+    public void no_page_param() {
         assertThat(currentPage.number()).isEqualTo(FIRST_PAGE);
     }
 

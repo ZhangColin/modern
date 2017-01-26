@@ -39,7 +39,7 @@ public class TransactionSteps {
 
     @When("^add transactions with the following information$")
     public void add_transactions_with_the_following_information(List<EditableTransaction> editableTransactions) throws Throwable {
-        editableTransactions.forEach(transaction->addTransactionPage.add(transaction));
+        editableTransactions.forEach(transaction -> addTransactionPage.add(transaction));
     }
 
     @Then("^the following transactions will be created$")
@@ -59,7 +59,7 @@ public class TransactionSteps {
 
     @Then("^you will see all transactions as below$")
     public void you_will_see_all_transactions_as_below(@Format(DAY) List<PresentableTransaction> transactions) throws Throwable {
-        transactions.forEach(transaction->assertThat(commonPage.getAllText()).contains(transaction.allViewText()));
+        transactions.forEach(transaction -> assertThat(commonPage.getAllText()).contains(transaction.allViewText()));
     }
 
     @When("^show total of all transactions$")
@@ -102,7 +102,7 @@ public class TransactionSteps {
     }
 
     private int amountOfFirstTransaction(int pageNumber, int perPageCount) {
-        return (pageNumber-1)*perPageCount+1;
+        return (pageNumber - 1) * perPageCount + 1;
     }
 
     private void createTransactionWithAmount(int amount) {

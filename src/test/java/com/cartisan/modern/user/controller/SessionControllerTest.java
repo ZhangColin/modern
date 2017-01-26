@@ -9,7 +9,8 @@ import static com.cartisan.modern.common.controller.ControllerTestHelper.spyOnDi
 import static com.cartisan.modern.user.builder.AuthenticationResultBuilder.defaultAuthenticationResult;
 import static com.cartisan.modern.user.builder.SignInViewBuilder.defaultSignInView;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
 
 public class SessionControllerTest {
     AuthenticationResult authenticationResult = defaultAuthenticationResult().build();

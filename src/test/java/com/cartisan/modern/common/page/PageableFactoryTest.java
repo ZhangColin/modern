@@ -1,10 +1,8 @@
-package com.cartisan.modern.common.controller;
+package com.cartisan.modern.common.page;
 
-import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.junit.Test;
 import org.springframework.data.domain.Pageable;
 
-import static java.lang.String.valueOf;
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -15,7 +13,7 @@ public class PageableFactoryTest {
     private CurrentPage mockCurrentPage = mock(CurrentPage.class);
 
     @Test
-    public void create_pageable(){
+    public void create_pageable() {
         given_page_number_is(page);
 
         Pageable pageable = pageableFactory(perPageLimit).create();

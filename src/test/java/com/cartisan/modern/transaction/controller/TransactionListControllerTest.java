@@ -1,7 +1,7 @@
 package com.cartisan.modern.transaction.controller;
 
-import com.cartisan.modern.common.controller.PageableFactory;
-import com.cartisan.modern.common.view.PageView;
+import com.cartisan.modern.common.page.PageView;
+import com.cartisan.modern.common.page.PageableFactory;
 import com.cartisan.modern.transaction.domain.Transaction;
 import com.cartisan.modern.transaction.domain.TransactionPostActions;
 import com.cartisan.modern.transaction.domain.Transactions;
@@ -68,7 +68,7 @@ public class TransactionListControllerTest {
     }
 
     @Test
-    public void should_pass_result_range_to_transactions(){
+    public void should_pass_result_range_to_transactions() {
         Pageable pageable = defaultPageable().build();
         given_result_range_will_be_created_with(pageable);
 

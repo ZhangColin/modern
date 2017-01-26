@@ -16,7 +16,7 @@ public class Formats {
         }
     }
 
-    public static Date parseMonth(String month){
+    public static Date parseMonth(String month) {
         try {
             return new SimpleDateFormat(MONTH).parse(month);
         } catch (ParseException e) {

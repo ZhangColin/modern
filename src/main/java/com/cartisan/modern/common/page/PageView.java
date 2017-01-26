@@ -1,6 +1,6 @@
-package com.cartisan.modern.common.view;
+package com.cartisan.modern.common.page;
 
-import com.cartisan.modern.common.controller.CurrentPage;
+import com.cartisan.modern.common.view.Params;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -18,7 +18,7 @@ import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLAS
 @PropertySource(RESULT_MESSAGES_FULL_NAME)
 public class PageView extends ModelAndView {
     public static final String PAGE_PARAM_NAME = "page";
-    private static final int FIRST_PAGE=0;
+    private static final int FIRST_PAGE = 0;
 
     public PageView(
             @Value("${pagination.currentPage}") String currentPageMessage,
@@ -28,7 +28,7 @@ public class PageView extends ModelAndView {
     }
 
     private void displayPreviousPage(int currentPage) {
-        if (currentPage != FIRST_PAGE){
+        if (currentPage != FIRST_PAGE) {
             displayPreviousPageLink(currentPage);
         }
     }
@@ -38,12 +38,12 @@ public class PageView extends ModelAndView {
     }
 
     private void displayCurrentPage(int currentPage, String currentPageMessage) {
-        addObject("currentPage", format(currentPageMessage, currentPage+1));
+        addObject("currentPage", format(currentPageMessage, currentPage + 1));
     }
 
     private String previousPageUrl(int currentPage) {
         Params page = new Params();
-        page.add(PAGE_PARAM_NAME, valueOf(currentPage-1));
+        page.add(PAGE_PARAM_NAME, valueOf(currentPage - 1));
         return page.getQuery();
     }
 }

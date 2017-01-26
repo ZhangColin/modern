@@ -80,19 +80,19 @@ public class BudgetCategory {
         return getPeriodType();
     }
 
-    public long getAmount(Date periodDate){
+    public long getAmount(Date periodDate) {
         Long l = getAmounts().get(getPeriodKey(periodDate));
         if (l == null)
             return 0;
         return l;
     }
 
-    public List<String> getBudgetPeriods(Date startDate, Date endDate){
+    public List<String> getBudgetPeriods(Date startDate, Date endDate) {
         List<String> budgetPeriodKeys = new LinkedList<String>();
 
         Date temp = getBudgetPeriodType().getStartOfBudgetPeriod(startDate);
 
-        while (temp.before(getBudgetPeriodType().getEndOfBudgetPeriod(endDate))){
+        while (temp.before(getBudgetPeriodType().getEndOfBudgetPeriod(endDate))) {
             budgetPeriodKeys.add(getPeriodKey(temp));
             temp = getBudgetPeriodType().getBudgetPeriodOffset(temp, 1);
         }
@@ -100,14 +100,14 @@ public class BudgetCategory {
         return budgetPeriodKeys;
     }
 
-    private String getPeriodKey(Date periodDate){
+    private String getPeriodKey(Date periodDate) {
         Date d = getBudgetPeriodType().getStartOfBudgetPeriod(periodDate);
         return getBudgetPeriodType().getName() + ":" + DateUtil.getYear(d) + ":" + DateUtil.getMonth(d) + ":" + DateUtil.getDay(d);
     }
 
-    private Date getPeriodDate(String periodKey){
+    private Date getPeriodDate(String periodKey) {
         String[] splitKey = periodKey.split(":");
-        if (splitKey.length == 4){
+        if (splitKey.length == 4) {
             int year = Integer.parseInt(splitKey[1]);
             int month = Integer.parseInt(splitKey[2]);
             int day = Integer.parseInt(splitKey[3]);
@@ -131,7 +131,7 @@ public class BudgetCategory {
         return amounts;
     }
 
-    public void setAmount(Date periodDate, long amount){
+    public void setAmount(Date periodDate, long amount) {
         getAmounts().put(getPeriodKey(periodDate), amount);
     }
 }

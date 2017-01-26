@@ -1,4 +1,4 @@
-package com.cartisan.modern.common.controller;
+package com.cartisan.modern.common.page;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;

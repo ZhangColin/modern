@@ -51,7 +51,7 @@ public class ErrorMessageInterceptor implements HandlerInterceptor {
     }
 
     private Stream<FieldError> fieldErrors(Entry<String, Object> entry) {
-        return ((BindingResult)entry.getValue()).getFieldErrors().stream();
+        return ((BindingResult) entry.getValue()).getFieldErrors().stream();
     }
 
     @Override

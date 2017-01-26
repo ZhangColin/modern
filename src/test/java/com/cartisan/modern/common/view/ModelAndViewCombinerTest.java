@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ModelAndViewCombinerTest {
     @Test
-    public void merge_model_map_entry(){
+    public void merge_model_map_entry() {
         ModelAndView modelAndView = new ModelAndView();
         ModelAndView toBeMerged = new ModelAndView();
 

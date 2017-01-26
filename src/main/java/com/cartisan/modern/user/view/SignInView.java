@@ -17,7 +17,7 @@ import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLAS
 @Scope(value = "request", proxyMode = TARGET_CLASS)
 @PropertySource(RESULT_MESSAGES_FULL_NAME)
 @Builder
-public class SignInView extends ModelAndView implements View<AuthenticationResult>{
+public class SignInView extends ModelAndView implements View<AuthenticationResult> {
     private final String failedMessage;
     private final String logoutMessage;
 
@@ -34,9 +34,9 @@ public class SignInView extends ModelAndView implements View<AuthenticationResul
     }
 
     @Override
-    public void display(AuthenticationResult authenticationResult){
+    public void display(AuthenticationResult authenticationResult) {
         authenticationResult
-                .error(()->setMessageAndType(failedMessage, "danger"))
-                .logout(()->setMessageAndType(logoutMessage, "info"));
+                .error(() -> setMessageAndType(failedMessage, "danger"))
+                .logout(() -> setMessageAndType(logoutMessage, "info"));
     }
 }

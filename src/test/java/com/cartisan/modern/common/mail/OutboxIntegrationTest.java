@@ -12,7 +12,7 @@ public class OutboxIntegrationTest {
 
     //@Ignore
     //@Test
-    public void send(){
+    public void send() {
         Mail mail = new Mail();
         mail.setSubject("Test subject");
         mail.setText("Text body");

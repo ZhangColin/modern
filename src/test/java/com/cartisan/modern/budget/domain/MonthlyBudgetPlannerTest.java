@@ -98,7 +98,7 @@ public class MonthlyBudgetPlannerTest {
         Date endDate = parseDay("2016-07-10");
 
         @Test
-        public void get_amount_from_budget_category()  {
+        public void get_amount_from_budget_category() {
             given_monthly_budget_planned_as();
             given_total_amount_is(100L);
 

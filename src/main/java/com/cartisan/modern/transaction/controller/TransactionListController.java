@@ -1,7 +1,7 @@
 package com.cartisan.modern.transaction.controller;
 
-import com.cartisan.modern.common.controller.PageableFactory;
-import com.cartisan.modern.common.view.PageView;
+import com.cartisan.modern.common.page.PageView;
+import com.cartisan.modern.common.page.PageableFactory;
 import com.cartisan.modern.transaction.domain.Transactions;
 import com.cartisan.modern.transaction.view.PresentableSummaryOfTransactions;
 import com.cartisan.modern.transaction.view.PresentableTransactions;

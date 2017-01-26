@@ -21,19 +21,19 @@ public class SummaryOfTransactions implements TransactionPostActions {
         consumer.accept(this);
     }
 
-    public int balance(){
+    public int balance() {
         return sumOf(TransactionForSummary::balance);
     }
 
-    public int totalIncome(){
+    public int totalIncome() {
         return sumOf(TransactionForSummary::income);
     }
 
-    public int totalOutcome(){
+    public int totalOutcome() {
         return sumOf(TransactionForSummary::outcome);
     }
 
-    private int sumOf(ToIntFunction<TransactionForSummary> mapper){
+    private int sumOf(ToIntFunction<TransactionForSummary> mapper) {
         return transactionForSummaries.stream().mapToInt(mapper).sum();
     }
 }

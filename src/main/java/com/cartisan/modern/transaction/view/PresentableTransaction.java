@@ -17,11 +17,11 @@ public class PresentableTransaction {
     private Date date;
     private int amount;
 
-    public String dateForView(){
+    public String dateForView() {
         return new SimpleDateFormat(DAY).format(date);
     }
 
-    public String[] allViewText(){
+    public String[] allViewText() {
         return new String[]{type.name(), description, dateForView(), String.valueOf(amount)};
     }
 }

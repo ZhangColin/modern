@@ -19,7 +19,7 @@ public class MustacheViewResolverPostProcessor {
             @Override
             public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
                 if (beanName.equals("mustacheViewResolver"))
-                    ((MustacheViewResolver)bean).setExposeRequestAttributes(true);
+                    ((MustacheViewResolver) bean).setExposeRequestAttributes(true);
                 return bean;
             }
         };

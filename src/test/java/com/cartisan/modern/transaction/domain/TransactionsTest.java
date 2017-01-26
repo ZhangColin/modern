@@ -13,7 +13,6 @@ import java.util.function.Consumer;
 
 import static com.cartisan.modern.common.builder.PageableBuilder.defaultPageable;
 import static com.cartisan.modern.transaction.builder.TransactionBuilder.defaultTransaction;
-import static java.util.Arrays.asList;
 import static org.mockito.Mockito.*;
 
 @RunWith(NestedRunner.class)
@@ -25,7 +24,7 @@ public class TransactionsTest {
     Runnable afterSuccess = mock(Runnable.class);
     Runnable afterFailed = mock(Runnable.class);
 
-    public class Save{
+    public class Save {
         @Test
         public void should_save_transaction() {
             transactions.add(transaction);
@@ -41,7 +40,7 @@ public class TransactionsTest {
         }
 
         @Test
-        public void should_call_after_failed_when_save_failed(){
+        public void should_call_after_failed_when_save_failed() {
             given_save_will_fail();
 
             transactions.add(transaction).success(afterSuccess).failed(afterFailed);
@@ -56,17 +55,18 @@ public class TransactionsTest {
 
     }
 
-    public class ProcessAll{
-        private Consumer<Transaction> whateverTransactionConsumer = transaction -> {};
+    public class ProcessAll {
+        private Consumer<Transaction> whateverTransactionConsumer = transaction -> {
+        };
         private Pageable whateverPageable = defaultPageable().build();
 
         @Before
-        public void given_findAll_will_return_transaction(){
+        public void given_findAll_will_return_transaction() {
             given_findAll_will_return(transaction);
         }
 
         @Test
-        public void should_process_all_transactions(){
+        public void should_process_all_transactions() {
             Consumer<Transaction> mockConsumer = mock(Consumer.class);
             processAll(mockConsumer);
 
@@ -74,7 +74,7 @@ public class TransactionsTest {
         }
 
         @Test
-        public void process_all_transactions_with_summary(){
+        public void process_all_transactions_with_summary() {
             Consumer<SummaryOfTransactions> mockConsumer = mock(Consumer.class);
 
             processAll(whateverTransactionConsumer).withSummary(mockConsumer);
@@ -83,7 +83,7 @@ public class TransactionsTest {
         }
 
         @Test
-        public void should_pass_pageable_to_repository(){
+        public void should_pass_pageable_to_repository() {
             Pageable pageable = defaultPageable().build();
 
             transactions.processAll(whateverTransactionConsumer, pageable);

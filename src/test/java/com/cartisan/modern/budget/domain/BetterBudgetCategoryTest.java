@@ -28,9 +28,9 @@ public class BetterBudgetCategoryTest {
         twentyMay2011 = new SimpleDateFormat("yyMMdd").parse("110520");
     }
 
-    @Test (expected=RuntimeException.class)
+    @Test(expected = RuntimeException.class)
     public void testBeginDateIsLaterThanStartDateThrowsAnException() throws Exception {
-        bc.getAmount(fourthOfJuly2011 , secondOfJuly2011);
+        bc.getAmount(fourthOfJuly2011, secondOfJuly2011);
     }
 
     @Test

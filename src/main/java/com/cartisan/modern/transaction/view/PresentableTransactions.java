@@ -20,7 +20,7 @@ import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLAS
 @Component
 @Scope(value = "request", proxyMode = TARGET_CLASS)
 @PropertySource(RESULT_MESSAGES_FULL_NAME)
-public class PresentableTransactions extends ModelAndView implements View<Transaction>{
+public class PresentableTransactions extends ModelAndView implements View<Transaction> {
     private final List<PresentableTransaction> presentableTransactions = new ArrayList<>();
 
     @Builder

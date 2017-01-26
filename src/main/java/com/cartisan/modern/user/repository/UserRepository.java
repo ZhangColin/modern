@@ -8,5 +8,6 @@ import javax.transaction.Transactional;
 @Transactional
 public interface UserRepository extends Repository<User, Long> {
     void save(User user);
+
     void deleteAll();
 }

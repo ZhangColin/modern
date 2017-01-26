@@ -3,7 +3,7 @@ package com.cartisan.modern.budget.domain;
 
 public enum BudgetCategoryTypes {
     BUDGET_CATEGORY_TYPE_WEEK,
-//    BUDGET_CATEGORY_TYPE_FORTNIGHT,
+    //    BUDGET_CATEGORY_TYPE_FORTNIGHT,
     BUDGET_CATEGORY_TYPE_SEMI_MONTH,
     BUDGET_CATEGORY_TYPE_MONTH,
     BUDGET_CATEGORY_TYPE_QUARTER,

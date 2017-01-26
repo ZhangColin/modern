@@ -13,7 +13,7 @@ import static com.cartisan.modern.transaction.domain.Transaction.Type.Outcome;
 public class SummaryOfTransactionsBuilder {
     private final List<Transaction> all = new ArrayList<>();
 
-    public static SummaryOfTransactionsBuilder builder(){
+    public static SummaryOfTransactionsBuilder builder() {
         return new SummaryOfTransactionsBuilder();
     }
 
@@ -27,7 +27,7 @@ public class SummaryOfTransactionsBuilder {
         return this;
     }
 
-    public SummaryOfTransactions build(){
+    public SummaryOfTransactions build() {
         return new SummaryOfTransactions(all);
     }
 

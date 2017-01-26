@@ -38,30 +38,30 @@ public class Hooks {
     private SignInPage signInPage;
 
     @Before("@user")
-    public void signIn(){
+    public void signIn() {
         userRepository.save(new User("user", "password"));
         signInPage.signIn("user", "password");
     }
 
     @After
-    public void closeUiDriver(){
+    public void closeUiDriver() {
         uiDriver.close();
     }
 
     @Before("@monthlyBudget")
     @After("@monthlyBudget")
-    public void cleanUpMonthlyBudget(){
+    public void cleanUpMonthlyBudget() {
         monthlyBudgetRepository.deleteAll();
     }
 
     @After("@user,@deleteUser")
-    public void cleanUpUser(){
+    public void cleanUpUser() {
         userRepository.deleteAll();
     }
 
     @Before("@transaction")
     @After("@transaction")
-    public void cleanUpTransaction(){
+    public void cleanUpTransaction() {
         transactionRepository.deleteAll();
     }
 }

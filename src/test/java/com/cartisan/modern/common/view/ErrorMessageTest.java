@@ -11,7 +11,7 @@ import static org.mockito.Mockito.*;
 
 public class ErrorMessageTest {
     @Test
-    public void should_pass_error_message_to_page(){
+    public void should_pass_error_message_to_page() {
         MessageSource stubMessageSource = stubMessageSourceWithErrorMessage("error message");
         Model mockModel = mock(Model.class);
         ErrorMessage errorMessage = new ErrorMessage(stubMessageSource, mockModel);

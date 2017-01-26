@@ -17,28 +17,28 @@ public class MailgunConfig {
     @Autowired
     public MailgunConfig(@Value("${mailgun.domain}") String domain,
                          @Value("${mailgun.apiKey}") String apiKey,
-                         @Value("${mailgun.from}") String from){
+                         @Value("${mailgun.from}") String from) {
         this.domain = domain;
         this.apiKey = apiKey;
         this.from = from;
     }
 
-    public HttpAuthenticationFeature authentication(){
+    public HttpAuthenticationFeature authentication() {
         return HttpAuthenticationFeature
                 .basicBuilder()
                 .credentials("api", apiKey)
                 .build();
     }
 
-    public String apiUrl(){
+    public String apiUrl() {
         return apiUrl;
     }
 
-    public String domain(){
+    public String domain() {
         return domain;
     }
 
-    public String from(){
+    public String from() {
         return from;
     }
 }

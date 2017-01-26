@@ -1,4 +1,4 @@
-<link href="/css/signin.css" rel="stylesheet" />
+<link href="/css/signin.css" rel="stylesheet"/>
 <div class="container">
     <form class="form-signin" method="post">
         <h2 class="form-signin-heading">{{label.head}}</h2>
@@ -6,9 +6,11 @@
             {{message}}
         </div>
         <label for="username" class="sr-only">{{label.username}}</label>
-        <input type="text" name="username" id="username" class="form-control" placeholder="{{label.username}}" required autofocus/>
+        <input type="text" name="username" id="username" class="form-control" placeholder="{{label.username}}" required
+               autofocus/>
         <label for="password" class="sr-only">{{label.password}}</label>
-        <input type="password" name="password" id="password" class="form-control" placeholder="{{label.password}}" required/>
+        <input type="password" name="password" id="password" class="form-control" placeholder="{{label.password}}"
+               required/>
         <div class="checkbox">
             <label>
                 <input type="hidden" value="remember-me"/> {{label.rememberme}}

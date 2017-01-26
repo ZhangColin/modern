@@ -15,7 +15,7 @@ public class PresentableAddTransactionTest {
     }
 
     @Test
-    public void should_go_to_transaction_add_page(){
+    public void should_go_to_transaction_add_page() {
         assertThat(presentableAddTransaction.getViewName()).isEqualTo(TRANSACTION_ADD);
     }
 }

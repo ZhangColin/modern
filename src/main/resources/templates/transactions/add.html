@@ -3,10 +3,13 @@
     <div>
         <label>{{label.type}} {{error.type}}</label>
         <select name="type">
-            {{#types}}<option value="{{name}}">{{name}}</option> {{/types}}
+            {{#types}}
+            <option value="{{name}}">{{name}}</option>
+            {{/types}}
         </select>
     </div>
-    <div><label>{{label.description}} {{error.description}}</label><input type="text" name="description" class="form-control"/></div>
+    <div><label>{{label.description}} {{error.description}}</label><input type="text" name="description"
+                                                                          class="form-control"/></div>
     <div><label>{{label.date}} {{error.date}}</label><input type="text" name="date" class="form-control"/></div>
     <div><label>{{label.amount}} {{error.amount}}</label><input type="text" name="amount" class="form-control"/></div>
     <hr/>

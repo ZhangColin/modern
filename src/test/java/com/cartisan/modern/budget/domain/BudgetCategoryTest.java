@@ -11,7 +11,7 @@ import static org.junit.Assert.fail;
 
 public class BudgetCategoryTest {
     @Test
-    public void testBudgetCategory(){
+    public void testBudgetCategory() {
         try {
             BudgetCategoryType bct = new BudgetCategoryTypeMonthly();
             BudgetCategory bc = new BudgetCategory();
@@ -32,8 +32,7 @@ public class BudgetCategoryTest {
             assertEquals((double) 300, bc.getAmount(DateUtil.getDate(2007, Calendar.APRIL, 1), DateUtil.getDate(2007, Calendar.MAY, 31)), 1);
             assertEquals((double) 149, bc.getAmount(DateUtil.getDate(2007, Calendar.APRIL, 15), DateUtil.getDate(2007, Calendar.MAY, 15)), 1);
 
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             fail("Exception: " + e);
         }
     }

@@ -5,7 +5,7 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import java.util.Locale;
 import java.util.Set;
 
-public class ExposedResourceBundleMessageSource extends ResourceBundleMessageSource{
+public class ExposedResourceBundleMessageSource extends ResourceBundleMessageSource {
     public Set<String> getKeys(String basename, Locale locale) {
         setBasename(basename);
         return getResourceBundle(basename, locale).keySet();

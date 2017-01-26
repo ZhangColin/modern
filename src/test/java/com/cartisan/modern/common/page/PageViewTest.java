@@ -1,12 +1,12 @@
-package com.cartisan.modern.common.view;
+package com.cartisan.modern.common.page;
 
-import com.cartisan.modern.common.controller.CurrentPage;
+import com.cartisan.modern.common.view.Params;
 import com.nitorcreations.junit.runners.NestedRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.ui.ModelMap;
 
-import static com.cartisan.modern.common.view.PageView.PAGE_PARAM_NAME;
+import static com.cartisan.modern.common.page.PageView.PAGE_PARAM_NAME;
 import static java.lang.String.valueOf;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -16,7 +16,7 @@ import static org.mockito.Mockito.when;
 public class PageViewTest {
     CurrentPage mockCurrentPage = mock(CurrentPage.class);
 
-    public class PageNumber{
+    public class PageNumber {
         @Test
         public void param_page_exists() {
             given_page_number_is(5);
@@ -26,7 +26,7 @@ public class PageViewTest {
         }
     }
 
-    public class PreviousPage{
+    public class PreviousPage {
         @Test
         public void previous_page_when_not_on_first_page() {
             given_page_number_is(1);
@@ -41,8 +41,8 @@ public class PageViewTest {
         }
 
         @Test
-        public void no_param_page(){
-            assertPreviousPageEquals(null,  pageViewModelMap("whatever message"));
+        public void no_param_page() {
+            assertPreviousPageEquals(null, pageViewModelMap("whatever message"));
         }
     }
 

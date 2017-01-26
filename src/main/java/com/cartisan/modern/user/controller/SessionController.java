@@ -20,7 +20,7 @@ public class SessionController {
     }
 
     @GetMapping(SIGNIN)
-    public ModelAndView signIn(@ModelAttribute AuthenticationResult authenticationResult){
+    public ModelAndView signIn(@ModelAttribute AuthenticationResult authenticationResult) {
         signInView.display(authenticationResult);
         return signInView;
     }

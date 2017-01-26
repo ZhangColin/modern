@@ -16,7 +16,7 @@ public class HomeController {
     private HomeView homeView;
 
     @GetMapping
-    public ModelAndView index(){
+    public ModelAndView index() {
         return homeView;
     }
 }

@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface MonthlyBudgetRepositoryForTest extends Repository<MonthlyBudget, Long> {
     void deleteAll();
+
     void save(MonthlyBudget monthlyBudget);
+
     List<MonthlyBudget> findAll();
 }

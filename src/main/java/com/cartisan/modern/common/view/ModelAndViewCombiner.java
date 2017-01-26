@@ -13,7 +13,7 @@ public class ModelAndViewCombiner {
         return new ModelAndViewCombiner(modelAndView);
     }
 
-    public ModelAndView with(ModelAndView toBeMerged){
+    public ModelAndView with(ModelAndView toBeMerged) {
         toBeMerged.getModel().forEach(origin::addObject);
         return origin;
     }

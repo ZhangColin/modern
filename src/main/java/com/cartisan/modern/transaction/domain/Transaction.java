@@ -13,7 +13,7 @@ import java.util.Date;
 import static com.cartisan.modern.common.Formats.DAY;
 
 @Entity
-@Table(name="transactions")
+@Table(name = "transactions")
 @Getter
 @Setter
 @Builder
@@ -30,10 +30,13 @@ public class Transaction {
     @NotBlank
     private String description;
 
-    @NotNull @Past @DateTimeFormat(pattern = DAY)
+    @NotNull
+    @Past
+    @DateTimeFormat(pattern = DAY)
     private Date date;
 
-    @NotNull @Min(1)
+    @NotNull
+    @Min(1)
     private Integer amount;
 
     public enum Type {

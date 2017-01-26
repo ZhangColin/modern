@@ -22,7 +22,7 @@ public class Outbox {
         this.config = config;
     }
 
-    public boolean send(Mail mail){
+    public boolean send(Mail mail) {
         Response response = buildRequest().post(buildEntity(mail));
 
         return response.getStatus() == 200;

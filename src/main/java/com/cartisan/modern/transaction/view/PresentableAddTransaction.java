@@ -10,7 +10,7 @@ import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLAS
 
 @Component
 @Scope(value = "request", proxyMode = TARGET_CLASS)
-public class PresentableAddTransaction extends ModelAndView{
+public class PresentableAddTransaction extends ModelAndView {
     public PresentableAddTransaction() {
         addObject("types", values());
         setViewName(TRANSACTION_ADD);

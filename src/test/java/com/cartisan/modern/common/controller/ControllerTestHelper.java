@@ -6,7 +6,7 @@ import static org.mockito.Matchers.anyObject;
 import static org.mockito.Mockito.doNothing;
 
 public class ControllerTestHelper {
-    public static void spyOnDisplayOf(View view){
+    public static void spyOnDisplayOf(View view) {
         doNothing().when(view).display(anyObject());
     }
 }

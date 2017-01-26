@@ -11,7 +11,7 @@ public class HomePage {
     @Autowired
     UiDriver driver;
 
-    public void signout(){
+    public void signout() {
         driver.findElementById("signout").submit();
     }
 }

@@ -6,9 +6,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import static com.cartisan.modern.common.controller.Urls.MONTHLYBUDGET_ADD;
-import static com.cartisan.modern.common.controller.Urls.SIGNOUT;
-import static com.cartisan.modern.common.controller.Urls.TRANSACTION;
+import static com.cartisan.modern.common.controller.Urls.*;
 
 public class LayoutNavigationInterceptor implements HandlerInterceptor {
     @Override

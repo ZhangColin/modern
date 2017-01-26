@@ -53,15 +53,15 @@ public class ErrorMessageInterceptorTest {
     @Test
     public void will_show_error_message_when_has_two_field_errors() throws Exception {
         givenFieldErrors(
-                fieldError( "field1"),
-                fieldError( "field2")
+                fieldError("field1"),
+                fieldError("field2")
         );
 
         postHandle();
 
         verifyDisplayWithFieldError(
-                fieldError( "field1"),
-                fieldError( "field2"));
+                fieldError("field1"),
+                fieldError("field2"));
     }
 
     private void verifyDisplayWithFieldError(FieldError... expectedFieldErrors) {

@@ -15,7 +15,7 @@ public class AddTransactionPage {
     @Autowired
     private UiDriver driver;
 
-    public void add(EditableTransaction editableTransaction){
+    public void add(EditableTransaction editableTransaction) {
         driver.navigateTo(TRANSACTION_ADD);
         setType(editableTransaction.getType());
         setDescription(editableTransaction.getDescription());

@@ -22,25 +22,26 @@ public class PresentableTransactionsTest {
     private PresentableTransactions presentableTransactions = defaultPresentableTransactions().build();
 
     @Test
-    public void should_go_to_index_page(){
+    public void should_go_to_index_page() {
         assertThat(presentableTransactions.getViewName()).isEqualTo(TRANSACTION_INDEX);
     }
 
-    public class NoTransaction{
+    public class NoTransaction {
         @Test
-        public void should_hide_list_view(){
+        public void should_hide_list_view() {
             assertThat(modelOf(presentableTransactions).get("hidden")).isEqualTo("hidden");
         }
 
         @Test
-        public void should_show_message(){
+        public void should_show_message() {
             presentableTransactions = new PresentableTransactions("no transaction message");
 
             assertThat(modelOf(presentableTransactions).get("message")).isEqualTo("no transaction message");
         }
 
     }
-    public class HasSomeTransactions{
+
+    public class HasSomeTransactions {
         private Date date = parseDay("2016-07-01");
         private int amount = 100;
 
@@ -52,14 +53,14 @@ public class PresentableTransactionsTest {
         }
 
         @Test
-        public void should_not_show_message(){
+        public void should_not_show_message() {
             displayTransaction();
 
             assertThat(modelOf(presentableTransactions)).doesNotContainKey("message");
         }
 
         @Test
-        public void should_pass_transaction_to_page(){
+        public void should_pass_transaction_to_page() {
             presentableTransactions.display(transaction(Income, "Income description", date, amount));
             presentableTransactions.display(transaction(Outcome, "Outcome description", date, amount));
 
@@ -90,7 +91,7 @@ public class PresentableTransactionsTest {
 
     }
 
-    private Map<String, Object> modelOf(PresentableTransactions presentableTransactions){
+    private Map<String, Object> modelOf(PresentableTransactions presentableTransactions) {
         return presentableTransactions.getModel();
     }
 

@@ -3,7 +3,6 @@ package com.cartisan.modern.transaction.builder;
 import com.cartisan.modern.transaction.domain.Transaction;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.cartisan.modern.common.Formats.parseDay;
 import static com.cartisan.modern.transaction.domain.Transaction.Type.Income;
@@ -14,7 +13,7 @@ import static java.util.stream.IntStream.range;
 public class TransactionBuilder {
     private int count;
 
-    public static Transaction.TransactionBuilder defaultTransaction(){
+    public static Transaction.TransactionBuilder defaultTransaction() {
         return builder()
                 .type(Income)
                 .description("description")
@@ -32,6 +31,6 @@ public class TransactionBuilder {
     }
 
     public List<Transaction> buildAll() {
-        return range(0, count).mapToObj(i->defaultTransaction().build()).collect(toList());
+        return range(0, count).mapToObj(i -> defaultTransaction().build()).collect(toList());
     }
 }

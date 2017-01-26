@@ -49,8 +49,8 @@ public class TransactionAddController {
             @Valid @ModelAttribute Transaction transaction, BindingResult result) {
         if (!result.hasFieldErrors())
             transactions.add(transaction)
-                    .success(()->message.display(successMessage))
-                    .failed(()->message.display(failedMessage));
+                    .success(() -> message.display(successMessage))
+                    .failed(() -> message.display(failedMessage));
         return addTransaction();
     }
 

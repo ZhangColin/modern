@@ -4,11 +4,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 public class PageableBuilder {
-    public static PageableBuilder defaultPageable(){
+    public static PageableBuilder defaultPageable() {
         return new PageableBuilder();
     }
 
-    public Pageable build(){
-        return new PageRequest(1,10);
+    public Pageable build() {
+        return new PageRequest(1, 10);
     }
 }

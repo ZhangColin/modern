@@ -13,14 +13,14 @@ public class ParamsQueryTest {
     }
 
     @Test
-    public void query_string_when_there_is_one_param(){
+    public void query_string_when_there_is_one_param() {
         params.add("name", "value");
 
         assertThat(params.getQuery()).isEqualTo("?name=value");
     }
 
     @Test
-    public void query_string_when_there_are_two_params(){
+    public void query_string_when_there_are_two_params() {
         params.add("first", "firstValue");
         params.add("second", "secondValue");
 
