@@ -1,5 +1,6 @@
 package com.cartisan.modern.acceptancetest.driver;
 
+import com.cartisan.modern.common.view.Params;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 

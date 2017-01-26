@@ -1,4 +1,4 @@
-package com.cartisan.modern.acceptancetest.driver;
+package com.cartisan.modern.common.view;
 
 import org.junit.Test;
 

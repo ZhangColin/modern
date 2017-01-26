@@ -1,5 +1,7 @@
 package com.cartisan.modern.acceptancetest.driver;
 
+import com.cartisan.modern.common.view.Params;
+
 public interface UiDriver {
     void close();
 

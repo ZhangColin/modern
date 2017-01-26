@@ -1,5 +1,6 @@
 package com.cartisan.modern.acceptancetest.driver;
 
+import com.cartisan.modern.common.view.Params;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
