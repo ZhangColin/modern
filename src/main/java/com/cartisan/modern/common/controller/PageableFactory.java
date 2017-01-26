@@ -7,31 +7,22 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletRequest;
-
-import static java.lang.Integer.parseInt;
 import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLASS;
 
 @Component
 @Scope(value = "request", proxyMode = TARGET_CLASS)
 public class PageableFactory {
-    private static final int DEFAULT_PAGE_NUMBER = 0;
-    private final HttpServletRequest request;
     private final int perPageLimit;
+    private final CurrentPage currentPage;
 
-    public PageableFactory(@Autowired HttpServletRequest request,
-                           @Value("${application.perPageLimit}")int perPageLimit) {
-        this.request = request;
+    public PageableFactory(@Value("${application.perPageLimit}")int perPageLimit,
+                           @Autowired CurrentPage currentPage) {
+        this.currentPage = currentPage;
         this.perPageLimit = perPageLimit;
     }
 
     public Pageable create() {
-        return new PageRequest(pageNumber(), perPageLimit);
+        return new PageRequest(currentPage.number(), perPageLimit);
     }
 
-    private int pageNumber(){
-        if (request.getParameter("page")==null)
-            return DEFAULT_PAGE_NUMBER;
-        return parseInt(request.getParameter("page"));
-    }
 }

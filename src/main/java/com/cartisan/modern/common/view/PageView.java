@@ -1,5 +1,6 @@
 package com.cartisan.modern.common.view;
 
+import com.cartisan.modern.common.controller.CurrentPage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -7,10 +8,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
-
 import static com.cartisan.modern.common.view.MessageSources.RESULT_MESSAGES_FULL_NAME;
-import static java.lang.Integer.parseInt;
 import static java.lang.String.format;
 import static java.lang.String.valueOf;
 import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLASS;
@@ -23,10 +21,10 @@ public class PageView extends ModelAndView {
     private static final int FIRST_PAGE=0;
 
     public PageView(
-            @Autowired HttpServletRequest request,
-            @Value("${pagination.currentPage}") String currentPageMessage) {
-        displayCurrentPage(currentPage(request), currentPageMessage);
-        displayPreviousPage(currentPage(request));
+            @Value("${pagination.currentPage}") String currentPageMessage,
+            @Autowired CurrentPage currentPage) {
+        displayCurrentPage(currentPage.number(), currentPageMessage);
+        displayPreviousPage(currentPage.number());
     }
 
     private void displayPreviousPage(int currentPage) {
@@ -47,12 +45,5 @@ public class PageView extends ModelAndView {
         Params page = new Params();
         page.add(PAGE_PARAM_NAME, valueOf(currentPage-1));
         return page.getQuery();
-    }
-
-    private int currentPage(HttpServletRequest request) {
-        if (request.getParameter("page")==null)
-            return FIRST_PAGE;
-        else
-            return parseInt(request.getParameter("page"));
     }
 }
