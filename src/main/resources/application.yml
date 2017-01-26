@@ -20,26 +20,3 @@ spring:
 application:
   perPageLimit: 10
 
----
-
-spring:
-  profiles: dev
-  datasource:
-    url: jdbc:mysql://localhost:3306/moderndev?createDatabaseIfNotExist=true&useSSL=false
-
-server:
-  port: 8090
-
----
-
-spring:
-  profiles: test
-  datasource:
-    url: jdbc:mysql://localhost:3306/moderntest?createDatabaseIfNotExist=true&useSSL=false
-  jpa:
-    hibernate:
-      ddl-auto: create
-
-server:
-  port: 8080
-
