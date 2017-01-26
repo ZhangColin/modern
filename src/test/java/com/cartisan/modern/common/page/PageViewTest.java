@@ -4,83 +4,69 @@ import com.cartisan.modern.common.view.Params;
 import com.nitorcreations.junit.runners.NestedRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.ui.ModelMap;
 
+import static com.cartisan.modern.common.builder.PageViewBuilder.builder;
+import static com.cartisan.modern.common.page.CurrentPage.FIRST_PAGE;
 import static java.lang.String.valueOf;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 @RunWith(NestedRunner.class)
 public class PageViewTest {
     private static final String PAGE_PARAM_NAME = "page";
-    private static final int FIRST_PAGE=0;
-    CurrentPage mockCurrentPage = mock(CurrentPage.class);
+    private PageView view;
 
     public class PageNumber {
         @Test
         public void param_page_exists() {
-            given_page_number_is(5);
+            view = builder().withCurrentPage(5)
+                    .withCurrentPageMessage("Current page is %s")
+                    .build();
 
-            assertThat(pageViewModelMap("Current page is %s")
-                    .get("currentPage")).isEqualTo("Current page is 6");
+            assertThat(view.getModelMap().get("currentPage")).isEqualTo("Current page is 6");
         }
     }
 
     public class PreviousPage {
         @Test
         public void previous_page_when_not_on_first_page() {
-            given_page_number_is(2);
+            view = builder().withCurrentPage(2)                    .build();
 
-            assertPreviousPageEquals(previousPageUrl(PAGE_PARAM_NAME, 1), pageViewModelMap("whatever message"));
+            assertPreviousPageEquals(pageUrl(PAGE_PARAM_NAME, 1));
         }
 
         @Test
         public void previous_page_when_on_first_page() {
-            given_page_number_is(FIRST_PAGE);
-            assertPreviousPageEquals(null, pageViewModelMap("whatever message"));
+            view = builder().withCurrentPage(FIRST_PAGE).build();
+            assertPreviousPageEquals(null);
         }
 
-        @Test
-        public void no_param_page() {
-            assertPreviousPageEquals(null, pageViewModelMap("whatever message"));
+        private void assertPreviousPageEquals(String previousPageUrl) {
+            assertThat(view.getModelMap().get("previousPageUrl")).isEqualTo(previousPageUrl);
         }
     }
 
-    public class NextPage{
-        PageView view = new PageView("whatever message", mockCurrentPage);
-
+    public class NextPage {
         @Test
-        public void next_page_when_not_on_last_page(){
-            given_page_number_is(4);
+        public void next_page_when_not_on_last_page() {
+            view = builder().withCurrentPage(4).build();
 
             view.display(6);
 
-            assertThat(view.getModelMap().get("nextPageUrl")).isEqualTo(pageUrl(PAGE_PARAM_NAME, 5));
+            assertNextPageUrlEquals(pageUrl(PAGE_PARAM_NAME, 5));
         }
 
         @Test
         public void next_page_when_on_last_page() {
-            given_page_number_is(4);
+            view = builder().withCurrentPage(4).build();
 
             view.display(5);
 
             assertThat(view.getModelMap().get("nextPageUrl")).isEqualTo(null);
         }
-    }
 
-    private void assertPreviousPageEquals(String previousPageUrl, ModelMap modelMap) {
-        assertThat(modelMap.get("previousPageUrl")).isEqualTo(previousPageUrl);
-    }
-
-    private String previousPageUrl(String paramName, int paramValue) {
-        Params previousPageUrl = new Params();
-        previousPageUrl.add(paramName, valueOf(paramValue));
-        return previousPageUrl.getQuery();
-    }
-
-    private ModelMap pageViewModelMap(String currentPageMessage) {
-        return new PageView(currentPageMessage, mockCurrentPage).getModelMap();
+        private void assertNextPageUrlEquals(String expected) {
+            assertThat(view.getModelMap().get("nextPageUrl")).isEqualTo(expected);
+        }
     }
 
     private String pageUrl(String paramName, int paramValue) {
@@ -89,7 +75,4 @@ public class PageViewTest {
         return pageUrl.getQuery();
     }
 
-    private void given_page_number_is(int page) {
-        when(mockCurrentPage.number()).thenReturn(page);
-    }
 }

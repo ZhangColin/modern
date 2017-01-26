@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
+import static com.cartisan.modern.common.page.CurrentPage.FIRST_PAGE;
 import static com.cartisan.modern.common.view.MessageSources.RESULT_MESSAGES_FULL_NAME;
 import static java.lang.String.format;
 import static java.lang.String.valueOf;
@@ -19,7 +20,6 @@ import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLAS
 @PropertySource(RESULT_MESSAGES_FULL_NAME)
 public class PageView extends ModelAndView implements View<Integer> {
     private static final String PAGE_PARAM_NAME = "page";
-    private static final int FIRST_PAGE = 0;
     private final CurrentPage currentPage;
 
     public PageView(
