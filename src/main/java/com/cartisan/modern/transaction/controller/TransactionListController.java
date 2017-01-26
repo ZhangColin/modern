@@ -38,7 +38,8 @@ public class TransactionListController {
     @GetMapping
     public ModelAndView index() {
         transactions.processAll(presentableTransactions::display, pageableFactory.create())
-                .withSummary(presentableSummaryOfTransactions::display);
+                .withSummary(presentableSummaryOfTransactions::display)
+                .withTotalPageCount(pageView::display);
         combine(presentableTransactions).with(presentableSummaryOfTransactions);
         combine(presentableTransactions).with(pageView);
 

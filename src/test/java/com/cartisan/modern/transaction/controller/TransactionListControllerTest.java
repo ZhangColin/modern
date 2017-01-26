@@ -3,7 +3,7 @@ package com.cartisan.modern.transaction.controller;
 import com.cartisan.modern.common.page.PageView;
 import com.cartisan.modern.common.page.PageableFactory;
 import com.cartisan.modern.transaction.domain.Transaction;
-import com.cartisan.modern.transaction.domain.TransactionPostActions;
+import com.cartisan.modern.transaction.domain.TransactionsPostActions;
 import com.cartisan.modern.transaction.domain.Transactions;
 import com.cartisan.modern.transaction.domain.summary.SummaryOfTransactions;
 import com.cartisan.modern.transaction.view.PresentableSummaryOfTransactions;
@@ -32,8 +32,7 @@ public class TransactionListControllerTest {
     Transaction transaction = defaultTransaction().build();
     Transactions mockTransactions = mock(Transactions.class);
     PresentableTransactions presentableTransactions = spy(defaultPresentableTransactions().build());
-    PresentableSummaryOfTransactions presentableSummaryOfTransactions =
-            spy(defaultPresentableSummaryOfTransactions().build());
+    PresentableSummaryOfTransactions presentableSummaryOfTransactions = spy(defaultPresentableSummaryOfTransactions().build());
     PageableFactory mockPageableFactory = mock(PageableFactory.class);
     PageView mockPageView = mock(PageView.class);
     TransactionListController controller = new TransactionListController(
@@ -70,21 +69,28 @@ public class TransactionListControllerTest {
     @Test
     public void should_pass_result_range_to_transactions() {
         Pageable pageable = defaultPageable().build();
-        given_result_range_will_be_created_with(pageable);
+        given_pageable_will_be_created_as(pageable);
 
         controller.index();
 
         verify(mockTransactions).processAll(any(Consumer.class), eq(pageable));
     }
 
-    private void given_result_range_will_be_created_with(Pageable pageable) {
+    @Test
+    public void should_let_view_display_total_page_count() {
+        controller.index();
+
+        verify(mockPageView).display(5);
+    }
+
+    private void given_pageable_will_be_created_as(Pageable pageable) {
         when(mockPageableFactory.create()).thenReturn(pageable);
     }
 
-    private void given_transactions_processAll_will_return(Transaction transaction, SummaryOfTransactions summaryOfTransactions) {
-        when(mockTransactions.processAll(any(Consumer.class), any(Pageable.class))).thenAnswer(new Answer<TransactionPostActions>() {
+    private void given_transactions_processAll_will_return(final Transaction transaction, SummaryOfTransactions summaryOfTransactions) {
+        when(mockTransactions.processAll(any(Consumer.class), any(Pageable.class))).thenAnswer(new Answer<TransactionsPostActions>() {
             @Override
-            public TransactionPostActions answer(InvocationOnMock invocation) throws Throwable {
+            public TransactionsPostActions answer(InvocationOnMock invocation) throws Throwable {
                 Consumer<Transaction> consumer = invocation.getArgumentAt(0, Consumer.class);
                 consumer.accept(transaction);
                 return stubTransactionsPostActionsWith(summaryOfTransactions);
@@ -92,13 +98,18 @@ public class TransactionListControllerTest {
         });
     }
 
-    private TransactionPostActions stubTransactionsPostActionsWith(SummaryOfTransactions summaryOfTransactions) {
-        TransactionPostActions stubTransactionsPostActions = mock(TransactionPostActions.class);
+    private TransactionsPostActions stubTransactionsPostActionsWith(SummaryOfTransactions summaryOfTransactions) {
+        TransactionsPostActions stubTransactionsPostActions = mock(TransactionsPostActions.class);
         doAnswer(invocation -> {
             Consumer<SummaryOfTransactions> consumer = invocation.getArgumentAt(0, Consumer.class);
             consumer.accept(summaryOfTransactions);
-            return null;
+            return stubTransactionsPostActions;
         }).when(stubTransactionsPostActions).withSummary(any(Consumer.class));
+        doAnswer(invocation -> {
+            Consumer<Integer> consumer = invocation.getArgumentAt(0, Consumer.class);
+            consumer.accept(5);
+            return stubTransactionsPostActions;
+        }).when(stubTransactionsPostActions).withTotalPageCount(any(Consumer.class));
         return stubTransactionsPostActions;
     }
 

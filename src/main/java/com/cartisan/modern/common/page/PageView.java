@@ -1,6 +1,7 @@
 package com.cartisan.modern.common.page;
 
 import com.cartisan.modern.common.view.Params;
+import com.cartisan.modern.common.view.View;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -16,34 +17,47 @@ import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLAS
 @Component
 @Scope(value = "request", proxyMode = TARGET_CLASS)
 @PropertySource(RESULT_MESSAGES_FULL_NAME)
-public class PageView extends ModelAndView {
-    public static final String PAGE_PARAM_NAME = "page";
+public class PageView extends ModelAndView implements View<Integer> {
+    private static final String PAGE_PARAM_NAME = "page";
     private static final int FIRST_PAGE = 0;
+    private final CurrentPage currentPage;
 
     public PageView(
             @Value("${pagination.currentPage}") String currentPageMessage,
             @Autowired CurrentPage currentPage) {
-        displayCurrentPage(currentPage.number(), currentPageMessage);
-        displayPreviousPage(currentPage.number());
+        this.currentPage = currentPage;
+        displayCurrentPage(currentPageMessage);
+        displayPreviousPage();
     }
 
-    private void displayPreviousPage(int currentPage) {
-        if (currentPage != FIRST_PAGE) {
-            displayPreviousPageLink(currentPage);
+    @Override
+    public void display(Integer totalPageCount) {
+        if (currentPage.number() < totalPageCount -1) {
+            displayNextPageUrl();
         }
     }
 
-    private void displayPreviousPageLink(int currentPage) {
-        addObject("previousPageUrl", previousPageUrl(currentPage));
+    private void displayNextPageUrl() {
+        addObject("nextPageUrl", pageUrl(currentPage.number()+1));
     }
 
-    private void displayCurrentPage(int currentPage, String currentPageMessage) {
-        addObject("currentPage", format(currentPageMessage, currentPage + 1));
+    private void displayPreviousPage() {
+        if (currentPage.number() != FIRST_PAGE) {
+            displayPreviousPageUrl();
+        }
     }
 
-    private String previousPageUrl(int currentPage) {
+    private void displayPreviousPageUrl() {
+        addObject("previousPageUrl", pageUrl(currentPage.number()-1));
+    }
+
+    private void displayCurrentPage(String currentPageMessage) {
+        addObject("currentPage", format(currentPageMessage, currentPage.number() + 1));
+    }
+
+    private String pageUrl(int currentPage) {
         Params page = new Params();
-        page.add(PAGE_PARAM_NAME, valueOf(currentPage - 1));
+        page.add(PAGE_PARAM_NAME, valueOf(currentPage));
         return page.getQuery();
     }
 }

@@ -31,9 +31,22 @@ public class Transactions {
         }
     }
 
-    public TransactionPostActions processAll(Consumer<Transaction> consumer, Pageable pageable) {
+    public TransactionsPostActions processAll(Consumer<Transaction> consumer, Pageable pageable) {
         Page<Transaction> all = repository.findAll(pageable);
         all.forEach(consumer::accept);
-        return new SummaryOfTransactions(all.getContent());
+
+        return new TransactionsPostActions() {
+            @Override
+            public TransactionsPostActions withSummary(Consumer<SummaryOfTransactions> consumer) {
+                consumer.accept(new SummaryOfTransactions(all.getContent()));
+                return this;
+            }
+
+            @Override
+            public TransactionsPostActions withTotalPageCount(Consumer<Integer> consumer) {
+                consumer.accept(all.getTotalPages());
+                return this;
+            }
+        };
     }
 }
