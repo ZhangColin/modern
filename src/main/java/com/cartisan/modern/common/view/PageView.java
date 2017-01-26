@@ -20,6 +20,7 @@ import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLAS
 @PropertySource(RESULT_MESSAGES_FULL_NAME)
 public class PageView extends ModelAndView {
     public static final String PAGE_PARAM_NAME = "page";
+    private static final int FIRST_PAGE=0;
 
     public PageView(
             @Autowired HttpServletRequest request,
@@ -29,18 +30,17 @@ public class PageView extends ModelAndView {
     }
 
     private void displayPreviousPage(int currentPage) {
-        if (isOnFirstPage(currentPage)){
-            displayPreviousPageText();
-        }
-        else{
+        if (currentPage != FIRST_PAGE){
             displayPreviousPageLink(currentPage);
         }
     }
 
     private void displayPreviousPageLink(int currentPage) {
         addObject("previousPageUrl", previousPageUrl(currentPage));
-        addObject("previousPageTextHidden", "hidden");
-        addObject("previousPageUrlHidden", "");
+    }
+
+    private void displayCurrentPage(int currentPage, String currentPageMessage) {
+        addObject("currentPage", format(currentPageMessage, currentPage+1));
     }
 
     private String previousPageUrl(int currentPage) {
@@ -49,23 +49,9 @@ public class PageView extends ModelAndView {
         return page.getQuery();
     }
 
-    private void displayPreviousPageText() {
-        addObject("previousPageUrl", "#");
-        addObject("previousPageTextHidden", "");
-        addObject("previousPageUrlHidden", "hidden");
-    }
-
-    private boolean isOnFirstPage(int currentPage) {
-        return currentPage==0;
-    }
-
-    private void displayCurrentPage(int currentPage, String currentPageMessage) {
-        addObject("currentPage", format(currentPageMessage, currentPage));
-    }
-
     private int currentPage(HttpServletRequest request) {
         if (request.getParameter("page")==null)
-            return 0;
+            return FIRST_PAGE;
         else
             return parseInt(request.getParameter("page"));
     }
