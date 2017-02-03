@@ -11,14 +11,13 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ConfigurableApplicationContext;
 
 import java.util.List;
 import java.util.Map;
 import java.util.stream.IntStream;
 
 import static com.cartisan.modern.common.Formats.DAY;
-import static com.cartisan.modern.common.page.PageableFactory.PRE_PAGE_LIMIT_PROPERTY_NAME;
+import static com.cartisan.modern.common.page.PageableFactory.PER_PAGE_LIMIT_PROPERTY_NAME;
 import static com.cartisan.modern.transaction.builder.TransactionBuilder.defaultTransaction;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.IntStream.range;
@@ -69,7 +68,7 @@ public class TransactionListSteps {
 
     @Given("^every page will display (\\d+) transactions$")
     public void every_page_will_display_transactions(int perPageLimit) throws Throwable {
-        applicationConfigurations.overwrite(PRE_PAGE_LIMIT_PROPERTY_NAME, perPageLimit);
+        applicationConfigurations.overwrite(PER_PAGE_LIMIT_PROPERTY_NAME, perPageLimit);
     }
 
     @When("^show page (\\d+)$")
@@ -79,7 +78,9 @@ public class TransactionListSteps {
 
     @Then("^you will see (\\d+) transactions in page (\\d+)$")
     public void you_will_see_transactions_in_page(int transactionCount, int pageNumber) throws Throwable {
-        assertThat(commonPage.getAllText()).contains(amountTextOfTransactionsInPage(pageNumber, 10, transactionCount));
+        assertThat(commonPage.getAllText()).contains(amountTextOfTransactionsInPage(pageNumber,
+                (Integer)applicationConfigurations.getOverWritten(PER_PAGE_LIMIT_PROPERTY_NAME),
+                transactionCount));
     }
 
     private List<String> amountTextOfTransactionsInPage(int pageNumber, int perPageCount, int transactionCount) {
