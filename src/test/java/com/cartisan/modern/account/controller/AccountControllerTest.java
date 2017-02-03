@@ -2,6 +2,7 @@ package com.cartisan.modern.account.controller;
 
 import com.cartisan.modern.account.domain.Account;
 import com.cartisan.modern.account.domain.Accounts;
+import com.cartisan.modern.common.view.View;
 import com.nitorcreations.junit.runners.NestedRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,7 +15,8 @@ import static org.mockito.Mockito.verify;
 @RunWith(NestedRunner.class)
 public class AccountControllerTest {
     Accounts mockAccounts = mock(Accounts.class);
-    AccountController controller = new AccountController(mockAccounts);
+    View<String> mockView = mock(View.class);
+    AccountController controller = new AccountController(mockAccounts, mockView);
 
     public class Add {
         @Test
@@ -24,18 +26,31 @@ public class AccountControllerTest {
     }
 
     public class AddAccountSuccess {
+        Account account = new Account();
+
         @Test
         public void should_go_to_view() {
-            assertThat(controller.submitAddAccount(new Account())).isEqualTo(ACCOUNT_ADD);
+            assertThat(submitAddAccount()).isEqualTo(ACCOUNT_ADD);
         }
 
         @Test
         public void should_add_account(){
-            Account account = new Account();
-
-            controller.submitAddAccount(account);
+            submitAddAccount();
 
             verify(mockAccounts).add(account);
+        }
+
+        @Test
+        public void should_display_success_message() {
+            controller.successMessage = "a success message";
+
+            submitAddAccount();
+
+            verify(mockView).display("a success message");
+        }
+
+        private String submitAddAccount() {
+            return controller.submitAddAccount(account);
         }
     }
 }
