@@ -1,5 +1,6 @@
 package com.cartisan.modern.acceptancetest.steps;
 
+import com.cartisan.modern.acceptancetest.data.ApplicationConfigurations;
 import com.cartisan.modern.acceptancetest.data.transaction.TransactionRepositoryForTest;
 import com.cartisan.modern.acceptancetest.pages.CommonPage;
 import com.cartisan.modern.acceptancetest.pages.ShowAllTransactionsPage;
@@ -34,7 +35,7 @@ public class TransactionListSteps {
     private CommonPage commonPage;
 
     @Autowired
-    ConfigurableApplicationContext applicationContext;
+    ApplicationConfigurations applicationConfigurations;
 
     @Given("^exists the following transactions$")
     public void exists_the_following_transactions(@Format(DAY) List<Transaction> transactions) throws Throwable {
@@ -68,7 +69,7 @@ public class TransactionListSteps {
 
     @Given("^every page will display (\\d+) transactions$")
     public void every_page_will_display_transactions(int perPageLimit) throws Throwable {
-        applicationContext.getEnvironment().getSystemProperties().put(PRE_PAGE_LIMIT_PROPERTY_NAME, perPageLimit);
+        applicationConfigurations.overwrite(PRE_PAGE_LIMIT_PROPERTY_NAME, perPageLimit);
     }
 
     @When("^show page (\\d+)$")

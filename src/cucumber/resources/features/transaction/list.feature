@@ -25,6 +25,7 @@ Feature: Transaction
       | Total of Outcome | 14000  |
       | Total of All     | -16000 |
 
+  @restoreApplicationConfiguration
   Scenario: paginate of all transactions
     Given exists 15 transactions
     And every page will display 9 transactions
