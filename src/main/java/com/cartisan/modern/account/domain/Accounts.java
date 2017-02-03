@@ -1,6 +1,7 @@
 package com.cartisan.modern.account.domain;
 
 import com.cartisan.modern.account.repository.AccountRepository;
+import com.cartisan.modern.common.callback.PostActions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,8 @@ public class Accounts {
         this.accountRepository = accountRepository;
     }
 
-    public void add(Account account) {
+    public PostActions add(Account account) {
         accountRepository.save(account);
+        return null;
     }
 }
