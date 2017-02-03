@@ -7,12 +7,12 @@ import org.junit.runner.RunWith;
 
 import static com.cartisan.modern.common.builder.PageViewBuilder.builder;
 import static com.cartisan.modern.common.page.CurrentPage.FIRST_PAGE;
+import static com.cartisan.modern.common.page.PageView.PAGE_PARAM_NAME;
 import static java.lang.String.valueOf;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(NestedRunner.class)
 public class PageViewTest {
-    private static final String PAGE_PARAM_NAME = "page";
     private PageView view;
 
     public class PageNumber {
@@ -22,7 +22,7 @@ public class PageViewTest {
                     .withCurrentPageMessage("Current page is %s")
                     .build();
 
-            assertThat(view.getModelMap().get("currentPage")).isEqualTo("Current page is 6");
+            assertThat(view.getModelMap().get("currentPage")).isEqualTo("Current page is 5");
         }
     }
 
@@ -50,7 +50,7 @@ public class PageViewTest {
         public void next_page_when_not_on_last_page() {
             view = builder().withCurrentPage(4).build();
 
-            view.display(6);
+            totalPageCountIs(5);
 
             assertNextPageUrlEquals(pageUrl(PAGE_PARAM_NAME, 5));
         }
@@ -59,13 +59,17 @@ public class PageViewTest {
         public void next_page_when_on_last_page() {
             view = builder().withCurrentPage(4).build();
 
-            view.display(5);
+            totalPageCountIs(4);
 
             assertThat(view.getModelMap().get("nextPageUrl")).isEqualTo(null);
         }
 
         private void assertNextPageUrlEquals(String expected) {
             assertThat(view.getModelMap().get("nextPageUrl")).isEqualTo(expected);
+        }
+
+        private void totalPageCountIs(int totalPageCount) {
+            view.display(totalPageCount);
         }
     }
 

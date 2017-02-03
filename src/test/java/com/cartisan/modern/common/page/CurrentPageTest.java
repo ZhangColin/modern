@@ -4,12 +4,12 @@ import org.junit.Test;
 
 import javax.servlet.http.HttpServletRequest;
 
+import static com.cartisan.modern.common.page.CurrentPage.FIRST_PAGE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class CurrentPageTest {
-    private static final int FIRST_PAGE = 0;
     HttpServletRequest mockRequest = mock(HttpServletRequest.class);
     CurrentPage currentPage = new CurrentPage(mockRequest);
 

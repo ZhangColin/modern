@@ -19,7 +19,7 @@ import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLAS
 @Scope(value = "request", proxyMode = TARGET_CLASS)
 @PropertySource(RESULT_MESSAGES_FULL_NAME)
 public class PageView extends ModelAndView implements View<Integer> {
-    private static final String PAGE_PARAM_NAME = "page";
+    public static final String PAGE_PARAM_NAME = "page";
     private final CurrentPage currentPage;
 
     public PageView(
@@ -32,13 +32,13 @@ public class PageView extends ModelAndView implements View<Integer> {
 
     @Override
     public void display(Integer totalPageCount) {
-        if (currentPage.number() < totalPageCount -1) {
+        if (currentPage.number() < totalPageCount) {
             displayNextPageUrl();
         }
     }
 
     private void displayNextPageUrl() {
-        addObject("nextPageUrl", pageUrl(currentPage.number()+1));
+        addObject("nextPageUrl", pageUrl(currentPage.number() + 1));
     }
 
     private void displayPreviousPage() {
@@ -48,11 +48,11 @@ public class PageView extends ModelAndView implements View<Integer> {
     }
 
     private void displayPreviousPageUrl() {
-        addObject("previousPageUrl", pageUrl(currentPage.number()-1));
+        addObject("previousPageUrl", pageUrl(currentPage.number() - 1));
     }
 
     private void displayCurrentPage(String currentPageMessage) {
-        addObject("currentPage", format(currentPageMessage, currentPage.number() + 1));
+        addObject("currentPage", format(currentPageMessage, currentPage.number()));
     }
 
     private String pageUrl(int currentPage) {

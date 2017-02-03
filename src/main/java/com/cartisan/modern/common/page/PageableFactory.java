@@ -22,7 +22,7 @@ public class PageableFactory {
     }
 
     public Pageable create() {
-        return new PageRequest(currentPage.number(), perPageLimit);
+        return new PageRequest(currentPage.number()-1, perPageLimit);
     }
 
 }
