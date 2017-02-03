@@ -11,4 +11,6 @@ public interface AccountRepositoryForTest extends Repository<Account, Long> {
     List<Account> findAll();
 
     void deleteAll();
+
+    void save(Account account);
 }

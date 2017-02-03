@@ -33,4 +33,7 @@ public class Messages {
 
     @Value("${authentication.logout}")
     public String logout;
+
+    @Value("${accounts.add.duplicateName}")
+    public String duplicateAccountName;
 }
