@@ -14,6 +14,9 @@ public class Urls {
     public static final String TRANSACTION_ADD = TRANSACTION + ADD;
     public static final String TRANSACTION_INDEX = TRANSACTION + INDEX;
 
+    public static final String ACCOUNT = "/accounts";
+    public static final String ACCOUNT_ADD = ACCOUNT + ADD;
+
     public static final String SIGNIN = "/signin";
     public static final String SIGNOUT = "/signout";
 
