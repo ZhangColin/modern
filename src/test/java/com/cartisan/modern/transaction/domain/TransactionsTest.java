@@ -1,5 +1,6 @@
 package com.cartisan.modern.transaction.domain;
 
+import com.cartisan.modern.common.builder.ConsumeAnswer;
 import com.cartisan.modern.transaction.domain.summary.SummaryOfTransactions;
 import com.cartisan.modern.transaction.repository.TransactionRepository;
 import com.nitorcreations.junit.runners.NestedRunner;
@@ -11,7 +12,7 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.function.Consumer;
 
-import static com.cartisan.modern.common.builder.PageableBuilder.defaultPageable;
+import static com.cartisan.modern.common.builder.PageableBuilder.builder;
 import static com.cartisan.modern.transaction.builder.TransactionBuilder.defaultTransaction;
 import static org.mockito.Mockito.*;
 
@@ -57,7 +58,7 @@ public class TransactionsTest {
 
     public class ProcessAll {
         private Consumer<Transaction> whateverTransactionConsumer = transaction -> {};
-        private Pageable whateverPageable = defaultPageable().build();
+        private Pageable whateverPageable = builder().build();
         Page mockPage = mock(Page.class);
 
         @Before
@@ -84,7 +85,7 @@ public class TransactionsTest {
 
         @Test
         public void should_pass_pageable_to_repository() {
-            Pageable pageable = defaultPageable().build();
+            Pageable pageable = builder().build();
 
             transactions.processAll(whateverTransactionConsumer, pageable);
 
@@ -106,11 +107,7 @@ public class TransactionsTest {
         }
 
         private void given_findAll_will_return(Transaction transaction) {
-            doAnswer(invocation -> {
-                Consumer consumer = invocation.getArgumentAt(0, Consumer.class);
-                consumer.accept(transaction);
-                return null;
-            }).when(mockPage).forEach(any(Consumer.class));
+            doAnswer(new ConsumeAnswer(transaction)).when(mockPage).forEach(any(Consumer.class));
             when(mockRepository.findAll(any(Pageable.class))).thenReturn(mockPage);
         }
 

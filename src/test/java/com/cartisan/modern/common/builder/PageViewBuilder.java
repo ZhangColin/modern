@@ -25,12 +25,12 @@ public class PageViewBuilder {
         return stubCurrentPage;
     }
 
-    public PageViewBuilder withCurrentPage(int pageNumber) {
+    public PageViewBuilder currentPage(int pageNumber) {
         this.pageNumber = pageNumber;
         return this;
     }
 
-    public PageViewBuilder withCurrentPageMessage(String currentPageMessage) {
+    public PageViewBuilder currentPageMessage(String currentPageMessage) {
         this.currentPageMessage = currentPageMessage;
         return this;
     }
