@@ -1,5 +1,6 @@
 package com.cartisan.modern.transaction.view;
 
+import com.cartisan.modern.common.view.CombinableModelAndView;
 import com.cartisan.modern.common.view.View;
 import com.cartisan.modern.transaction.domain.Transaction;
 import lombok.Builder;
@@ -20,7 +21,7 @@ import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLAS
 @Component
 @Scope(value = "request", proxyMode = TARGET_CLASS)
 @PropertySource(RESULT_MESSAGES_FULL_NAME)
-public class PresentableTransactions extends ModelAndView implements View<Transaction> {
+public class PresentableTransactions extends ModelAndView implements View<Transaction>, CombinableModelAndView {
     private final List<PresentableTransaction> presentableTransactions = new ArrayList<>();
 
     @Builder
@@ -48,5 +49,10 @@ public class PresentableTransactions extends ModelAndView implements View<Transa
 
     private void hideMessage() {
         getModelMap().remove("message");
+    }
+
+    @Override
+    public ModelAndView original() {
+        return this;
     }
 }

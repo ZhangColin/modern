@@ -3,19 +3,27 @@ package com.cartisan.modern.common.view;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
 
-import static com.cartisan.modern.common.view.ModelAndViewCombiner.combine;
+import java.util.AbstractMap.SimpleEntry;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ModelAndViewCombinerTest {
     @Test
     public void merge_model_map_entry() {
-        ModelAndView modelAndView = new ModelAndView();
-        ModelAndView toBeMerged = new ModelAndView();
+        ModelAndView afterCombined = combinerWithOriginal().combineWith(
+                toBeCombined("key", "value"), toBeCombined("anotherKey", "anotherValue"));
 
-        toBeMerged.addObject("key", "value");
+        assertThat(afterCombined.getModelMap()).containsExactly(
+                new SimpleEntry<>("key", "value"), new SimpleEntry<>("anotherKey", "anotherValue"));
+    }
 
-        ModelAndView newModelAndView = combine(modelAndView).with(toBeMerged);
+    private ModelAndViewCombiner combinerWithOriginal() {
+        return new ModelAndViewCombiner(new ModelAndView());
+    }
 
-        assertThat(newModelAndView.getModelMap()).containsEntry("key", "value");
+    private ModelAndView toBeCombined(String key, String value) {
+        ModelAndView toBeCombined = new ModelAndView();
+        toBeCombined.addObject(key, value);
+        return toBeCombined;
     }
 }

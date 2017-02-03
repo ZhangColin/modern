@@ -6,21 +6,19 @@ import com.cartisan.modern.common.page.PageView;
 import com.cartisan.modern.common.page.PageableFactory;
 import com.cartisan.modern.transaction.builder.SummaryOfTransactionsBuilder;
 import com.cartisan.modern.transaction.domain.Transaction;
-import com.cartisan.modern.transaction.domain.TransactionsPostActions;
 import com.cartisan.modern.transaction.domain.Transactions;
+import com.cartisan.modern.transaction.domain.TransactionsPostActions;
 import com.cartisan.modern.transaction.domain.summary.SummaryOfTransactions;
 import com.cartisan.modern.transaction.view.PresentableSummaryOfTransactions;
 import com.cartisan.modern.transaction.view.PresentableTransactions;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
+import org.mockito.ArgumentCaptor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.function.Consumer;
 
-import static com.cartisan.modern.common.controller.ControllerTestHelper.spyOnDisplayOf;
 import static com.cartisan.modern.transaction.builder.PresentableSummaryOfTransactionsBuilder.defaultPresentableSummaryOfTransactions;
 import static com.cartisan.modern.transaction.builder.PresentableTransactionsBuilder.defaultPresentableTransactions;
 import static com.cartisan.modern.transaction.builder.TransactionBuilder.defaultTransaction;
@@ -52,17 +50,19 @@ public class TransactionListControllerTest {
     }
 
     @Test
-    public void should_let_view_display_transaction() {
-        spyOnDisplayOf(presentableTransactions);
+    public void should_combine_with_views(){
+        list();
 
+        verifyCombinedWith(presentableTransactions, presentableSummaryOfTransactions, mockPageView);
+    }
+    @Test
+    public void should_let_view_display_transaction() {
         list();
         verify(presentableTransactions).display(transaction);
     }
 
     @Test
     public void should_let_view_display_summary_of_transactions() {
-        spyOnDisplayOf(presentableSummaryOfTransactions);
-
         list();
 
         verify(presentableSummaryOfTransactions).display(summaryOfTransactions);
@@ -105,5 +105,11 @@ public class TransactionListControllerTest {
 
     private ModelAndView list() {
         return controller.index();
+    }
+
+    private void verifyCombinedWith(PresentableTransactions presentableTransactions, PresentableSummaryOfTransactions presentableSummaryOfTransactions, PageView pageView) {
+        ArgumentCaptor<ModelAndView> captor = ArgumentCaptor.forClass(ModelAndView.class);
+        verify(presentableTransactions).combineWith(captor.capture());
+        assertThat(captor.getAllValues()).containsExactlyInAnyOrder(presentableSummaryOfTransactions, pageView);
     }
 }

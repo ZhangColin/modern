@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import static com.cartisan.modern.common.controller.Urls.TRANSACTION;
-import static com.cartisan.modern.common.view.ModelAndViewCombiner.combine;
 
 @Controller
 @RequestMapping(TRANSACTION)
@@ -40,9 +39,7 @@ public class TransactionListController {
         transactions.processAll(presentableTransactions::display, pageableFactory.create())
                 .withSummary(presentableSummaryOfTransactions::display)
                 .withTotalPageCount(pageView::display);
-        combine(presentableTransactions).with(presentableSummaryOfTransactions);
-        combine(presentableTransactions).with(pageView);
 
-        return presentableTransactions;
+        return presentableTransactions.combineWith(pageView, presentableSummaryOfTransactions);
     }
 }
