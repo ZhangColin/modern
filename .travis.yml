@@ -10,4 +10,4 @@ install:
 script:
   - ansible-playbook modern.yml --inventory-file=host_travis_ci.txt --syntax-check
   - ansible-playbook modern.yml --inventory-file=host_travis_ci.txt
-  - bash -lec "SPRING_PROFILES_ACTIVE=test gradle check cucumber"
+  - bash -lec "gradle check cucumber"
