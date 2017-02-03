@@ -2,6 +2,7 @@ package com.cartisan.modern.acceptancetest.steps;
 
 import com.cartisan.modern.Application;
 import com.cartisan.modern.acceptancetest.data.ApplicationConfigurations;
+import com.cartisan.modern.acceptancetest.data.account.AccountRepositoryForTest;
 import com.cartisan.modern.acceptancetest.data.budget.MonthlyBudgetRepositoryForTest;
 import com.cartisan.modern.acceptancetest.data.transaction.TransactionRepositoryForTest;
 import com.cartisan.modern.acceptancetest.driver.UiDriver;
@@ -39,6 +40,9 @@ public class Hooks {
     private SignInPage signInPage;
 
     @Autowired
+    private AccountRepositoryForTest accountRepository;
+
+    @Autowired
     ApplicationConfigurations applicationConfigurations;
 
     @Before("@user")
@@ -67,6 +71,12 @@ public class Hooks {
     @After("@transaction")
     public void cleanUpTransaction() {
         transactionRepository.deleteAll();
+    }
+
+    @Before("@account")
+    @After("@account")
+    public void cleanUpAccount() {
+        accountRepository.deleteAll();
     }
 
     @After("@restoreApplicationConfiguration")

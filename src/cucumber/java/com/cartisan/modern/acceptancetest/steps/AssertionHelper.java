@@ -13,4 +13,10 @@ public class AssertionHelper {
                 .usingComparatorForElementFieldsWithNames((Comparator<Date>) Date::compareTo, dateField)
                 .containsExactlyElementsOf(expected);
     }
+
+    public static void assertListDeepEquals(List expected, List actual){
+        assertThat(actual)
+                .usingElementComparatorIgnoringFields("id")
+                .containsExactlyElementsOf(expected);
+    }
 }

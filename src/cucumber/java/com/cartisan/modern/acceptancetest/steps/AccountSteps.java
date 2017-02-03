@@ -1,5 +1,6 @@
 package com.cartisan.modern.acceptancetest.steps;
 
+import com.cartisan.modern.acceptancetest.data.account.AccountRepositoryForTest;
 import com.cartisan.modern.acceptancetest.data.account.EditableAccount;
 import com.cartisan.modern.acceptancetest.pages.AddAccountPage;
 import com.cartisan.modern.account.domain.Account;
@@ -9,10 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
+import static com.cartisan.modern.acceptancetest.steps.AssertionHelper.assertListDeepEquals;
+
 public class AccountSteps {
     @Autowired
     AddAccountPage addAccountPage;
 
+    @Autowired
+    AccountRepositoryForTest accountRepositoryForTest;
 
     @When("^add account with the following information$")
     public void add_account_with_the_following_information(List<EditableAccount> accounts) throws Throwable {
@@ -21,6 +26,7 @@ public class AccountSteps {
 
     @Then("^the following account will be created$")
     public void the_following_account_will_be_created(List<Account> expected) throws Throwable {
+        assertListDeepEquals(expected, accountRepositoryForTest.findAll());
     }
 
 }
