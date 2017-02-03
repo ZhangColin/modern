@@ -3,7 +3,7 @@ package com.cartisan.modern.budget.view;
 import org.junit.Test;
 
 import static com.cartisan.modern.budget.builder.PresentableMonthlyBudgetAmountBuilder.defaultPresentableMonthlyBudgetAmount;
-import static com.cartisan.modern.common.controller.Urls.MONTHLYBUDGET_TOTALAMOUNT;
+import static com.cartisan.modern.common.controller.Urls.MONTHLYBUDGETS_TOTALAMOUNT;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PresentableMonthlyBudgetAmountTest {
@@ -22,7 +22,7 @@ public class PresentableMonthlyBudgetAmountTest {
     @Test
     public void should_go_to_total_amount_view() {
         presentableMonthlyBudgetAmount = defaultPresentableMonthlyBudgetAmount().build();
-        assertThat(presentableMonthlyBudgetAmount.getViewName()).isEqualTo(MONTHLYBUDGET_TOTALAMOUNT);
+        assertThat(presentableMonthlyBudgetAmount.getViewName()).isEqualTo(MONTHLYBUDGETS_TOTALAMOUNT);
     }
 
     private void display() {

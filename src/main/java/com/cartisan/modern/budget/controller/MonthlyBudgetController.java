@@ -22,7 +22,7 @@ import static com.cartisan.modern.common.controller.Urls.*;
 import static com.cartisan.modern.common.view.MessageSources.RESULT_MESSAGES_FULL_NAME;
 
 @Controller
-@RequestMapping(MONTHLYBUDGET)
+@RequestMapping(MONTHLYBUDGETS)
 @PropertySource(RESULT_MESSAGES_FULL_NAME)
 public class MonthlyBudgetController {
     private final MonthlyBudgetPlanner planner;
@@ -30,10 +30,10 @@ public class MonthlyBudgetController {
     private final PresentableAddMonthlyBudget presentableAddMonthlyBudget;
     private final View message;
 
-    @Value("${monthlybudget.add.success}")
+    @Value("${monthlybudgets.add.success}")
     String successMessage;
 
-    @Value("${monthlybudget.add.failed")
+    @Value("${monthlybudgets.add.failed")
     String failedMessage;
 
     @Autowired

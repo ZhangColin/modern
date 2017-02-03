@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.cartisan.modern.common.Formats.parseDay;
-import static com.cartisan.modern.common.controller.Urls.TRANSACTION_INDEX;
+import static com.cartisan.modern.common.controller.Urls.TRANSACTIONS_INDEX;
 import static com.cartisan.modern.transaction.builder.PresentableTransactionsBuilder.defaultPresentableTransactions;
 import static com.cartisan.modern.transaction.domain.Transaction.Type.Income;
 import static com.cartisan.modern.transaction.domain.Transaction.Type.Outcome;
@@ -23,7 +23,7 @@ public class PresentableTransactionsTest {
 
     @Test
     public void should_go_to_index_page() {
-        assertThat(presentableTransactions.getViewName()).isEqualTo(TRANSACTION_INDEX);
+        assertThat(presentableTransactions.getViewName()).isEqualTo(TRANSACTIONS_INDEX);
     }
 
     public class NoTransaction {

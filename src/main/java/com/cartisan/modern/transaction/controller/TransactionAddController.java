@@ -18,21 +18,21 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 
 import static com.cartisan.modern.common.controller.Urls.ADD;
-import static com.cartisan.modern.common.controller.Urls.TRANSACTION;
+import static com.cartisan.modern.common.controller.Urls.TRANSACTIONS;
 import static com.cartisan.modern.common.view.MessageSources.RESULT_MESSAGES_FULL_NAME;
 
 @Controller
 @PropertySource(RESULT_MESSAGES_FULL_NAME)
-@RequestMapping(TRANSACTION)
+@RequestMapping(TRANSACTIONS)
 public class TransactionAddController {
     private final Transactions transactions;
     private final PresentableAddTransaction presentableAddTransaction;
     private final View<String> message;
 
-    @Value("${transaction.add.success}")
+    @Value("${transactions.add.success}")
     String successMessage;
 
-    @Value("${transaction.add.failed}")
+    @Value("${transactions.add.failed}")
     String failedMessage;
 
     @Autowired

@@ -11,17 +11,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import static com.cartisan.modern.common.controller.Urls.ACCOUNT;
-import static com.cartisan.modern.common.controller.Urls.ACCOUNT_ADD;
+import static com.cartisan.modern.common.controller.Urls.ACCOUNTS;
+import static com.cartisan.modern.common.controller.Urls.ACCOUNTS_ADD;
 import static com.cartisan.modern.common.controller.Urls.ADD;
 
 @Controller
-@RequestMapping(ACCOUNT)
+@RequestMapping(ACCOUNTS)
 public class AccountController {
     private final Accounts accounts;
     private final View<String> message;
 
-    @Value("${account.add.success}")
+    @Value("${accounts.add.success}")
     String successMessage;
 
     @Autowired
@@ -32,13 +32,13 @@ public class AccountController {
 
     @GetMapping(ADD)
     public String addAccount() {
-        return ACCOUNT_ADD;
+        return ACCOUNTS_ADD;
     }
 
     @PostMapping(ADD)
     public String submitAddAccount(@ModelAttribute Account account) {
         accounts.add(account);
         message.display(successMessage);
-        return ACCOUNT_ADD;
+        return ACCOUNTS_ADD;
     }
 }

@@ -10,7 +10,7 @@ import static com.cartisan.modern.common.controller.Urls.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
-public class LayoutNavigationTest {
+public class LayoutNavigationInterceptorTest {
 
     private final HttpServletRequest anyRequest = mock(HttpServletRequest.class);
     private final HttpServletResponse anyResponse = mock(HttpServletResponse.class);
@@ -23,8 +23,8 @@ public class LayoutNavigationTest {
         ModelAndView modelAndView = new ModelAndView();
         interceptor.postHandle(anyRequest, anyResponse, anyHandler, modelAndView);
 
-        assertThat(modelAndView.getModelMap().get("monthlyBudgetAddUrl")).isEqualTo(MONTHLYBUDGET_ADD);
-        assertThat(modelAndView.getModelMap().get("transactionUrl")).isEqualTo(TRANSACTION);
+        assertThat(modelAndView.getModelMap().get("monthlyBudgetsAddUrl")).isEqualTo(MONTHLYBUDGETS_ADD);
+        assertThat(modelAndView.getModelMap().get("transactionsUrl")).isEqualTo(TRANSACTIONS);
         assertThat(modelAndView.getModelMap().get("signoutUrl")).isEqualTo(SIGNOUT);
     }
 }

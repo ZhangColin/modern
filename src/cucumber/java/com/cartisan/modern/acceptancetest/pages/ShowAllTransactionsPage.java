@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import static com.cartisan.modern.common.controller.Urls.TRANSACTION;
+import static com.cartisan.modern.common.controller.Urls.TRANSACTIONS;
 
 @Component
 @Scope("cucumber-glue")
@@ -15,11 +15,11 @@ public class ShowAllTransactionsPage {
     private UiDriver uiDriver;
 
     public void show() {
-        uiDriver.navigateTo(TRANSACTION);
+        uiDriver.navigateTo(TRANSACTIONS);
     }
 
     public void navigateToPage(int pageNumber) {
-        uiDriver.navigateToWithParams(TRANSACTION, paramsWithPage(pageNumber));
+        uiDriver.navigateToWithParams(TRANSACTIONS, paramsWithPage(pageNumber));
     }
 
     private Params paramsWithPage(int pageNumber) {

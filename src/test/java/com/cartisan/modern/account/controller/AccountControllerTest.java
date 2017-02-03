@@ -7,7 +7,7 @@ import com.nitorcreations.junit.runners.NestedRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static com.cartisan.modern.common.controller.Urls.ACCOUNT_ADD;
+import static com.cartisan.modern.common.controller.Urls.ACCOUNTS_ADD;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -21,7 +21,7 @@ public class AccountControllerTest {
     public class Add {
         @Test
         public void should_go_to_view() {
-            assertThat(controller.addAccount()).isEqualTo(ACCOUNT_ADD);
+            assertThat(controller.addAccount()).isEqualTo(ACCOUNTS_ADD);
         }
     }
 
@@ -30,7 +30,7 @@ public class AccountControllerTest {
 
         @Test
         public void should_go_to_view() {
-            assertThat(submitAddAccount()).isEqualTo(ACCOUNT_ADD);
+            assertThat(submitAddAccount()).isEqualTo(ACCOUNTS_ADD);
         }
 
         @Test
