@@ -10,12 +10,14 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ConfigurableApplicationContext;
 
 import java.util.List;
 import java.util.Map;
 import java.util.stream.IntStream;
 
 import static com.cartisan.modern.common.Formats.DAY;
+import static com.cartisan.modern.common.page.PageableFactory.PRE_PAGE_LIMIT_PROPERTY_NAME;
 import static com.cartisan.modern.transaction.builder.TransactionBuilder.defaultTransaction;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.IntStream.range;
@@ -30,6 +32,9 @@ public class TransactionListSteps {
 
     @Autowired
     private CommonPage commonPage;
+
+    @Autowired
+    ConfigurableApplicationContext applicationContext;
 
     @Given("^exists the following transactions$")
     public void exists_the_following_transactions(@Format(DAY) List<Transaction> transactions) throws Throwable {
@@ -62,7 +67,8 @@ public class TransactionListSteps {
     }
 
     @Given("^every page will display (\\d+) transactions$")
-    public void every_page_will_display_transactions(int arg1) throws Throwable {
+    public void every_page_will_display_transactions(int perPageLimit) throws Throwable {
+        applicationContext.getEnvironment().getSystemProperties().put(PRE_PAGE_LIMIT_PROPERTY_NAME, perPageLimit);
     }
 
     @When("^show page (\\d+)$")
