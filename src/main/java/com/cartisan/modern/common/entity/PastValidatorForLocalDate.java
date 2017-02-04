@@ -1,5 +1,7 @@
 package com.cartisan.modern.common.entity;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.time.Clock;
@@ -8,10 +10,10 @@ import java.time.LocalDate;
 import static java.time.LocalDate.now;
 
 public class PastValidatorForLocalDate implements ConstraintValidator<Past, LocalDate> {
-    private final Clock clock;
+    @Autowired
+    private Clock clock;
 
     public PastValidatorForLocalDate() {
-        this(Clock.systemDefaultZone());
     }
 
     public PastValidatorForLocalDate(Clock clock) {
