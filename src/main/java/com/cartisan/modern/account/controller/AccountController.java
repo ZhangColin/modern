@@ -2,6 +2,7 @@ package com.cartisan.modern.account.controller;
 
 import com.cartisan.modern.account.domain.Account;
 import com.cartisan.modern.account.domain.Accounts;
+import com.cartisan.modern.common.view.MessagePropertyNamesWithSyntax;
 import com.cartisan.modern.common.view.View;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,7 +28,7 @@ public class AccountController {
     @Value("${accounts.add.failed}")
     String failedMessage;
 
-    @Value("${accounts.add.nameDuplicated}")
+    @Value(MessagePropertyNamesWithSyntax.ACCOUNTS_ADD_NAME_DUPLICATED)
     String nameDuplicatedMessage;
 
     @Autowired

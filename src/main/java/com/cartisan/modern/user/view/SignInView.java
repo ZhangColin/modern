@@ -1,5 +1,6 @@
 package com.cartisan.modern.user.view;
 
+import com.cartisan.modern.common.view.MessagePropertyNamesWithSyntax;
 import com.cartisan.modern.common.view.View;
 import com.cartisan.modern.user.domain.AuthenticationResult;
 import lombok.Builder;
@@ -21,8 +22,8 @@ public class SignInView extends ModelAndView implements View<AuthenticationResul
     private final String failedMessage;
     private final String logoutMessage;
 
-    public SignInView(@Value("${authentication.failed}") String failedMessage,
-                      @Value("${authentication.logout}") String logoutMessage) {
+    public SignInView(@Value(MessagePropertyNamesWithSyntax.AUTHENTICATION_FAILED) String failedMessage,
+                      @Value(MessagePropertyNamesWithSyntax.AUTHENTICATION_LOGOUT) String logoutMessage) {
         this.failedMessage = failedMessage;
         this.logoutMessage = logoutMessage;
         setViewName(SIGNIN);
