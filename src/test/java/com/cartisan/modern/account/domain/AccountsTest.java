@@ -3,6 +3,7 @@ package com.cartisan.modern.account.domain;
 import com.cartisan.modern.account.repository.AccountRepository;
 import org.junit.Test;
 
+import static com.cartisan.modern.account.builder.AccountBuilder.defaultAccount;
 import static com.cartisan.modern.common.callback.PostActionsFactory.failed;
 import static com.cartisan.modern.common.callback.PostActionsFactory.success;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -13,7 +14,7 @@ public class AccountsTest {
     AccountRepository mockAccountRepository = mock(AccountRepository.class);
     Accounts accounts = new Accounts(mockAccountRepository);
 
-    Account account = new Account();
+    Account account = defaultAccount().build();
 
     Runnable afterSuccess = mock(Runnable.class);
     Runnable afterFailed = mock(Runnable.class);
@@ -50,10 +51,9 @@ public class AccountsTest {
     @Test
     public void should_return_name_duplicated_when_save_with_a_duplicated_name_account(){
         given_account_name_exists("account name");
-        account.setName("account name");
         Runnable afterNameDuplicated = mock(Runnable.class);
 
-        accounts.add(account)
+        accounts.add(defaultAccount().name("account name").build())
                 .nameDuplicated(afterNameDuplicated);
 
         verify(afterNameDuplicated).run();

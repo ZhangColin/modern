@@ -1,14 +1,13 @@
 package com.cartisan.modern.account.controller;
 
 import com.cartisan.modern.account.domain.*;
-import com.cartisan.modern.common.callback.PostActions;
-import com.cartisan.modern.common.callback.SuccessPostActions;
 import com.cartisan.modern.common.view.View;
 import com.nitorcreations.junit.runners.NestedRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static com.cartisan.modern.account.builder.AccountBuilder.defaultAccount;
 import static com.cartisan.modern.common.controller.Urls.ACCOUNTS_ADD;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -18,7 +17,7 @@ public class AccountControllerTest {
     Accounts mockAccounts = mock(Accounts.class);
     View<String> mockView = mock(View.class);
     AccountController controller = new AccountController(mockAccounts, mockView);
-    Account account = new Account();
+    Account account = defaultAccount().build();
 
     public class Add {
         @Test
