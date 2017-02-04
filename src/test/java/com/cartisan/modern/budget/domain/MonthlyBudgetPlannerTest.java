@@ -13,7 +13,7 @@ import java.util.Date;
 import static com.cartisan.modern.budget.builder.MonthlyBudgetBuilder.defaultMonthlyBudget;
 import static com.cartisan.modern.budget.builder.MonthlyBudgetBuilder.monthlyBudget;
 import static com.cartisan.modern.common.Formats.parseDay;
-import static com.cartisan.modern.common.Formats.parseDayToLocalDate;
+import static com.cartisan.modern.common.Formats.parseDayToDate;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
@@ -96,8 +96,8 @@ public class MonthlyBudgetPlannerTest {
     }
 
     public class GetAmountOfMonthlyBudget {
-        LocalDate startDate = parseDayToLocalDate("2016-07-01");
-        LocalDate endDate = parseDayToLocalDate("2016-07-10");
+        LocalDate startDate = parseDay("2016-07-01");
+        LocalDate endDate = parseDay("2016-07-10");
 
         @Test
         public void get_amount_from_budget_category() {
@@ -115,8 +115,8 @@ public class MonthlyBudgetPlannerTest {
 
             planner.getAmount(startDate, endDate);
 
-            verify(mockBudgetCategory).setAmount(parseDay("2016-06-01"), 30);
-            verify(mockBudgetCategory).setAmount(parseDay("2016-07-01"), 31);
+            verify(mockBudgetCategory).setAmount(parseDayToDate("2016-06-01"), 30);
+            verify(mockBudgetCategory).setAmount(parseDayToDate("2016-07-01"), 31);
         }
 
         private void given_monthly_budget_planned_as(MonthlyBudget... budget) {

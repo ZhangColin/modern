@@ -1,4 +1,4 @@
-package com.cartisan.modern.acceptancetest.data;
+package com.cartisan.modern.acceptancetest.data.transformer;
 
 import cucumber.api.Transformer;
 
@@ -6,7 +6,7 @@ import java.time.LocalDate;
 
 import static com.cartisan.modern.common.Formats.parseMonth;
 
-public class LocalDateTransformer extends Transformer<LocalDate> {
+public class MonthToLocalDateTransformer extends Transformer<LocalDate> {
 
     @Override
     public LocalDate transform(String value) {

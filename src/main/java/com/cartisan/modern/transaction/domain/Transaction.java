@@ -7,8 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
-import java.util.Date;
+import java.time.LocalDate;
 
 import static com.cartisan.modern.common.Formats.DAY;
 
@@ -31,9 +30,8 @@ public class Transaction {
     private String description;
 
     @NotNull
-    @Past
     @DateTimeFormat(pattern = DAY)
-    private Date date;
+    private LocalDate date;
 
     @NotNull
     @Min(1)

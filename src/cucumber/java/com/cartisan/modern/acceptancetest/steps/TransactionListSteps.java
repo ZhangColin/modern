@@ -1,6 +1,7 @@
 package com.cartisan.modern.acceptancetest.steps;
 
 import com.cartisan.modern.acceptancetest.data.ApplicationConfigurations;
+import com.cartisan.modern.acceptancetest.data.transaction.TransactionForTest;
 import com.cartisan.modern.acceptancetest.data.transaction.TransactionRepositoryForTest;
 import com.cartisan.modern.acceptancetest.pages.CommonPage;
 import com.cartisan.modern.acceptancetest.pages.ShowAllTransactionsPage;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.IntStream;
 
+import static com.cartisan.modern.acceptancetest.data.transaction.TransactionForTest.expectedTransactions;
 import static com.cartisan.modern.common.Formats.DAY;
 import static com.cartisan.modern.common.page.PageableFactory.PER_PAGE_LIMIT_PROPERTY_NAME;
 import static com.cartisan.modern.transaction.builder.TransactionBuilder.defaultTransaction;
@@ -37,8 +39,8 @@ public class TransactionListSteps {
     ApplicationConfigurations applicationConfigurations;
 
     @Given("^exists the following transactions$")
-    public void exists_the_following_transactions(@Format(DAY) List<Transaction> transactions) throws Throwable {
-        transactions.forEach(transaction -> transactionRepository.save(transaction));
+    public void exists_the_following_transactions(List<TransactionForTest> expected) throws Throwable {
+        expectedTransactions(expected, Transaction.class).forEach(transactionRepository::save);
     }
 
     @When("^show all transactions$")
@@ -47,8 +49,9 @@ public class TransactionListSteps {
     }
 
     @Then("^you will see all transactions as below$")
-    public void you_will_see_all_transactions_as_below(@Format(DAY) List<PresentableTransaction> transactions) throws Throwable {
-        transactions.forEach(transaction -> assertThat(commonPage.getAllText()).contains(transaction.allViewText()));
+    public void you_will_see_all_transactions_as_below(List<TransactionForTest> transactions) throws Throwable {
+        expectedTransactions(transactions, PresentableTransaction.class)
+                .forEach(transaction -> assertThat(commonPage.getAllText()).contains(transaction.allViewText()));
     }
 
     @When("^show total of all transactions$")

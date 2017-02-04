@@ -14,12 +14,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 import static com.cartisan.modern.budget.builder.MonthlyBudgetBuilder.defaultMonthlyBudget;
 import static com.cartisan.modern.budget.builder.PresentableMonthlyBudgetAmountBuilder.defaultPresentableMonthlyBudgetAmount;
 import static com.cartisan.modern.common.Formats.parseDay;
-import static com.cartisan.modern.common.Formats.parseDayToLocalDate;
 import static com.cartisan.modern.common.callback.PostActionsFactory.failed;
 import static com.cartisan.modern.common.callback.PostActionsFactory.success;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -130,9 +128,9 @@ public class MonthlyBudgetControllerTest {
 
     public class GetAmount {
         private final long total = 100L;
-        private LocalDate startDate = parseDayToLocalDate("2016-07-01");
+        private LocalDate startDate = parseDay("2016-07-01");
 
-        private LocalDate endDate = parseDayToLocalDate("2016-07-10");
+        private LocalDate endDate = parseDay("2016-07-10");
 
         @Test
         public void should_go_to_get_amount_page() {
