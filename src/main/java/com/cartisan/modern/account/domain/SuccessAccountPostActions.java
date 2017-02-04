@@ -6,14 +6,4 @@ public class SuccessAccountPostActions implements AccountPostActions {
         afterSuccess.run();
         return this;
     }
-
-    @Override
-    public AccountPostActions failed(Runnable afterFailed) {
-        return this;
-    }
-
-    @Override
-    public AccountPostActions nameDuplicated(Runnable afterNameDuplicated) {
-        return this;
-    }
 }

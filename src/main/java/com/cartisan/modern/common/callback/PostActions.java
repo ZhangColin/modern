@@ -1,7 +1,11 @@
 package com.cartisan.modern.common.callback;
 
 public interface PostActions {
-    PostActions success(Runnable afterSuccess);
+    default PostActions success(Runnable afterSuccess){
+        return this;
+    }
 
-    PostActions failed(Runnable afterFailed);
+    default PostActions failed(Runnable afterFailed){
+        return this;
+    }
 }

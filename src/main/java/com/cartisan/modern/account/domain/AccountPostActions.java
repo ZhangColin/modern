@@ -1,7 +1,15 @@
 package com.cartisan.modern.account.domain;
 
 public interface AccountPostActions {
-    AccountPostActions success(Runnable afterSuccess);
-    AccountPostActions failed(Runnable afterFailed);
-    AccountPostActions nameDuplicated(Runnable afterNameDuplicated);
+    default AccountPostActions success(Runnable afterSuccess){
+        return this;
+    }
+
+    default AccountPostActions failed(Runnable afterFailed){
+        return this;
+    }
+
+    default AccountPostActions nameDuplicated(Runnable afterNameDuplicated){
+        return this;
+    }
 }

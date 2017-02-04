@@ -6,9 +6,4 @@ public class SuccessPostActions implements PostActions {
         afterSuccess.run();
         return this;
     }
-
-    @Override
-    public PostActions failed(Runnable afterFailed) {
-        return this;
-    }
 }
