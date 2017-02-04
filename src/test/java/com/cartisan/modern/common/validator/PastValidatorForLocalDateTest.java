@@ -1,4 +1,4 @@
-package com.cartisan.modern.common.entity;
+package com.cartisan.modern.common.validator;
 
 import org.junit.Test;
 

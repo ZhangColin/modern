@@ -1,6 +1,6 @@
 package com.cartisan.modern.transaction.domain;
 
-import com.cartisan.modern.common.entity.Past;
+import com.cartisan.modern.common.validator.Past;
 import lombok.*;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
