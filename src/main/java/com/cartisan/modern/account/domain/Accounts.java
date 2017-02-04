@@ -16,6 +16,8 @@ public class Accounts {
 
     public AccountPostActions add(Account account) {
         try {
+            if (accountRepository.existsByName(account.getName()))
+                return new NameDuplicatedAccountPostActions();
             accountRepository.save(account);
             return new SuccessAccountPostActions();
         }
