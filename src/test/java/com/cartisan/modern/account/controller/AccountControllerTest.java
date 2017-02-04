@@ -75,22 +75,22 @@ public class AccountControllerTest {
             }
         }
 
-        private String submitAddAccount() {
-            return controller.submitAddAccount(account);
-        }
-
     }
 
-    public class Valid{
+    public class NameDuplicated {
+
         @Test
-        public void account_name_can_not_duplicate(){
+        public void should_display_name_duplicated_message(){
             given_add_account_will(new NameDuplicatedAccountPostActions());
             controller.nameDuplicatedMessage = "a name duplicated message";
 
-            controller.submitAddAccount(account);
+            submitAddAccount();
 
             verify(mockView).display("a name duplicated message");
         }
+    }
+    private String submitAddAccount() {
+        return controller.submitAddAccount(account);
     }
 
     private void given_add_account_will(AccountPostActions postActions) {

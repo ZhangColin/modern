@@ -41,22 +41,25 @@ public class MonthlyBudgetControllerTest {
 
     public class Add {
         @Test
-        public void should_go_to_monthly_budget_add_page() {
+        public void should_go_to_view() {
             assertThat(controller.addMonthlyBudget()).isInstanceOf(PresentableAddMonthlyBudget.class);
         }
     }
 
-    public class AddSubmitSuccess {
-
-        private final MonthlyBudget monthlyBudget = new MonthlyBudget(parseDay("2016-07-01"), 100);
-
+    public class SubmitAdd {
         @Before
         public void given_add_monthly_budget_will_success() {
             given_add_monthly_budget_will(success());
         }
 
+        @Before
+        public void given_messages() {
+            controller.successMessage = "a success message";
+            controller.failedMessage = "a failed message";
+        }
+
         @Test
-        public void should_go_to_add_monthly_budget_page() {
+        public void should_go_to_view() {
             assertThat(submitAddMonthlyBudget(monthlyBudget)).isInstanceOf(PresentableAddMonthlyBudget.class);
         }
 
@@ -67,27 +70,35 @@ public class MonthlyBudgetControllerTest {
             verify(mockPlanner).addMonthlyBudget(monthlyBudget);
         }
 
-        @Test
-        public void should_display_success_message_to_page() {
-            controller.successMessage = "a success message";
+        public class Success {
+            @Test
+            public void should_display_success_message() {
+                given_add_monthly_budget_will(success());
 
-            submitAddMonthlyBudget(monthlyBudget);
+                submitAddMonthlyBudget(monthlyBudget);
 
-            verify(mockView).display("a success message");
+                verify(mockView).display("a success message");
+                verify(mockView, never()).display("a failed message");
+            }
+
         }
 
-    }
+        public class Failed {
 
-    public class AddSubmitFailed {
+            @Test
+            public void should_display_fail_message() {
+                given_add_monthly_budget_will(failed());
 
-        @Test
-        public void should_display_fail_message_to_page() {
-            given_add_monthly_budget_will(failed());
-            controller.failedMessage = "a failed message";
+                submitAddMonthlyBudget(monthlyBudget);
 
-            submitAddMonthlyBudget(monthlyBudget);
+                verify(mockView, never()).display("a success message");
+                verify(mockView).display("a failed message");
+            }
 
-            verify(mockView).display("a failed message");
+        }
+
+        private void given_add_monthly_budget_will(PostActions postActions) {
+            when(mockPlanner.addMonthlyBudget(any(MonthlyBudget.class))).thenReturn(postActions);
         }
 
     }
@@ -118,6 +129,7 @@ public class MonthlyBudgetControllerTest {
     public class GetAmount {
         private final long total = 100L;
         private Date startDate = parseDay("2016-07-01");
+
         private Date endDate = parseDay("2016-07-10");
 
         @Test
@@ -151,16 +163,12 @@ public class MonthlyBudgetControllerTest {
 
     }
 
-    private ModelAndView submitAddMonthlyBudget(MonthlyBudget monthlyBudget) {
-        return controller.submitAddMonthlyBudget(monthlyBudget, stubBindingResult);
-    }
-
-    private void given_add_monthly_budget_will(PostActions postActions) {
-        when(mockPlanner.addMonthlyBudget(any(MonthlyBudget.class))).thenReturn(postActions);
-    }
-
     private void given_has_field_error(boolean value) {
         when(stubBindingResult.hasFieldErrors()).thenReturn(value);
+    }
+
+    private ModelAndView submitAddMonthlyBudget(MonthlyBudget monthlyBudget) {
+        return controller.submitAddMonthlyBudget(monthlyBudget, stubBindingResult);
     }
 
 }
