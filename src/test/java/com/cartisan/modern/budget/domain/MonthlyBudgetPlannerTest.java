@@ -7,11 +7,13 @@ import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.Date;
 
 import static com.cartisan.modern.budget.builder.MonthlyBudgetBuilder.defaultMonthlyBudget;
 import static com.cartisan.modern.budget.builder.MonthlyBudgetBuilder.monthlyBudget;
 import static com.cartisan.modern.common.Formats.parseDay;
+import static com.cartisan.modern.common.Formats.parseDayToLocalDate;
 import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
@@ -94,8 +96,8 @@ public class MonthlyBudgetPlannerTest {
     }
 
     public class GetAmountOfMonthlyBudget {
-        Date startDate = parseDay("2016-07-01");
-        Date endDate = parseDay("2016-07-10");
+        LocalDate startDate = parseDayToLocalDate("2016-07-01");
+        LocalDate endDate = parseDayToLocalDate("2016-07-10");
 
         @Test
         public void get_amount_from_budget_category() {
