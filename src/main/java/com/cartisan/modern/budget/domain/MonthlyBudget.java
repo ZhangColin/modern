@@ -1,16 +1,14 @@
 package com.cartisan.modern.budget.domain;
 
+import com.cartisan.modern.common.formatter.Month;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-
-import static com.cartisan.modern.common.Formats.DAY;
 
 @Entity
 @Table(name = "monthly_budgets")
@@ -29,7 +27,7 @@ public class MonthlyBudget {
     private long id;
 
     @NotNull
-    @DateTimeFormat(pattern = DAY)
+    @Month
     private LocalDate month;
 
     @NotNull
