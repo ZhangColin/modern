@@ -1,6 +1,9 @@
 package com.cartisan.modern.account.domain;
 
 import com.cartisan.modern.account.repository.AccountRepository;
+import com.cartisan.modern.common.callback.FailedPostActions;
+import com.cartisan.modern.common.callback.PostActions;
+import com.cartisan.modern.common.callback.SuccessPostActions;
 import com.cartisan.modern.common.validator.FieldCheck;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,13 +18,13 @@ public class Accounts implements FieldCheck<String> {
         this.accountRepository = accountRepository;
     }
 
-    public AccountPostActions add(Account account) {
+    public PostActions add(Account account) {
         try {
             accountRepository.save(account);
-            return new SuccessAccountPostActions();
+            return new SuccessPostActions();
         }
         catch (IllegalArgumentException e){
-            return new FailedAccountPostActions();
+            return new FailedPostActions();
         }
     }
 
