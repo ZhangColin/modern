@@ -37,8 +37,13 @@ public class ErrorMessageSteps {
     }
 
     @Then("^there is an error message for duplicate ([^\"]*)$")
-    public void there_is_an_error_message_for_duplicate_name(String field) throws Throwable {
+    public void there_is_an_error_message_for_duplicate(String field) throws Throwable {
         assertErrorMessageEquals(field, messages.duplicateField);
+    }
+
+    @Then("^there is an error message for negative ([^\"]*)$")
+    public void there_is_an_error_message_for_negative(String field) throws Throwable {
+        assertErrorMessageEquals(field, messages.negativeNumber());
     }
 
     private AbstractCharSequenceAssert<?, String> assertErrorMessageEquals(String field, String errorMessageTemplate) {
