@@ -6,6 +6,7 @@ import com.nitorcreations.junit.runners.NestedRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.validation.BindingResult;
 
 import static com.cartisan.modern.account.builder.AccountBuilder.defaultAccount;
 import static com.cartisan.modern.common.controller.Urls.ACCOUNTS_ADD;
@@ -18,6 +19,7 @@ public class AccountControllerTest {
     View<String> mockView = mock(View.class);
     AccountController controller = new AccountController(mockAccounts, mockView);
     Account account = defaultAccount().build();
+    private final BindingResult stubBindingResult = mock(BindingResult.class);
 
     public class Add {
         @Test
@@ -80,17 +82,20 @@ public class AccountControllerTest {
     public class NameDuplicated {
 
         @Test
-        public void should_display_name_duplicated_message(){
-            given_add_account_will(new NameDuplicatedAccountPostActions());
-            controller.nameDuplicatedMessage = "a name duplicated message";
+        public void should_not_add_account(){
+            given_has_field_error();
 
             submitAddAccount();
 
-            verify(mockView).display("a name duplicated message");
+            verify(mockAccounts, never()).add(account);
+        }
+
+        private void given_has_field_error() {
+            when(stubBindingResult.hasErrors()).thenReturn(true);
         }
     }
     private String submitAddAccount() {
-        return controller.submitAddAccount(account);
+        return controller.submitAddAccount(account, stubBindingResult);
     }
 
     private void given_add_account_will(AccountPostActions postActions) {

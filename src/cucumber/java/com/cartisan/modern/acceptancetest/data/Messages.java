@@ -6,7 +6,6 @@ import org.springframework.context.annotation.PropertySources;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import static com.cartisan.modern.common.view.MessagePropertyNamesWithSyntax.ACCOUNTS_ADD_NAME_DUPLICATED;
 import static com.cartisan.modern.common.view.MessagePropertyNamesWithSyntax.AUTHENTICATION_FAILED;
 import static com.cartisan.modern.common.view.MessagePropertyNamesWithSyntax.AUTHENTICATION_LOGOUT;
 
@@ -38,6 +37,6 @@ public class Messages {
     @Value(AUTHENTICATION_LOGOUT)
     public String logout;
 
-    @Value(ACCOUNTS_ADD_NAME_DUPLICATED)
-    public String duplicateAccountName;
+    @Value("${com.cartisan.modern.Unique.message}")
+    public String duplicateField;
 }
