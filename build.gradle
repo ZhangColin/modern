@@ -22,6 +22,7 @@ war {
 }
 
 apply plugin: 'spring-boot'
+apply plugin: 'jacoco'
 
 repositories {
     mavenCentral()
