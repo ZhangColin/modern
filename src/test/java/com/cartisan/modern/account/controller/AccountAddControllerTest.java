@@ -1,6 +1,7 @@
 package com.cartisan.modern.account.controller;
 
 import com.cartisan.modern.account.domain.*;
+import com.cartisan.modern.account.view.PresentableAddAccount;
 import com.cartisan.modern.common.callback.PostActions;
 import com.cartisan.modern.common.view.View;
 import com.nitorcreations.junit.runners.NestedRunner;
@@ -8,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.servlet.ModelAndView;
 
 import static com.cartisan.modern.account.builder.AccountBuilder.defaultAccount;
 import static com.cartisan.modern.common.callback.PostActionsFactory.failed;
@@ -20,14 +22,14 @@ import static org.mockito.Mockito.*;
 public class AccountAddControllerTest {
     Accounts mockAccounts = mock(Accounts.class);
     View<String> mockView = mock(View.class);
-    AccountAddController controller = new AccountAddController(mockAccounts, mockView);
+    AccountAddController controller = new AccountAddController(mockAccounts, mockView, new PresentableAddAccount());
     Account account = defaultAccount().build();
     private final BindingResult stubBindingResult = mock(BindingResult.class);
 
     public class Add {
         @Test
         public void should_go_to_view() {
-            assertThat(controller.addAccount()).isEqualTo(ACCOUNTS_ADD);
+            assertThat(controller.addAccount()).isInstanceOf(PresentableAddAccount.class);
         }
 
     }
@@ -45,7 +47,7 @@ public class AccountAddControllerTest {
 
         @Test
         public void should_go_to_view() {
-            assertThat(submitAddAccount()).isEqualTo(ACCOUNTS_ADD);
+            assertThat(submitAddAccount()).isInstanceOf(PresentableAddAccount.class);
         }
 
         @Test
@@ -97,7 +99,7 @@ public class AccountAddControllerTest {
             when(stubBindingResult.hasErrors()).thenReturn(true);
         }
     }
-    private String submitAddAccount() {
+    private ModelAndView submitAddAccount() {
         return controller.submitAddAccount(account, stubBindingResult);
     }
 
