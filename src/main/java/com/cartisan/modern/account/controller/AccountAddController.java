@@ -18,7 +18,7 @@ import static com.cartisan.modern.common.controller.Urls.*;
 
 @Controller
 @RequestMapping(ACCOUNTS)
-public class AccountController {
+public class AccountAddController {
     private final Accounts accounts;
     private final View<String> message;
 
@@ -29,7 +29,7 @@ public class AccountController {
     String failedMessage;
 
     @Autowired
-    public AccountController(Accounts accounts, View<String> message) {
+    public AccountAddController(Accounts accounts, View<String> message) {
         this.accounts = accounts;
         this.message = message;
     }
