@@ -22,11 +22,11 @@ import static org.springframework.context.annotation.ScopedProxyMode.TARGET_CLAS
 @Scope(value = "request", proxyMode = TARGET_CLASS)
 @PropertySource(RESULT_MESSAGES_FULL_NAME)
 public class PresentableTransactions extends ModelAndView implements View<Transaction>, CombinableModelAndView {
-    private final List<PresentableTransaction> presentableTransactions = new ArrayList<>();
+    private final List<PresentableTransaction> allPresentableTransactions = new ArrayList<>();
 
     @Builder
     public PresentableTransactions(@Value("${transactions.list.empty}") String noTransactionMessage) {
-        addObject("transactions", presentableTransactions);
+        addObject("transactions", allPresentableTransactions);
         showMessage(noTransactionMessage);
         setViewName(TRANSACTIONS_INDEX);
     }
@@ -43,7 +43,7 @@ public class PresentableTransactions extends ModelAndView implements View<Transa
 
     @Override
     public void display(Transaction transaction) {
-        presentableTransactions.add(presentableTransactionFrom(transaction));
+        allPresentableTransactions.add(presentableTransactionFrom(transaction));
         hideMessage();
     }
 

@@ -15,6 +15,11 @@ public class IncomeTransactionForSummary extends TransactionForSummary {
     }
 
     @Override
+    public int outcome() {
+        return 0;
+    }
+
+    @Override
     public int balance() {
         return origin.getAmount();
     }

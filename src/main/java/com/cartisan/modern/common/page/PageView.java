@@ -30,7 +30,6 @@ public class PageView extends ModelAndView implements View<Integer> {
         displayPreviousPage();
     }
 
-    @Override
     public void display(Integer totalPageCount) {
         if (currentPage.number() < totalPageCount) {
             displayNextPageUrl();
