@@ -1,7 +1,6 @@
 package com.cartisan.modern.user.domain;
 
 
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +9,6 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
-@Getter
 @RequiredArgsConstructor
 @NoArgsConstructor
 public class User {
