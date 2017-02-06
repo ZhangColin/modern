@@ -14,5 +14,4 @@ script:
   - ansible-playbook modern.yml --inventory-file=host_travis_ci.txt --syntax-check
   - ansible-playbook modern.yml --inventory-file=host_travis_ci.txt
   - bash -lec "gradle check cucumber"
-  - bash -lec "gradle sonar"
   - bash -lec "sonar-scanner"

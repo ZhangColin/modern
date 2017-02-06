@@ -1,4 +1,7 @@
-[![Build Status](https://travis-ci.org/ZhangColin/modern.svg?branch=master)](https://travis-ci.org/ZhangColin/modern)
+[![Build Status](https://travis-ci.org/ZhangColin/modern.svg?branch=master)](https://travis-ci.org/ZhangColin/modern) [![Quality Gate](https://sonarqube.com/api/badges/gate?key=Cartisan:modern)](https://sonarqube.com/dashboard?id=Cartisan%3Amodern)
+
+[![Overall Coverage](https://img.shields.io/sonar/http/sonarqube.com/Cartisan:modern/overall_coverage.svg)](https://sonarqube.com/component_measures/domain/Coverage?id=Cartisan%3Amodern) [![UT Coverage](https://img.shields.io/sonar/http/sonarqube.com/Cartisan:modern/coverage.svg)](https://sonarqube.com/component_measures/domain/Coverage?id=Cartisan%3Amodern) [![Function Complexity](https://img.shields.io/sonar/http/sonarqube.com/Cartisan:modern/function_complexity.svg)](https://sonarqube.com/component_measures/domain/Complexity?id=Cartisan%3Amodern) [![Class Complexity](https://img.shields.io/sonar/http/sonarqube.com/Cartisan:modern/class_complexity.svg)](https://sonarqube.com/component_measures/domain/Complexity?id=Cartisan%3Amodern) [![Duplications](https://img.shields.io/sonar/http/sonarqube.com/Cartisan:modern/duplicated_blocks.svg)](https://sonarqube.com/component_measures/domain/Duplications?id=Cartisan%3Amodern) [![Code Smells](https://img.shields.io/sonar/http/sonarqube.com/Cartisan:modern/code_smells.svg)](https://sonarqube.com/component_measures/domain/Maintainability?id=Cartisan%3Amodern)
+
 
 # 缘起
 16年9月底，参加了姚若舟老师的《现代网页开发》课程，受益良多，把过去我自己学习的东西都串联了起来。
