@@ -2,14 +2,14 @@ package com.cartisan.modern.transaction.domain.summary;
 
 import com.cartisan.modern.transaction.domain.Transaction;
 
-public abstract class TransactionForSummary {
-    public abstract int income();
+public interface TransactionForSummary {
+    int income();
 
-    public abstract int outcome();
+    int outcome();
 
-    public abstract int balance();
+    int balance();
 
-    public static TransactionForSummary create(Transaction transaction) {
+    static TransactionForSummary create(Transaction transaction) {
         switch (transaction.getType()) {
             case Income:
                 return new IncomeTransactionForSummary(transaction);
