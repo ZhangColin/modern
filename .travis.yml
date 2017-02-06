@@ -9,13 +9,10 @@ install:
 
 addons:
   sonarqube: true
-env:
-  global:
-  - secure: "kK+7QRFWKGzpCAgLmvGG+Jo5eXVR/G1e4iWRhcCAylfMrU8VYkvr7E4xIwYSccro9fGZMKK53BEZAHFaghx422fFFHu2kt1/1GYlotQnAWTeinscYCjRPlAPCDxZ+PafktWSSNwgoe6R8l6Jm1dwkbry/MLfSrJEwPUijSDnLe6DK2PZP/dcJmYNybpxiqp04Vso6sX+qFB48iSuE8n9X9O01qyzrfUtTRuOROb2TDXKffdwfWzd6MMN2vrY/aS2jVe4HDvWlwXfnoJUbYUbe9Hij+wYsCe7miJ1/wREi40XI+RatYgDIh+WXxo1U4rKW2EFhwfNF4naQQqyKZjQ7o5Gay1cgyNL9U88qhzF38hLh+irl2xYXAPpBnTEi0tUmOWqpTz3RBuIuU2rvlsea+egqQgFeU7l0q0Z9wjx89oJdRWEdTG3ru2iV82HtZnhJ2MsgZTsBHVplkosWDb10efKR6PbpYF3WJ38HfKRaI4Sy5QxGQQOANe1lWpsyT2f6Vlu1mEdNIjrQbQFeA6E5bTOnoTfXfZlfrKtH7qjCzCZ1KPRDiFqtO2bDh7AOrJZ+eRr+04rVis7IGxWIsTShdol6T6SFVkTB3UtwXfVoKBlpXNlHoH3fYx7pw2QtIRhRtuETnLafXolEfiOFAzmKp/O7zdIeAhCj+7dBd8WzLs="
 
 script:
   - ansible-playbook modern.yml --inventory-file=host_travis_ci.txt --syntax-check
   - ansible-playbook modern.yml --inventory-file=host_travis_ci.txt
   - bash -lec "gradle check cucumber"
-  - bash -lec "gradle jacocoTestReport"
-  - bash -lec "sonar-scanner -Dsonar.login=$SONAR_TOKEN"
+  - bash -lec "gradle sonar"
+  - bash -lec "sonar-scanner"
