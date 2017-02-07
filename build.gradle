@@ -21,7 +21,7 @@ war {
     version = 'HEAD'
 }
 
-apply plugin: 'spring-boot'
+apply plugin: 'org.springframework.boot'
 apply plugin: 'jacoco'
 
 repositories {
@@ -29,7 +29,7 @@ repositories {
 }
 
 dependencies {
-    compile (
+    compile(
             "org.springframework.boot:spring-boot-starter-data-jpa:1.4.3.RELEASE",
             "org.springframework.boot:spring-boot-starter-mustache:1.4.3.RELEASE",
             "org.springframework.boot:spring-boot-starter-security:1.4.3.RELEASE",
@@ -45,7 +45,7 @@ dependencies {
             "commons-beanutils:commons-beanutils:1.9.3",
             "org.springframework.boot:spring-boot-devtools:1.4.2.RELEASE"
     )
-    testCompile (
+    testCompile(
             "org.springframework.boot:spring-boot-starter-test:1.4.2.RELEASE",
             "junit:junit:4.12",
             "org.mockito:mockito-all:1.10.19",
@@ -61,22 +61,24 @@ dependencies {
 }
 
 cucumber {
-    if(project.hasProperty("tag")){
-        tags = ["@"+"$tag"]
+    if (project.hasProperty("tag")) {
+        tags = ["@" + "$tag"]
     }
     jvmOptions {
         environment 'SPRING_PROFILES_ACTIVE', 'test'
-        if(project.hasProperty('port')) {
+        if (project.hasProperty('port')) {
             environment 'SERVER_PORT', '$port'
         }
-        def jacocoAgent = zipTree(configurations.jacocoAgent.singleFile).filter {it.name == "jacocoagent.jar"}.singleFile
+        def jacocoAgent = zipTree(configurations.jacocoAgent.singleFile).filter {
+            it.name == "jacocoagent.jar"
+        }.singleFile
         jvmArgs = ["-javaagent:$jacocoAgent=destfile=$buildDir/jacoco/cucumber.exec,append=false"]
     }
 }
 
 bootRun {
     environment 'SPRING_PROFILES_ACTIVE', 'dev'
-    if(project.hasProperty('port')) {
+    if (project.hasProperty('port')) {
         environment 'SERVER_PORT', '$port'
     }
 }
@@ -85,14 +87,14 @@ test {
     environment 'SPRING_PROFILES_ACTIVE', 'test'
 }
 
-task copyDependencyLibraries(type: Copy){
+task copyDependencyLibraries(type: Copy) {
     into "$buildDir/output/libs"
     from configurations.compile
 }
 
 classes.dependsOn(copyDependencyLibraries)
 
-task copyTestDependencyLibraries(type: Copy){
+task copyTestDependencyLibraries(type: Copy) {
     into "$buildDir/output/test-libs"
     from configurations.testCompile
 }
@@ -100,14 +102,15 @@ task copyTestDependencyLibraries(type: Copy){
 testClasses.dependsOn(copyTestDependencyLibraries)
 
 task mergeUnitTestResults << {
-    def testResultsDir = file("${buildDir}/test-results")
-    copy {
-        from testResultsDir
-        into testResultsDir
-        include '**/*$*.xml'
-        rename { String fileName ->
-            fileName.replace('$Add', '')
-        }
+    fileTree("${buildDir}/test-results")
+            .matching { include '**/*$*.xml' }
+            .getFiles()
+            .each {
+        def document = (new XmlParser()).parse(it)
+        document.@name = document.@name.substring(0, document.@name.indexOf('$'))
+        new XmlNodePrinter(new PrintWriter(it)).print(document)
     }
 }
+
+jacocoTestReport.dependsOn(mergeUnitTestResults)
 
