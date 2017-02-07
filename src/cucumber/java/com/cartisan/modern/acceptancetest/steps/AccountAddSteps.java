@@ -4,7 +4,6 @@ import com.cartisan.modern.acceptancetest.data.Messages;
 import com.cartisan.modern.acceptancetest.data.account.AccountRepositoryForTest;
 import com.cartisan.modern.acceptancetest.data.account.EditableAccount;
 import com.cartisan.modern.acceptancetest.pages.AddAccountPage;
-import com.cartisan.modern.acceptancetest.pages.CommonPage;
 import com.cartisan.modern.account.domain.Account;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -19,9 +18,6 @@ import static com.cartisan.modern.account.builder.AccountBuilder.defaultAccount;
 public class AccountAddSteps {
     @Autowired
     AddAccountPage addAccountPage;
-
-    @Autowired
-    CommonPage commonPage;
 
     @Autowired
     AccountRepositoryForTest accountRepositoryForTest;

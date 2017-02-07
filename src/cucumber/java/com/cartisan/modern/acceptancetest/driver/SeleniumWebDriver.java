@@ -4,8 +4,11 @@ import com.cartisan.modern.common.view.Params;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SeleniumWebDriver implements UiDriver {
+    private static final int DEFAULT_TIME_OUT_IN_SECONDS = 10;
     private final WebDriver webDriver = new FirefoxDriver();
 
     @Override
@@ -41,6 +44,16 @@ public class SeleniumWebDriver implements UiDriver {
     @Override
     public UiElement findElementById(String id) {
         return new SeleniumWebElement(webDriver.findElement(By.id(id)));
+    }
+
+    @Override
+    public void waitForTestPresent(String text) {
+        new WebDriverWait(webDriver, DEFAULT_TIME_OUT_IN_SECONDS).until(new ExpectedCondition<Boolean>() {
+            @Override
+            public Boolean apply(WebDriver input) {
+                return findElementByTag("body").getText().contains(text);
+            }
+        });
     }
 
 }
