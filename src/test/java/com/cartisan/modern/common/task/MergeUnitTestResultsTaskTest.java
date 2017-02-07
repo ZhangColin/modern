@@ -30,7 +30,7 @@ public class MergeUnitTestResultsTaskTest {
     private final String testResultFileNamePattern = "TEST-com.cartisan.modern.transaction.controller.%s.xml";
     private BuildResult result;
     private String sourceTestResultsFolder;
-    private final String defaultXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"+
+    private final String defaultXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
             "<testsuite name=\"com.cartisan.modern.RequireMergeTest$SubClass\" tests=\"1\" skipped=\"0\" failures=\"0\" errors=\"0\" timestamp=\"2016-11-06T10:32:48\" hostname=\"zhangjinhuadeMacBook-Pro\" time=\"0.41\">\n" +
             "   <properties/>\n" +
             "   <testcase name=\"should_not_add_account\" classname=\"com.cartisan.modern.account.controller.AccountAddControllerTest\" time=\"0.041\"/>\n" +
@@ -42,10 +42,11 @@ public class MergeUnitTestResultsTaskTest {
     @Before
     public void createTask() throws IOException {
         copyFileToDirectory(gradleFile(), tmpFolder.getRoot());
+        copyFileToDirectory(new File(System.getProperty("user.dir") + separator + "gradle" + separator + "sonar.gradle"), tmpFolder.newFolder("gradle"));
     }
 
     @Before
-    public void initSourceTestResultFolder(){
+    public void initSourceTestResultFolder() {
         sourceTestResultsFolder = tmpFolder.getRoot() + separator + "build" + separator + "test-results";
     }
 
