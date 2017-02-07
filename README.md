@@ -14,7 +14,7 @@
 Please install the following tools for this project. The latest version should be fine unless specific version is listed.
 * git
 * jdk 1.8
-* gradle
+* gradle 2.13 (don't use gradle 2.14, 2.14.1 or 3.X)
 * mysql
 * intellij idea community edition
     * lombok plug-in
