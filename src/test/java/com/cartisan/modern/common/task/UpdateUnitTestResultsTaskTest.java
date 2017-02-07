@@ -23,10 +23,10 @@ import static org.apache.commons.io.FileUtils.writeStringToFile;
 import static org.gradle.testkit.runner.TaskOutcome.SUCCESS;
 import static org.junit.Assert.assertEquals;
 
-public class MergeUnitTestResultsTaskTest {
+public class UpdateUnitTestResultsTaskTest {
     @Rule
     public final TemporaryFolder tmpFolder = new TemporaryFolder();
-    private final String taskName = "mergeUnitTestResults";
+    private final String taskName = "updateUnitTestResults";
     private final String testResultFileNamePattern = "TEST-com.cartisan.modern.transaction.controller.%s.xml";
     private BuildResult result;
     private String sourceTestResultsFolder;
