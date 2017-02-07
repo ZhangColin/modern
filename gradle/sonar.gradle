@@ -21,7 +21,7 @@ task mergeUnitTestResults << {
     }
 }
 
-if (isSonarRunning){
+if (isSonarRunning) {
     cucumber {
         jvmOptions {
             if (project.hasProperty("sonar")) {
@@ -32,13 +32,11 @@ if (isSonarRunning){
             }
         }
     }
+    test {
+        jacoco {
+            enabled true
+        }
+    }
     classes.dependsOn(copyDependencyLibraries)
     testClasses.dependsOn(copyTestDependencyLibraries)
-}
-else{
-    test {
-            jacoco{
-                enabled false
-            }
-    }
 }
