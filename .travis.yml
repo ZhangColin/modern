@@ -1,5 +1,5 @@
 language: python
-python: '2.7'
+python: "2.7"
 
 before_install:
   - sudo apt-get update -qq
@@ -13,6 +13,5 @@ addons:
 script:
   - ansible-playbook modern.yml --inventory-file=host_travis_ci.txt --syntax-check
   - ansible-playbook modern.yml --inventory-file=host_travis_ci.txt
-  - bash -lec "gradle ci -Psonar"
-  - bash -lec "gradle mergeUnitTestResults"
+  - bash -lec "gradle sonar"
   - bash -lec "sonar-scanner"
