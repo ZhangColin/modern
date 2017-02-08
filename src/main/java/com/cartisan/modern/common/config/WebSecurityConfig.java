@@ -1,13 +1,19 @@
 package com.cartisan.modern.common.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import javax.sql.DataSource;
+
+import static java.util.Arrays.asList;
 
 
 @Configuration
@@ -26,7 +32,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/signin").permitAll()
                 .and()
                 .logout().logoutUrl("/signout").permitAll();
-        http.csrf().disable();
+        http.csrf().disable().cors();
+    }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(asList("http://localhost:8080"));
+        configuration.setAllowedMethods(asList("GET", "POST"));
+        configuration.setAllowCredentials(true);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 
     @Autowired

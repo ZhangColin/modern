@@ -1,23 +1,20 @@
-export default class Authentication{
-    constructor($q, $timeout){
-        this.$q = $q
-        this.$timeout = $timeout
-        this.authenticatedUser = null
+export default class Authentication {
+    constructor($http){
+        this.authenticated= false
+        this.$http = $http
     }
-    authenticate(username, password){
-        let {$q, $timeout} = this
-        const checkCredential = () => $q((resolve, reject)=>{
-            var valid = username == 'user' && password == 'password'
-            return valid ? resolve(username) : reject('Invalid username or password')
+    authenticate(username, password) {
+        let self = this
+        return this.$http.post("http://localhost:8090/signin",
+            `username=${username}&password=${password}`,
+            {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}
+        ).then(() => {
+            self.authenticated = true
         })
-        return $timeout(checkCredential, 800)
-            .then((authenticateUser)=>{
-                this.authenticatedUser = authenticateUser
-            })
     }
     isAuthenticated(){
-        return !!this.authenticatedUser
+        return !!this.authenticated
     }
 }
 
-Authentication.$inject = ['$q', '$timeout']
+Authentication.$inject = ['$http']
