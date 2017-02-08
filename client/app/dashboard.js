@@ -14,7 +14,10 @@ function routing($stateProvider) {
         .state('dashboard', {
             parent: 'app',
             url: '/dashboard',
-            component: 'dashboard'
+            component: 'dashboard',
+            data:{
+                requireAuth: true
+            }
         });
 }
 routing.$inject = ['$stateProvider']

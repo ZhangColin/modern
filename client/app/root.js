@@ -9,7 +9,7 @@ var root = {
 }
 
 export default angular
-    .module('root', [ router, common, dashboard ])
+    .module('root', [ router, common, dashboard, auth ])
     .component('root', root)
     .config(routing)
     .name
