@@ -30,6 +30,8 @@ public class AccountAddControllerTest {
         @Test
         public void should_go_to_view() {
             assertThat(controller.addAccount()).isInstanceOf(PresentableAddAccount.class);
+
+
         }
 
     }
